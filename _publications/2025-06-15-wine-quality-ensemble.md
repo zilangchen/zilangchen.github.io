@@ -1,7 +1,7 @@
 ---
 title: "Wine Quality Prediction with Ensemble Trees: A Leak-Free Benchmark"
 collection: publications
-category: manuscripts
+category: preprints
 permalink: /publication/2025-06-15-wine-quality-ensemble
 excerpt: 'Unified, reproducible benchmark of five ensemble learners on the Vinho Verde datasets with rigorous leakage-free pipeline.'
 date: 2025-06-15
