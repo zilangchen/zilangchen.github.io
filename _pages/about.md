@@ -17,23 +17,31 @@ I am an undergraduate student in the ShienMing Wu School of Intelligent Engineer
 - **South China University of Technology (SCUT)**, Guangzhou, China  
   B.Eng. Intelligent Manufacturing Engineering, Sep 2022 – Jul 2026 (expected)  
   GPA: 3.8/4.0 (Top 10%)
+- **Summer Session, Department of Mathematics**, University of California, Los Angeles, USA  
+  Jun 23 – Aug 1, 2024 • GPA: 4.0/4.0  
+  Coursework: Math 156 Machine Learning
+- **International Summer Undergraduate Research Experience (ISURE)**, University of Notre Dame, USA  
+  Jul 6 – Aug 31, 2025
 
 ### Research Experience
-- **Analysis of Wine Quality Based on Multiple Machine Learning Methods**  
-  Undergraduate Researcher, University of California, Los Angeles — Jun 2024 – Aug 2024  
-  Worked with Prof. Chunyang Liao to explore bagging, boosting, SVM, neural networks and KNN for predicting wine quality and provided actionable purchasing insights.
-- **Real-Time Robotic Arm Motion Control Algorithm Based on Temporal Logic**  
-  Research Assistant, SCUT — Feb 2024 – Present  
-  Developing ROS-based LCRL motion planners for robotic arms under the supervision of Prof. Gang Chen.
-- **Embedded Smart-Home Terminal with Lightweight Speech Recognition**  
-  SCUT — Sep 2024 – Jan 2025 (expected)  
-  Designing a low-power voice-controlled IoT terminal with MFCC feature extraction and on-device neural networks (advisor: Prof. Zhicong Huang).
-- **Remote-Controlled Multifunctional Ball Picking and Placing Robot**  
-  SCUT — Feb 2024 – Jul 2024  
-  Designed an omnidirectional Mecanum-wheel robot and won the silver medal in the college competition (advisor: Prof. Yingjie Zhang).
-- **Biomimetic Water-Surface Robot with Automatic Obstacle Avoidance**  
-  SCUT — Sep 2022 – Feb 2023  
-  Created a water-strider-inspired Arduino robot with 3D-printed hull and autonomous navigation (advisors: Prof. Ye Chen, Prof. Glenn Joseph Violett).
+- **Wine Quality Prediction with Ensemble Trees** — UCLA, Los Angeles, USA (Jun 2024 – Aug 2024)  
+  Advisor: Prof. Chunyang Liao  
+  Built the first leak-free benchmark comparing five ensemble learners (RF, GBDT, XGBoost, LightGBM, CatBoost) on the Vinho Verde datasets; achieved weighted-F1 0.693 (red) / 0.664 (white).
+- **Flexible Electronics-Enabled Fault Detection and 3D Reconstruction for Soft Robots** — ISURE Program, University of Notre Dame (Jul 2025 – Aug 2025)  
+  Advisor: Prof. Ting-Yu Cheng  
+  Developed flexible sensor arrays for real-time fault detection in soft actuators and accurate 3-D shape reconstruction of manipulated objects.
+- **Real-Time Robotic Arm Motion Control Algorithm Based on Temporal Logic** — SCUT (Feb 2024 – Present)  
+  Advisor: Prof. Gang Chen  
+  Developing ROS-based LCRL motion planners for robotic arms in dynamic environments.
+- **Embedded Smart-Home Terminal with Lightweight Speech Recognition** — SCUT (Sep 2024 – Jan 2025)  
+  Advisor: Prof. Zhicong Huang  
+  Designed low-power voice-controlled IoT terminal with MFCC and on-device neural network.
+- **Remote-Controlled Multifunctional Ball Picking and Placing Robot** — SCUT (Feb 2024 – Jul 2024)  
+  Advisor: Prof. Yingjie Zhang  
+  Built omni-directional Mecanum-wheel robot; won silver medal in college competition.
+- **Biomimetic Water-Surface Robot with Automatic Obstacle Avoidance** — SCUT (Sep 2022 – Feb 2023)  
+  Advisors: Prof. Ye Chen, Prof. Glenn Joseph Violett  
+  Created water-strider-inspired Arduino robot with autonomous navigation.
 
 ### Honors & Awards
 - Honorable Mention, Mathematical Contest in Modeling (MCM), 2024  
