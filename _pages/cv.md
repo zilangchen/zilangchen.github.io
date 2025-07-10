@@ -12,6 +12,9 @@ redirect_from:
 ## Education
 * **B.Eng. Intelligent Manufacturing Engineering**, South China University of Technology, Guangzhou, China  
   Sep 2022 – Jul 2026 (expected) • GPA: 3.8/4.0 (Top 10%)
+* **Summer Session, Department of Mathematics**, University of California, Los Angeles, USA  
+  Jun 23 – Aug 1, 2024 • GPA: 4.0/4.0  
+  Coursework: Math 156 Machine Learning and related projects
 
 ## Research Experience
 * **Wine Quality Prediction with Ensemble Trees** — UCLA, Los Angeles, USA (Jun 2024 – Aug 2024)  
