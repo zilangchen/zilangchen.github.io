@@ -14,9 +14,9 @@ redirect_from:
   Sep 2022 – Jul 2026 (expected) • GPA: 3.8/4.0 (Top 10%)
 
 ## Research Experience
-* **Analysis of Wine Quality Based on Multiple Machine Learning Methods** — UCLA, Los Angeles, USA (Jun 2024 – Aug 2024)  
+* **Wine Quality Prediction with Ensemble Trees** — UCLA, Los Angeles, USA (Jun 2024 – Aug 2024)  
   Advisor: Prof. Chunyang Liao  
-  Explored bagging, boosting, SVM, neural networks and KNN to model non-linear relationships in high-dimensional wine data; identified key factors influencing quality and price.
+  Built the first leak-free benchmark comparing five ensemble learners (Random Forest, Gradient Boosting, XGBoost, LightGBM, CatBoost) on the Vinho Verde datasets; designed an end-to-end pipeline with stratified splits, SMOTE-Tomek resampling, Optuna hyper-parameter search and two-stage feature selection, achieving weighted-F1 0.693 (red) / 0.664 (white). Preprint available on arXiv.
 * **Real-Time Robotic Arm Motion Control Algorithm Based on Temporal Logic** — SCUT (Feb 2024 – Present)  
   Advisor: Prof. Gang Chen  
   Implementing LCRL-based planners within ROS for real-time robotic arm control in dynamic environments.
