@@ -15,6 +15,8 @@ redirect_from:
 * **Summer Session, Department of Mathematics**, University of California, Los Angeles, USA  
   Jun 23 – Aug 1, 2024 • GPA: 4.0/4.0  
   Coursework: Math 156 Machine Learning and related projects
+* **International Summer Undergraduate Research Experience (ISURE)**, University of Notre Dame, USA  
+  Jul 6 – Aug 31, 2025
 
 ## Research Experience
 * **Wine Quality Prediction with Ensemble Trees** — UCLA, Los Angeles, USA (Jun 2024 – Aug 2024)  
@@ -32,6 +34,9 @@ redirect_from:
 * **Biomimetic Water-Surface Robot with Automatic Obstacle Avoidance** — SCUT (Sep 2022 – Feb 2023)  
   Advisors: Prof. Ye Chen, Prof. Glenn Joseph Violett  
   Developed Arduino-based control, 3D-printed waterproof chassis, and autonomous obstacle-avoidance strategy.
+* **Flexible Electronics-Enabled Fault Detection and 3D Reconstruction for Soft Robots** — ISURE Program, University of Notre Dame (Jul 2025 – Aug 2025)  
+  Advisor: Prof. Ting-Yu Cheng  
+  Developed flexible electronic sensor arrays for real-time fault detection in soft actuators and leveraged the same sensing data to perform accurate 3-D shape reconstruction of manipulated objects.
 
 ## Skills
 * Programming: C/C++, Python, R, MATLAB
