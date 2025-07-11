@@ -2,6 +2,8 @@
 title: "Climbing-Assisted Hand Exoskeleton"
 excerpt: "Passive locking + series-elastic actuation delivers fail-safe grip and transparent free motion for climbers."
 image: /images/portfolio/climb-exo/main.jpg
+header:
+  teaser: /images/portfolio/climb-exo/main.jpg
 collection: portfolio
 permalink: /portfolio/climbing-hand-exo
 date: 2025-06-30

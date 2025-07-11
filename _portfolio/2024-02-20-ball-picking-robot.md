@@ -2,6 +2,8 @@
 title: "Multifunctional Ball-Collecting Vehicle"
 excerpt: "Collision-based collection mechanism picks ping-pong to basketball-size balls; Mecanum drive, 24 V power, and suspension for agile contest performance."
 image: /images/portfolio/ball-robot/main.png
+header:
+  teaser: /images/portfolio/ball-robot/main.png
 collection: portfolio
 permalink: /portfolio/ball-picking-robot
 date: 2024-05-31

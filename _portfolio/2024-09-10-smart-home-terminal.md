@@ -14,6 +14,9 @@ projects:
   - Embedded AI
 ---
 
+header:
+  teaser: /images/portfolio/smart-home/main.jpg
+
 * Collected 8 h Mandarin voice dataset; extracted 13-dim MFCCs.
 * Trained 120-k-param CNN achieving 96.2 % command accuracy on-device.
 * Integrated with OneNet IoT cloud & Xinghuo LLM for conversational control of lights, HVAC, curtains.

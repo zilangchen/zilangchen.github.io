@@ -2,6 +2,8 @@
 title: "Bionic Water-Strider Robot (Intelligent Swimmer)"
 excerpt: "Chebyshev-linkage propulsion and foam-float legs let the robot skim the surface while ultrasonic sensing enables autonomous obstacle avoidance."
 image: /images/portfolio/water-robot/main.png
+header:
+  teaser: /images/portfolio/water-robot/main.png
 collection: portfolio
 permalink: /portfolio/water-surface-robot
 date: 2023-01-12
