@@ -41,9 +41,9 @@ I am an undergraduate student in the ShienMing Wu School of Intelligent Engineer
 - **Omnidirectional Ball-Picking Robot** — SCUT (Feb 2024 – May 2024)  
   Role: Mechanical Designer  
   Engineered a 50 cm³ multifunctional vehicle that collects balls from ping-pong to basketball via collision funneling; 24 V Mecanum drive, spring suspension, PS2 tele-op; secured Top-20 % Silver Prize.
-- **Biomimetic Water-Surface Robot with Automatic Obstacle Avoidance** — SCUT (Sep 2022 – Feb 2023)  
-  Advisors: Prof. Ye Chen, Prof. Glenn Joseph Violett  
-  Created water-strider-inspired Arduino robot with autonomous navigation.
+- **Bionic Water-Strider Robot (Intelligent Swimmer)** — SCUT (Sep 2022 – Jan 2023)  
+  Role: Team Set Sail Mechanical Lead  
+  Designed a 1.66 kg four-legged swimmer that uses Chebyshev-linkage paddles and foam-float legs to glide on water; ultrasonic sensing and colour target detection enable autonomous obstacle avoidance and stop.
 
 ### Honors & Awards
 - Honorable Mention, Mathematical Contest in Modeling (MCM), 2024  

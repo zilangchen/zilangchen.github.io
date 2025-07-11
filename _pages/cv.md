@@ -31,9 +31,9 @@ redirect_from:
 * **Omnidirectional Ball-Picking Robot** — SCUT (Feb 2024 – May 2024)  
   Role: Mechanical Designer  
   Developed a 50 cm³ collision-based ball-collecting vehicle with Mecanum omni-drive, spring suspension, and PS2 control; gathered ping-pong to basketball sizes and earned Silver Prize in college contest.
-* **Biomimetic Water-Surface Robot with Automatic Obstacle Avoidance** — SCUT (Sep 2022 – Feb 2023)  
-  Advisors: Prof. Ye Chen, Prof. Glenn Joseph Violett  
-  Developed Arduino-based control, 3D-printed waterproof chassis, and autonomous obstacle-avoidance strategy.
+* **Bionic Water-Strider Robot (Intelligent Swimmer)** — SCUT (Sep 2022 – Jan 2023)  
+  Role: Team Set Sail Mechanical Lead  
+  Engineered a Chebyshev-linkage swimmer with foam-float legs; integrated ultrasonic and colour sensing for autonomous obstacle avoidance; successful pool trials on 2.6×1.7 m course.
 * **Flexible Electronics-Enabled Fault Detection and 3D Reconstruction for Soft Robots** — ISURE Program, University of Notre Dame (Jul 2025 – Aug 2025)  
   Advisor: Prof. Ting-Yu Cheng  
   Developed flexible electronic sensor arrays for real-time fault detection in soft actuators and leveraged the same sensing data to perform accurate 3-D shape reconstruction of manipulated objects.
