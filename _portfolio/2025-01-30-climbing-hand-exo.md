@@ -1,7 +1,7 @@
 ---
 title: "Climbing-Assisted Hand Exoskeleton"
 excerpt: "Passive locking + series-elastic actuation delivers fail-safe grip and transparent free motion for climbers."
-image: /images/portfolio/climb-exo-1.png
+image: /images/portfolio/climb-exo/main.jpg
 collection: portfolio
 permalink: /portfolio/climbing-hand-exo
 date: 2025-06-30
@@ -19,3 +19,8 @@ Developed a lightweight exoskeleton glove (Feb 2025 – Jun 2025) that locks a c
 * Thin-film pressure sensors + 3-point-contact algorithm (100 Hz) decide lock/release; bi-directional ratchet ensures power-off safety.
 * Spatial four-bar linkage yields 2.5 × mechanical advantage; full glove weight 448 g, total system < 1.5 kg.
 * Bench tests: zero slip at 16 N load; climbing-rig trials (75° incline) showed > 90 % successful transitions and instant arrest on deliberate failure. 
+
+### Gallery
+
+![Locking](/images/portfolio/climb-exo/alt2.png)
+![Bench Test](/images/portfolio/climb-exo/alt3.png) 
