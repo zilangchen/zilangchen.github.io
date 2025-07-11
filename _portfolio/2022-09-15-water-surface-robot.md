@@ -4,7 +4,7 @@ excerpt: "Water-strider-inspired 3D-printed vehicle with ultrasonic obstacle avo
 image: /images/portfolio/water-robot-1.jpg
 collection: portfolio
 permalink: /portfolio/water-surface-robot
-date: 2022-09-15
+date: 2023-01-12
 projects:
   - Biomimetic Design
 links:

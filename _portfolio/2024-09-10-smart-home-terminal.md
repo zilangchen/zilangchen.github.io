@@ -4,7 +4,7 @@ excerpt: "Offline MFCC + lightweight NN deployed on ARM Cortex-M for always-on v
 image: /images/portfolio/smart-home-1.png
 collection: portfolio
 permalink: /portfolio/smart-home-terminal
-date: 2024-09-10
+date: 2024-12-24
 links:
   - label: Demo Video
     url: "#"

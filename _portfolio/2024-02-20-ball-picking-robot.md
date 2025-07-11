@@ -4,7 +4,7 @@ excerpt: "Mecanum-wheel drive and PID-controlled arm achieve 30 % faster cycles 
 image: /images/portfolio/ball-robot-1.jpg
 collection: portfolio
 permalink: /portfolio/ball-picking-robot
-date: 2024-02-20
+date: 2024-05-31
 links:
   - label: Competition Video
     url: "#"
