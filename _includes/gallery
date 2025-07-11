@@ -6,13 +6,10 @@
   {% assign gallery = page.gallery %}
 {% endif %}
 
-{% if gallery.size == 2 %}
-  {% assign gallery_layout = 'half' %}
-{% elsif gallery.size >= 3 %}
-  {% assign gallery_layout = 'third' %}
-{% else %}
-  {% assign gallery_layout = '' %}
-{% endif %}
+{% comment %}
+  Force half layout for all galleries (2 images per row)
+{% endcomment %}
+{% assign gallery_layout = 'half' %}
 
 <figure class="{{ gallery_layout }} {{ include.class }}">
   {% for img in gallery %}
@@ -31,7 +28,7 @@
           {% else %}
             "{{ img.image_path | prepend: "/images/" | prepend: base_path }}"
           {% endif %}
-          alt="{% if img.alt %}{{ img.alt }}{% endif %}">
+          alt="{% if img.alt %}{{ img.alt }}{% endif %}" class="gallery-image">
       </a>
     {% else %}
       <img src=
@@ -40,7 +37,7 @@
         {% else %}
           "{{ img.image_path | prepend: "/images/" | prepend: base_path }}"
         {% endif %}
-        alt="{% if img.alt %}{{ img.alt }}{% endif %}">
+        alt="{% if img.alt %}{{ img.alt }}{% endif %}" class="gallery-image">
     {% endif %}
   {% endfor %}
   {% if include.caption %}

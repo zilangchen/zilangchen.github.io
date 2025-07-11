@@ -242,6 +242,30 @@ figure {
       width: 100%;
     }
   }
+
+  /* Gallery image standardization */
+  .gallery-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: $border-radius;
+    -webkit-transition: $global-transition;
+    transition: $global-transition;
+    
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(#000, 0.3);
+    }
+    
+    @include breakpoint($medium) {
+      height: 300px;
+    }
+    
+    @include breakpoint($large) {
+      height: 350px;
+    }
+  }
 }
 
 /* Figure captions */
