@@ -46,3 +46,5 @@ Bench push tests confirm 28 N stall thrust; top planar speed 1.2 m s⁻¹. Durin
 * Vision module for auto-centred collision trajectory.
 * Replace nylon side panels with carbon-PETG to shave 180 g.
 * Upgrade gate servo to magnetic-encoder model for closed-loop throw angle. 
+
+{% include gallery %} 

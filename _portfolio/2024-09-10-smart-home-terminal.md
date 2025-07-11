@@ -56,3 +56,5 @@ Developed by the ADDLM team, this low-power gateway embeds a custom keyword-spot
 * Replace IMP441 with MEMS mic-array and beam-forming DSP for far-field (>3 m) capture.
 * Expand command set via multi-label classification and incremental learning on-device.
 * Integrate Zigbee/Thread radios for hub-less local mesh control; migrate cloud back-end from OneNET to open-source Home Assistant for wider community adoption. 
+
+{% include gallery %} 

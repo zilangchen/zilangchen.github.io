@@ -52,3 +52,5 @@ PLA-printed dorsal shell houses servo and linkage; aluminium ratchet wheels and 
 * Replace UNO with STM32F4 for 400 Hz control and built-in IMU logging.
 * Introduce flex-sensor feedback for closed-loop impedance modes.
 * Swap PLA linkage for PA12-CF to cut weight by 80 g and raise fatigue life 3×. 
+
+{% include gallery %} 
