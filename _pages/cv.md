@@ -37,6 +37,9 @@ redirect_from:
 * **Flexible Electronics-Enabled Fault Detection and 3D Reconstruction for Soft Robots** — ISURE Program, University of Notre Dame (Jul 2025 – Aug 2025)  
   Advisor: Prof. Ting-Yu Cheng  
   Developed flexible electronic sensor arrays for real-time fault detection in soft actuators and leveraged the same sensing data to perform accurate 3-D shape reconstruction of manipulated objects.
+* **Climbing-Assisted Hand Exoskeleton** — Team ADDLM, SCUT (Oct 2024 – Jan 2025)  
+  Role: Mechanical & Control Co-lead  
+  Designed a fail-safe exoskeleton glove with 4-layer architecture; achieved 0.18 s lock and zero slip at 16 N; >90 % success in inclined climbing trials.
 
 ## Skills
 * Programming: C/C++, Python, R, MATLAB
