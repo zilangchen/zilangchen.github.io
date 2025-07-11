@@ -48,3 +48,6 @@ I am an undergraduate student in the ShienMing Wu School of Intelligent Engineer
 - Third Prize, Shenzhen Cup Mathematical Modeling Competition, 2024  
 - RoboCon Third Prize, National College Student Robotics Competition “Angkor Bloom”, 2023  
 - Third Prize, Huashu Cup Mathematical Modeling Competition, 2023  
+
+### Publications
+- **Chen, Z.** "Wine Quality Prediction with Ensemble Trees: A Leak-Free Benchmark." *Preprint*, arXiv:2506.06327, 2025. [[PDF](https://arxiv.org/abs/2506.06327)]
