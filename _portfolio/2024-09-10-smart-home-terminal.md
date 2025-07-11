@@ -1,6 +1,7 @@
 ---
 title: "Low-Power Smart-Home Voice Terminal"
 excerpt: "Offline MFCC + lightweight NN deployed on ARM Cortex-M for always-on voice control."
+image: /images/portfolio/smart-home-1.png
 collection: portfolio
 permalink: /portfolio/smart-home-terminal
 date: 2024-09-10

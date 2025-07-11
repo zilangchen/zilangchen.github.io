@@ -1,6 +1,7 @@
 ---
 title: "Biomimetic Water-Surface Robot"
 excerpt: "Water-strider-inspired 3D-printed vehicle with ultrasonic obstacle avoidance."
+image: /images/portfolio/water-robot-1.jpg
 collection: portfolio
 permalink: /portfolio/water-surface-robot
 date: 2022-09-15
