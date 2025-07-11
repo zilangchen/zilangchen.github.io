@@ -1,7 +1,9 @@
 ---
 title: "Low-Power Smart-Home Voice Terminal"
-excerpt: "Offline MFCC + lightweight NN deployed on ARM Cortex-M for always-on voice control."
+excerpt: "Offline MFCC + 120-k-param CNN deployed on ARM Cortex-M for always-on voice control."
 image: /images/portfolio/smart-home/main.jpg
+header:
+  teaser: /images/portfolio/smart-home/main.jpg
 collection: portfolio
 permalink: /portfolio/smart-home-terminal
 date: 2024-12-24
@@ -13,19 +15,18 @@ links:
 projects:
   - Embedded AI
 gallery:
-  - image_path: /images/portfolio/smart-home/6.png
-  - image_path: /images/portfolio/smart-home/7.png
-  - image_path: /images/portfolio/smart-home/8.jpg
-  - image_path: /images/portfolio/smart-home/9.png
+  - image_path: portfolio/smart-home/6.png
+  - image_path: portfolio/smart-home/7.png
+  - image_path: portfolio/smart-home/8.jpg
+  - image_path: portfolio/smart-home/9.png
 ---
 
-header:
-  teaser: /images/portfolio/smart-home/main.jpg
+### Highlights
 
-* Collected 8 h Mandarin voice dataset; extracted 13-dim MFCCs.
-* Trained 120-k-param CNN achieving 96.2 % command accuracy on-device.
-* Integrated with OneNet IoT cloud & Xinghuo LLM for conversational control of lights, HVAC, curtains.
-* Idle power 28 mW, enabling battery operation >3 months. 
+* Collected an 8 h Mandarin voice dataset and extracted 13-dim MFCC features.  
+* Trained a 120 k-parameter CNN achieving 96.2 % on-device command accuracy.  
+* Integrated with OneNet IoT cloud and Xinghuo LLM for conversational control of lights, HVAC and curtains.  
+* Idle power just 28 mW enables >3 months of battery-powered standby.
 
 {% include gallery %}
 

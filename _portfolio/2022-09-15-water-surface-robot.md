@@ -10,9 +10,9 @@ date: 2023-01-12
 projects:
   - Biomimetic Design
 gallery:
-  - image_path: /images/portfolio/water-robot/21.jpg
-  - image_path: /images/portfolio/water-robot/22.png
-  - image_path: /images/portfolio/water-robot/23.jpg
+  - image_path: portfolio/water-robot/21.jpg
+  - image_path: portfolio/water-robot/22.png
+  - image_path: portfolio/water-robot/23.jpg
 links:
   - label: Design Files (STL)
     url: "#"

@@ -14,9 +14,9 @@ projects:
   - Wearable Robotics
   - Exoskeleton
 gallery:
-  - image_path: /images/portfolio/climb-exo/alt2.png
-  - image_path: /images/portfolio/climb-exo/alt3.png
-  - image_path: /images/portfolio/climb-exo/alt1.jpg
+  - image_path: portfolio/climb-exo/alt2.png
+  - image_path: portfolio/climb-exo/alt3.png
+  - image_path: portfolio/climb-exo/alt1.jpg
 ---
 
 Developed a lightweight exoskeleton glove (Feb 2025 – Jun 2025) that locks a climber’s grip within 0.18 s upon slip detection while remaining transparent during free motion.

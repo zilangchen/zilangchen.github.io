@@ -13,11 +13,11 @@ links:
 projects:
   - Mobile Robotics
 gallery:
-  - image_path: /images/portfolio/ball-robot/12.png
-  - image_path: /images/portfolio/ball-robot/13.png
-  - image_path: /images/portfolio/ball-robot/14.jpg
-  - image_path: /images/portfolio/ball-robot/15.jpg
-  - image_path: /images/portfolio/ball-robot/16.jpg
+  - image_path: portfolio/ball-robot/12.png
+  - image_path: portfolio/ball-robot/13.png
+  - image_path: portfolio/ball-robot/14.jpg
+  - image_path: portfolio/ball-robot/15.jpg
+  - image_path: portfolio/ball-robot/16.jpg
 ---
 
 Designed and built a 50 cm × 50 cm × 50 cm vehicle that gathers balls of multiple diameters via collision dynamics—no gripper required.

@@ -1,6 +1,9 @@
 ---
 title: "Flexible Electronics for Fault Detection & 3-D Reconstruction in Soft Robots"
 excerpt: "Printed e-sensor arrays capture deformation fields for health monitoring and object shape inference."
+image: /images/portfolio/soft-robot/placeholder.jpg
+header:
+  teaser: /images/portfolio/soft-robot/placeholder.jpg
 collection: portfolio
 permalink: /portfolio/soft-robot-electronics
 date: 2025-07-15
