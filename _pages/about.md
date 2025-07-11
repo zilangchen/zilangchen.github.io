@@ -10,9 +10,9 @@ I am an undergraduate at the **Shien-Ming Wu School of Intelligent Engineering**
 
 ## Contact
 
-- 📧 zilang.chen@outlook.com  
-- 📞 +86 136-6002-1792  
-- 📍 Guangzhou, China  
+- zilang.chen@outlook.com  
+- +86 136-6002-1792  
+- Guangzhou, China  
 
 ## Education
 
@@ -28,11 +28,11 @@ Jun 2024 – Aug 2024 • GPA 4.0/4.0 • Math 156 Machine Learning
 ## Research Experience (selected)
 
 **Flexible Electronics-Enabled Fault Detection & 3-D Reconstruction for Soft Robots** — ISURE, University of Notre Dame (Jul 2025 – Aug 2025)  
-Advisor: Prof. Ting-Yu Cheng  
+Advisor: Prof. Tingyu Cheng  
 • Engineered flexible sensor arrays that localise actuator faults in real time and enable millimetre-level shape reconstruction of manipulated objects.
 
 **Climbing-Assisted Hand Exoskeleton** — Team ADDLM, SCUT (Feb 2025 – Jun 2025)  
-Role: Mechanical & Control Co-lead • Advisor: Prof. Jingcheng Lei  
+Advisor: Prof. Jingcheng Lei  
 • Developed a 448 g glove with passive ratchet locking and series-elastic actuation; locks within 0.18 s and holds 16 N without slip on a 75° climbing rig.
 
 **Real-Time Robotic-Arm Motion Planning from Temporal Logic** — SCUT (Feb 2024 – Present)  
@@ -48,11 +48,11 @@ Advisor: Prof. Chunyang Liao
 • Proposed a leak-free benchmarking pipeline for five ensemble learners on the Vinho Verde datasets; achieved weighted-F1 0.693 (red) / 0.664 (white).
 
 **Multifunctional Ball-Collecting Robot** — SCUT (Feb 2024 – May 2024)  
-Role: Mechanical Designer  
+Advisor: Prof. Yingjie Zhang  
 • Designed a 50 cm³ omnidirectional vehicle that collects balls from ping-pong to basketball via collision funneling; secured a Top-20 % Silver Prize.
 
 **Bionic Water-Strider Robot** — SCUT (Sep 2022 – Jan 2023)  
-Role: Mechanical Lead, Team Set Sail  
+Advisor: Prof. Ye Chen  
 • Built a Chebyshev-linkage swimmer that glides on water and autonomously avoids obstacles using ultrasonic and colour sensing.
 
 ## Honors & Awards
@@ -60,9 +60,9 @@ Role: Mechanical Lead, Team Set Sail
 - Honorable Mention, Mathematical Contest in Modeling (MCM), 2024  
 - Second Prize, Multifunctional Robot Competition, SCUT, 2024  
 - Third Prize, Shenzhen Cup Mathematical Modeling Competition, 2024  
-- Third Prize, RoboCon “Angkor Bloom”, 2023  
+- Third Prize, RoboCon "Angkor Bloom", 2023  
 - Third Prize, Huashu Cup Mathematical Modeling Competition, 2023  
 
 ## Publications
 
-Chen, Z. “Wine Quality Prediction with Ensemble Trees: A Leak-Free Benchmark.” *Preprint*, arXiv:2506.06327, 2025.
+Chen, Z. "Wine Quality Prediction with Ensemble Trees: A Leak-Free Benchmark." *Preprint*, arXiv:2506.06327, 2025.

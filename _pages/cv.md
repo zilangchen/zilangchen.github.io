@@ -31,7 +31,7 @@ Advisor: Prof. Ting-Yu Cheng
 Engineered flexible sensor arrays for on-board fault localisation and millimetre-accurate shape reconstruction of manipulated objects.
 
 **Climbing-Assisted Hand Exoskeleton** — Team ADDLM, SCUT (Feb 2025 – Jun 2025)  
-Role: Mechanical & Control Co-lead • Advisor: Prof. Jingcheng Lei  
+Advisor: Prof. Jingcheng Lei  
 Invented a 448 g glove with passive ratchet locking and series-elastic actuation; 0.18 s lock and zero-slip holding at 16 N.
 
 **Offline Voice-Controlled Smart-Home Gateway** — SCUT (Sep 2024 – Jan 2025)  
@@ -43,11 +43,11 @@ Advisor: Prof. Chunyang Liao
 Designed a leak-free benchmarking pipeline comparing five ensemble learners; weighted-F1 0.693 (red) / 0.664 (white).
 
 **Multifunctional Ball-Collecting Robot** — SCUT (Feb 2024 – May 2024)  
-Role: Mechanical Designer  
+Advisor: Prof. Yingjie Zhang  
 Created a 50 cm³ omnidirectional vehicle that collision-collects balls of various sizes; Silver Prize (Top 20 %).
 
 **Bionic Water-Strider Robot** — SCUT (Sep 2022 – Jan 2023)  
-Role: Team Set Sail Mechanical Lead  
+Advisor: Prof. Ye Chen  
 Built a Chebyshev-linkage swimmer with autonomous obstacle avoidance.
 
 ## Skills
@@ -61,7 +61,7 @@ Built a Chebyshev-linkage swimmer with autonomous obstacle avoidance.
 - Honorable Mention, Mathematical Contest in Modeling (MCM), 2024  
 - Second Prize, Multifunctional Robot Competition, SCUT, 2024  
 - Third Prize, Shenzhen Cup Mathematical Modeling Competition, 2024  
-- Third Prize, RoboCon “Angkor Bloom”, 2023  
+- Third Prize, RoboCon "Angkor Bloom", 2023  
 - Third Prize, Huashu Cup Mathematical Modeling Competition, 2023  
 
 ## Publications
