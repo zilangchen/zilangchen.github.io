@@ -16,4 +16,54 @@
     await mermaid.run({querySelector:'code.language-mermaid'});
 </script>
 
+<!-- Simple Lightbox for Gallery Images -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Create lightbox overlay
+    const lightboxOverlay = document.createElement('div');
+    lightboxOverlay.className = 'lightbox-overlay';
+    lightboxOverlay.innerHTML = `
+        <div class="lightbox-content">
+            <img src="" alt="">
+        </div>
+        <span class="lightbox-close">&times;</span>
+    `;
+    document.body.appendChild(lightboxOverlay);
+    
+    const lightboxImg = lightboxOverlay.querySelector('img');
+    const closeBtn = lightboxOverlay.querySelector('.lightbox-close');
+    
+    // Add click event to gallery images
+    document.querySelectorAll('a[data-lightbox="gallery"]').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            lightboxImg.src = this.href;
+            lightboxImg.alt = this.querySelector('img').alt;
+            lightboxOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    // Close lightbox
+    function closeLightbox() {
+        lightboxOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    closeBtn.addEventListener('click', closeLightbox);
+    lightboxOverlay.addEventListener('click', function(e) {
+        if (e.target === lightboxOverlay) {
+            closeLightbox();
+        }
+    });
+    
+    // Close with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+});
+</script>
+
 <!-- end custom footer snippets -->

@@ -1,4 +1,5 @@
 ---
+layout: archive
 permalink: /
 title: "Zilang Chen"
 author_profile: true

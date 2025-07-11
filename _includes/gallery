@@ -13,6 +13,14 @@
 
 <figure class="{{ gallery_layout }} {{ include.class }}">
   {% for img in gallery %}
+    {% capture img_url %}
+      {% if img.image_path contains "://" %}
+        {{ img.image_path }}
+      {% else %}
+        {{ img.image_path | prepend: "/images/" | prepend: base_path }}
+      {% endif %}
+    {% endcapture %}
+    
     {% if img.url %}
       <a href=
         {% if img.url contains "://" %}
@@ -22,22 +30,12 @@
         {% endif %}
         {% if img.title %}title="{{ img.title }}"{% endif %}
       >
-        <img src=
-          {% if img.image_path contains "://" %}
-            "{{ img.image_path }}"
-          {% else %}
-            "{{ img.image_path | prepend: "/images/" | prepend: base_path }}"
-          {% endif %}
-          alt="{% if img.alt %}{{ img.alt }}{% endif %}" class="gallery-image">
+        <img src="{{ img_url | strip }}" alt="{% if img.alt %}{{ img.alt }}{% endif %}" class="gallery-image">
       </a>
     {% else %}
-      <img src=
-        {% if img.image_path contains "://" %}
-          "{{ img.image_path }}"
-        {% else %}
-          "{{ img.image_path | prepend: "/images/" | prepend: base_path }}"
-        {% endif %}
-        alt="{% if img.alt %}{{ img.alt }}{% endif %}" class="gallery-image">
+      <a href="{{ img_url | strip }}" data-lightbox="gallery" {% if img.title %}data-title="{{ img.title }}"{% endif %}>
+        <img src="{{ img_url | strip }}" alt="{% if img.alt %}{{ img.alt }}{% endif %}" class="gallery-image">
+      </a>
     {% endif %}
   {% endfor %}
   {% if include.caption %}
