@@ -19,7 +19,7 @@ redirect_from:
   Jul 6 – Aug 31, 2025
 
 ## Research Experience
-* **Wine Quality Prediction with Ensemble Trees** — UCLA, Los Angeles, USA (Jun 2024 – Aug 2024)  
+* **Wine Quality Prediction with Ensemble Trees: A Leak-Free Benchmark** — UCLA, Los Angeles, USA (Jun 2024 – Aug 2024)  
   Advisor: Prof. Chunyang Liao  
   Built the first leak-free benchmark comparing five ensemble learners (Random Forest, Gradient Boosting, XGBoost, LightGBM, CatBoost) on the Vinho Verde datasets; designed an end-to-end pipeline with stratified splits, SMOTE-Tomek resampling, Optuna hyper-parameter search and two-stage feature selection, achieving weighted-F1 0.693 (red) / 0.664 (white). Preprint available on arXiv.
 * **Real-Time Robotic Arm Motion Control Algorithm Based on Temporal Logic** — SCUT (Feb 2024 – Present)  
@@ -38,6 +38,7 @@ redirect_from:
   Advisor: Prof. Ting-Yu Cheng  
   Developed flexible electronic sensor arrays for real-time fault detection in soft actuators and leveraged the same sensing data to perform accurate 3-D shape reconstruction of manipulated objects.
 * **Climbing-Assisted Hand Exoskeleton** — Team ADDLM, SCUT (Feb 2025 – Jun 2025)  
+  Advisor: Prof. Jingcheng Lei  
   Role: Mechanical & Control Co-lead  
   Designed a fail-safe exoskeleton glove with 4-layer architecture; achieved 0.18 s lock and zero slip at 16 N; >90 % success in inclined climbing trials.
 
