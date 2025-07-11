@@ -9,6 +9,10 @@ permalink: /portfolio/water-surface-robot
 date: 2023-01-12
 projects:
   - Biomimetic Design
+gallery:
+  - image_path: /images/portfolio/water-robot/21.jpg
+  - image_path: /images/portfolio/water-robot/22.png
+  - image_path: /images/portfolio/water-robot/23.jpg
 links:
   - label: Design Files (STL)
     url: "#"
@@ -29,9 +33,6 @@ Stage-II pool trials (2.61 m × 1.72 m, 0.36 m depth) demonstrated reliable stra
 
 **Future Work**
 
-We plan to boost propulsion efficiency with lighter carbon-fibre legs, refine balancing via on-board IMU feedback, and integrate a monocular vision module for high-speed target tracking.
+We plan to boost propulsion efficiency with lighter carbon-fibre legs, refine balancing via on-board IMU feedback, and integrate a monocular vision module for high-speed target tracking. 
 
-### Gallery
-
-![Prototype](/images/portfolio/water-robot/22.png)
-![Testing](/images/portfolio/water-robot/23.jpg) 
+{% include gallery %} 

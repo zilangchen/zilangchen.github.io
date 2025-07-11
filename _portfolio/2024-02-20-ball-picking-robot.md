@@ -12,6 +12,12 @@ links:
     url: "#"
 projects:
   - Mobile Robotics
+gallery:
+  - image_path: /images/portfolio/ball-robot/12.png
+  - image_path: /images/portfolio/ball-robot/13.png
+  - image_path: /images/portfolio/ball-robot/14.jpg
+  - image_path: /images/portfolio/ball-robot/15.jpg
+  - image_path: /images/portfolio/ball-robot/16.jpg
 ---
 
 Designed and built a 50 cm × 50 cm × 50 cm vehicle that gathers balls of multiple diameters via collision dynamics—no gripper required.
@@ -21,10 +27,7 @@ Designed and built a 50 cm × 50 cm × 50 cm vehicle that gathers balls of multi
 * Nylon/aluminium hybrid chassis survives contest impacts; PS2 wireless controller offers intuitive tele-op.
 * Prototype handles ping-pong to basketballs, stores >15 tennis-ball equivalents, and completes arena run in 45 s; total BOM ≈ ¥3.4 k. 
 
-### Gallery
-
-![Design](/images/portfolio/ball-robot/12.png)
-![Suspension](/images/portfolio/ball-robot/14.jpg) 
+{% include gallery %}
 
 ### Architecture & Mechanics
 

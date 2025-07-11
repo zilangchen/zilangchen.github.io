@@ -12,6 +12,11 @@ links:
     url: "#"
 projects:
   - Embedded AI
+gallery:
+  - image_path: /images/portfolio/smart-home/6.png
+  - image_path: /images/portfolio/smart-home/7.png
+  - image_path: /images/portfolio/smart-home/8.jpg
+  - image_path: /images/portfolio/smart-home/9.png
 ---
 
 header:
@@ -22,10 +27,7 @@ header:
 * Integrated with OneNet IoT cloud & Xinghuo LLM for conversational control of lights, HVAC, curtains.
 * Idle power 28 mW, enabling battery operation >3 months. 
 
-### Gallery
-
-![PCB](/images/portfolio/smart-home/6.png)
-![Assembly](/images/portfolio/smart-home/7.png) 
+{% include gallery %}
 
 ### Lightweight Audio-Interactive Smart-Home Hub (Embedded TinyML Gateway)
 *Published: December 13, 2024*

@@ -13,6 +13,10 @@ links:
 projects:
   - Wearable Robotics
   - Exoskeleton
+gallery:
+  - image_path: /images/portfolio/climb-exo/alt2.png
+  - image_path: /images/portfolio/climb-exo/alt3.png
+  - image_path: /images/portfolio/climb-exo/alt1.jpg
 ---
 
 Developed a lightweight exoskeleton glove (Feb 2025 – Jun 2025) that locks a climber’s grip within 0.18 s upon slip detection while remaining transparent during free motion.
@@ -22,10 +26,7 @@ Developed a lightweight exoskeleton glove (Feb 2025 – Jun 2025) that locks a c
 * Spatial four-bar linkage yields 2.5 × mechanical advantage; full glove weight 448 g, total system < 1.5 kg.
 * Bench tests: zero slip at 16 N load; climbing-rig trials (75° incline) showed > 90 % successful transitions and instant arrest on deliberate failure. 
 
-### Gallery
-
-![Locking](/images/portfolio/climb-exo/alt2.png)
-![Bench Test](/images/portfolio/climb-exo/alt3.png) 
+{% include gallery %}
 
 ### System Architecture
 
