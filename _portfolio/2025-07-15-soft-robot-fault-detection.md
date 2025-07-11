@@ -14,8 +14,14 @@ projects:
   - Flexible Electronics
 ---
 
+image: /images/portfolio/soft-robot/main.jpg
+
 During the Notre Dame ISURE 2025 program, I designed stretchable piezoresistive sensor mats conformable to pneumatic soft actuators.
 
 * Achieved ≤1 mm shape-reconstruction error by training a shallow CNN on 2 k pressure maps.
 * Demonstrated real-time leak detection: failure located within 5 mm on a 200 mm actuator.
 * Collaborated with Prof. Ting-Yu Cheng; work to appear in **IROS 2026**. 
+
+### Gallery
+
+![Sensor mat](/images/portfolio/soft-robot/main.jpg) 
