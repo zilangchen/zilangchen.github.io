@@ -29,7 +29,7 @@ I am an undergraduate student in the ShienMing Wu School of Intelligent Engineer
 - **Flexible Electronics-Enabled Fault Detection and 3D Reconstruction for Soft Robots** — ISURE Program, University of Notre Dame (Jul 2025 – Aug 2025)  
   Advisor: Prof. Ting-Yu Cheng  
   Developed flexible sensor arrays for real-time fault detection in soft actuators and accurate 3-D shape reconstruction of manipulated objects.
-- **Climbing-Assisted Hand Exoskeleton** — Team ADDLM, SCUT (Oct 2024 – Jan 2025)  
+- **Climbing-Assisted Hand Exoskeleton** — Team ADDLM, SCUT (Feb 2025 – Jun 2025)  
   Role: Mechanical & Control Co-lead  
   Built a 448 g glove with passive ratchet locking and series-elastic actuation; achieved 0.18 s lock time and zero-slip hold of 16 N during 75° climbing tests.
 - **Embedded Smart-Home Terminal with Lightweight Speech Recognition** — SCUT (Sep 2024 – Jan 2025)  

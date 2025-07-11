@@ -3,7 +3,7 @@ title: "Climbing-Assisted Hand Exoskeleton"
 excerpt: "Passive locking + series-elastic actuation delivers fail-safe grip and transparent free motion for climbers."
 collection: portfolio
 permalink: /portfolio/climbing-hand-exo
-date: 2025-01-30
+date: 2025-06-30
 links:
   - label: Final Report (PDF)
     url: "#"
@@ -12,7 +12,7 @@ projects:
   - Exoskeleton
 ---
 
-Developed a lightweight exoskeleton glove that locks a climber’s grip within 0.18 s upon slip detection while remaining transparent during free motion.
+Developed a lightweight exoskeleton glove (Feb 2025 – Jun 2025) that locks a climber’s grip within 0.18 s upon slip detection while remaining transparent during free motion.
 
 * Four-layer architecture (sensing, control, actuation, safety) driven by Arduino R3 and HX08L serial servo.
 * Thin-film pressure sensors + 3-point-contact algorithm (100 Hz) decide lock/release; bi-directional ratchet ensures power-off safety.
