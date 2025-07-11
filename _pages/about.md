@@ -38,9 +38,9 @@ I am an undergraduate student in the ShienMing Wu School of Intelligent Engineer
 - **Wine Quality Prediction with Ensemble Trees** — UCLA, Los Angeles, USA (Jun 2024 – Aug 2024)  
   Advisor: Prof. Chunyang Liao  
   Built leak-free benchmark of five ensemble learners on Vinho Verde datasets; achieved weighted-F1 0.693 (red) / 0.664 (white).
-- **Remote-Controlled Multifunctional Ball Picking and Placing Robot** — SCUT (Feb 2024 – Jul 2024)  
-  Advisor: Prof. Yingjie Zhang  
-  Built omni-directional Mecanum-wheel robot; won silver medal in college competition.
+- **Omnidirectional Ball-Picking Robot** — SCUT (Feb 2024 – May 2024)  
+  Role: Mechanical Designer  
+  Engineered a 50 cm³ multifunctional vehicle that collects balls from ping-pong to basketball via collision funneling; 24 V Mecanum drive, spring suspension, PS2 tele-op; secured Top-20 % Silver Prize.
 - **Biomimetic Water-Surface Robot with Automatic Obstacle Avoidance** — SCUT (Sep 2022 – Feb 2023)  
   Advisors: Prof. Ye Chen, Prof. Glenn Joseph Violett  
   Created water-strider-inspired Arduino robot with autonomous navigation.

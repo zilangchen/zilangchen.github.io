@@ -1,6 +1,6 @@
 ---
-title: "Omnidirectional Ball-Picking Robot"
-excerpt: "Mecanum-wheel drive and PID-controlled arm achieve 30 % faster cycles in campus contest."
+title: "Multifunctional Ball-Collecting Vehicle"
+excerpt: "Collision-based collection mechanism picks ping-pong to basketball-size balls; Mecanum drive, 24 V power, and suspension for agile contest performance."
 image: /images/portfolio/ball-robot-1.jpg
 collection: portfolio
 permalink: /portfolio/ball-picking-robot
@@ -12,8 +12,9 @@ projects:
   - Mobile Robotics
 ---
 
-Designed, fabricated and programmed a pick-and-place robot for the School of Intelligent Engineering competition.
+Designed and built a 50 cm × 50 cm × 50 cm vehicle that gathers balls of multiple diameters via collision dynamics—no gripper required.
 
-* Conducted kinematic analysis; implemented holonomic motion controller with 4×48 V Mecanum motors.
-* Custom gripper driven by high-torque servo picks 60 mm balls; cycle time 2.3 s.
-* Won **Silver Prize** among 40+ teams (Top 20 %). 
+* Collision pickup funnels balls into on-board hopper; rear gate servo releases payload.
+* Four Mecanum wheels driven by 24 V planetary-gear motors enable omni-directional motion; independent spring suspension smooths vibration.
+* Nylon/aluminium hybrid chassis survives contest impacts; PS2 wireless controller offers intuitive tele-op.
+* Prototype handles ping-pong to basketballs, stores >15 tennis-ball equivalents, and completes arena run in 45 s; total BOM ≈ ¥3.4 k. 

@@ -28,9 +28,9 @@ redirect_from:
 * **Embedded Smart Home Terminal with Lightweight Speech Recognition** — SCUT (Sep 2024 – Jan 2025)  
   Advisor: Prof. Zhicong Huang  
   Built voice dataset, applied MFCC, trained lightweight neural network, and deployed on embedded chip for offline smart-home control.
-* **Remote-Controlled Multifunctional Ball Picking and Placing Robot** — SCUT (Feb 2024 – Jul 2024)  
-  Advisor: Prof. Yingjie Zhang  
-  Designed Mecanum-wheel omni-directional robot; integrated PID motor control and wireless communication; project won silver medal.
+* **Omnidirectional Ball-Picking Robot** — SCUT (Feb 2024 – May 2024)  
+  Role: Mechanical Designer  
+  Developed a 50 cm³ collision-based ball-collecting vehicle with Mecanum omni-drive, spring suspension, and PS2 control; gathered ping-pong to basketball sizes and earned Silver Prize in college contest.
 * **Biomimetic Water-Surface Robot with Automatic Obstacle Avoidance** — SCUT (Sep 2022 – Feb 2023)  
   Advisors: Prof. Ye Chen, Prof. Glenn Joseph Violett  
   Developed Arduino-based control, 3D-printed waterproof chassis, and autonomous obstacle-avoidance strategy.
