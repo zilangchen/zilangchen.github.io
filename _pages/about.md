@@ -18,15 +18,15 @@ I am an undergraduate at the **Shien-Ming Wu School of Intelligent Engineering**
 ## Education
 
 **B.Eng. Intelligent Manufacturing Engineering**, South China University of Technology, Guangzhou  
-Sep 2022 – Jul 2026 (expected) • GPA 3.8/4.0 (Top 10 %)
-
-International Summer Undergraduate Research Experience (ISURE), University of Notre Dame, USA  
-Jul 2025 – Aug 2025
+Sep 2022 – Jul 2026 (expected) • GPA 3.81/4.0 (Top 10 %)
 
 Summer Session, University of California, Los Angeles, USA  
 Jun 2024 – Aug 2024 • GPA 4.0/4.0 • Math 156 Machine Learning
 
-## Research Experience (selected)
+International Summer Undergraduate Research Experience (ISURE), University of Notre Dame, USA  
+Jul 2025 – Aug 2025 
+
+## Research Experience
 
 **Flexible Electronics-Enabled Fault Detection & 3-D Reconstruction for Soft Robots** — ISURE, University of Notre Dame (Jul 2025 – Aug 2025)  
 Advisor: Prof. Tingyu Cheng  
@@ -36,7 +36,7 @@ Advisor: Prof. Tingyu Cheng
 Advisor: Prof. Jingcheng Lei  
 • Developed a 448 g glove with passive ratchet locking and series-elastic actuation; locks within 0.18 s and holds 16 N without slip on a 75° climbing rig.
 
-**Real-Time Robotic-Arm Motion Planning from Temporal Logic** — SCUT (Feb 2024 – Present)  
+**Real-Time Robotic-Arm Motion Planning from Temporal Logic** — SRP, SCUT (Feb 2024 – Present)  
 Advisor: Prof. Gang Chen  
 • Implementing LCRL-based planners in ROS to guarantee task fulfilment amid dynamic obstacles.
 
