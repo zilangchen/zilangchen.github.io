@@ -256,3 +256,43 @@
   - 技术栈：ROS2, MoveIt, Gazebo, Python (rclpy), LTL, Reinforcement Learning, LCRL
 - Portfolio页面包含完整的技术描述、系统架构、性能结果和未来工作计划
 - 使用placeholder图片，后续可以添加实际项目图片
+
+## <Cursor-AI 2025-11-23 06:21:43>
+
+### 修改目的
+
+根据提供的标准项目名称和Materials文件夹中的文件内容，优化所有Portfolio页面的项目名称和内容
+
+### 修改内容摘要
+
+- 创建Wine Quality项目的新portfolio页面：`2024-06-15-wine-quality-analysis.html`
+- 优化所有5个portfolio页面的项目名称：
+  1. "Analysis of Wine Quality Based on Multiple Machine Learning Methods" - 新建页面
+  2. "Embedded Smart Home Terminal Based on Lightweight Machine Learning" - 更新标题和简介
+  3. "Remote-Controlled Multifunctional Ball Picking and Placing Robot" - 更新标题，添加Project Overview
+  4. "Biomimetic Water Surface Robot with Automatic Obstacle Avoidance" - 更新标题，添加Project Overview
+  5. "Real-Time Robotic Arm Motion Control Algorithm Based on Temporal Logic" - 更新标题
+- 根据Materials文件夹中的文件内容优化项目描述：
+  - Wine Quality: 基于IPMLP 2025论文内容创建详细描述
+  - Smart Home Terminal: 添加Project Overview部分，优化描述
+  - Ball Picking Robot: 添加Project Overview，说明项目背景和目标
+  - Water Surface Robot: 添加Project Overview，说明仿生设计原理
+  - Temporal Logic: 标题已优化，内容已在之前详细完成
+- 复制Wine Quality PDF文件到files目录
+
+### 影响范围
+
+- `_portfolio/2024-06-15-wine-quality-analysis.html` - 新建Wine Quality项目portfolio页面
+- `_portfolio/2024-09-10-smart-home-terminal.html` - 更新标题和内容
+- `_portfolio/2024-02-20-ball-picking-robot.html` - 更新标题和内容
+- `_portfolio/2022-09-15-water-surface-robot.html` - 更新标题和内容
+- `_portfolio/2024-02-01-temporal-logic-motion-planning.html` - 更新标题
+- `files/Wine Quality IPMLP2025.pdf` - 添加PDF文件
+
+### 技术细节
+
+- 根据用户提供的标准项目名称统一所有portfolio页面标题
+- 使用Materials文件夹中的文件内容作为参考优化项目描述
+- 为每个项目添加Project Overview部分，说明项目背景、目标和导师信息
+- Wine Quality项目基于已发表的IPMLP 2025论文创建完整的portfolio页面
+- 所有项目名称现在与用户提供的标准名称完全一致
