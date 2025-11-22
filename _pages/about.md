@@ -7,30 +7,34 @@ author_profile: true
 
 ## Profile
 
-I am an undergraduate at the **Shien-Ming Wu School of Intelligent Engineering**, South China University of Technology (SCUT), where I will receive my B.Eng. in July 2026. My research interests lie at the intersection of machine learning, robotics and embedded systems.
+I am an undergraduate at the **Shien-Ming Wu School of Intelligent Engineering**, South China University of Technology (SCUT), where I will receive my B.Eng. in Intelligent Manufacturing Engineering in July 2026. My research interests lie at the intersection of machine learning, robotics, and embedded systems. I am particularly interested in developing camera-free sensing systems for soft robotics, real-time motion planning algorithms, and deploying lightweight machine learning models on resource-constrained devices.
 
 ## Contact
 
-- zilang.chen@outlook.com  
+- zilang.chen@outlook.com (Personal)  
+- zilangchen2026@163.com (Academic Applications)  
 - +86 136-6002-1792  
 - Guangzhou, China  
 
 ## Education
 
 **B.Eng. Intelligent Manufacturing Engineering**, South China University of Technology, Guangzhou  
-Sep 2022 – Jul 2026 (expected) • GPA 3.81/4.0 (Top 10 %)
+Sep 2022 – Jul 2026 (expected) • GPA 3.8/4.0 (Top 10%)
 
-Summer Session, University of California, Los Angeles, USA  
+**Research Workshop: Computer Vision and Robot Sensors**, Carnegie Mellon University, Online  
+Oct 2024 – Dec 2024 • Tutored by Prof. Cameron Riviere
+
+**Summer Session**, University of California, Los Angeles, USA  
 Jun 2024 – Aug 2024 • GPA 4.0/4.0 • Math 156 Machine Learning
 
-International Summer Undergraduate Research Experience (ISURE), University of Notre Dame, USA  
-Jul 2025 – Aug 2025 
+**International Summer Undergraduate Research Experience (ISURE)**, University of Notre Dame, USA  
+Jul 2025 – Sep 2025 
 
 ## Research Experience
 
-**Flexible Electronics-Enabled Fault Detection & 3-D Reconstruction for Soft Robots** — ISURE, University of Notre Dame (Jul 2025 – Aug 2025)  
+**Real-Time Camera-Free Deformation Reconstruction on Soft Robot via Flexible Sensor Array and Cage-based Deformation Model** — ISURE, University of Notre Dame (Jul 2025 – Sep 2025)  
 Advisor: Prof. Tingyu Cheng  
-• Engineered flexible sensor arrays that localise actuator faults in real time and enable millimetre-level shape reconstruction of manipulated objects.
+• Achieved a camera-free, real-time deformation reconstruction system for soft robotics by developing a complete pipeline with low-cost flexible sensors and a 4D Gaussian model. Designed and produced silicon-based flexible capacitance sensors and soft robots. Achieved ≈ 30 FPS real-time rendering, < 5 % mean 3D displacement error, and < 4.7° bending-angle error. Manuscript submitted to ICRA 2026.
 
 **Climbing-Assisted Hand Exoskeleton** — Team ADDLM, SCUT (Feb 2025 – Jun 2025)  
 Advisor: Prof. Jingcheng Lei  
@@ -40,17 +44,17 @@ Advisor: Prof. Jingcheng Lei
 Advisor: Prof. Gang Chen  
 • Implementing LCRL-based planners in ROS to guarantee task fulfilment amid dynamic obstacles.
 
-**Offline Voice-Controlled Smart-Home Gateway** — SCUT (Sep 2024 – Jan 2025)  
+**Embedded Smart Home Terminal Based on Lightweight Machine Learning** — SCUT (Sep 2024 – Jan 2025)  
 Advisor: Prof. Zhicong Huang  
-• Collected an 8 h Mandarin corpus, trained a 120 k-parameter CNN on MFCC features, and deployed it on a Cortex-M MCU for always-on command recognition (96.2 % accuracy).
+• Developed an embedded smart home terminal to enable voice-controlled interactions. Collected voice data and performed MFCC feature extraction. Trained and deployed a lightweight neural network on an embedded chip to achieve low-power offline speech recognition. Enabled seamless smart-home orchestration through integrating device control via OneNet and connecting the Xinghuo LLM backend for context-aware dialogues.
 
-**Wine-Quality Prediction with Ensemble Trees** — UCLA (Jun 2024 – Aug 2024)  
+**A Unified, Leak-Free Comparative Study of Wine Quality** — UCLA (Jun 2024 – Aug 2024)  
 Advisor: Prof. Chunyang Liao  
-• Proposed a leak-free benchmarking pipeline for five ensemble learners on the Vinho Verde datasets; achieved weighted-F1 0.693 (red) / 0.664 (white).
+• Investigated the relationship between wine components and quality. Built a unified, leakage-free ML pipeline to benchmark to ensure strict separation of train/validation/test and reproducible evaluation. Paper accepted by ACM IPMLP 2025 (DOI: 10.1145/3759928.3759955).
 
-**Multifunctional Ball-Collecting Robot** — SCUT (Feb 2024 – May 2024)  
+**Remote-Controlled Multifunctional Ball Picking and Placing Robot** — SCUT (Feb 2024 – Jul 2024)  
 Advisor: Prof. Yingjie Zhang  
-• Designed a 50 cm³ omnidirectional vehicle that collects balls from ping-pong to basketball via collision funneling; secured a Top-20 % Silver Prize.
+• Implemented real-time motion control, electrical system setup, and remote wireless control in designing a pick-and-place robot. Utilized kinematic analysis and Mecanum wheels to achieve robot omnidirectional movement. Validated precise grasp-transport-drop cycles with stable trajectory tracking and fast repositioning.
 
 **Bionic Water-Strider Robot** — SCUT (Sep 2022 – Jan 2023)  
 Advisor: Prof. Ye Chen  
@@ -58,12 +62,14 @@ Advisor: Prof. Ye Chen
 
 ## Honors & Awards
 
-- Honorable Mention, Mathematical Contest in Modeling (MCM), 2024  
-- Second Prize, Multifunctional Robot Competition, SCUT, 2024  
-- Third Prize, Shenzhen Cup Mathematical Modeling Competition, 2024  
-- Third Prize, RoboCon "Angkor Bloom", 2023  
-- Third Prize, Huashu Cup Mathematical Modeling Competition, 2023  
+- Third Prize, Shenzhen Cup Mathematical Modeling Competition (Top 20%), Aug 2024  
+- Honorable Mention, Mathematical Contest in Modeling Certificate of Achievement (MCM) (Top 20%), May 2024  
+- Second Prize, Competition of Multifunctional Robot (Top 20% in School of Intelligent Engineering), May 2024  
+- Third Prize, National College Student Robotics Competition "Angkor Bloom" (Top 30%), Aug 2023  
+- Third Prize, Huashu Cup Mathematical Modeling Competition (Top 30%), Aug 2023  
 
 ## Publications
 
-Chen, Z. "Wine Quality Prediction with Ensemble Trees: A Leak-Free Benchmark." *Preprint*, arXiv:2506.06327, 2025.
+Chen, Z. (2025). "Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study." *IPMLP 2025 (ACM)*. DOI: 10.1145/3759928.3759955.
+
+Shou, L.; Chen, Z.; Xu, W.; Luo, Y.; Cheng, T. (2026). "Real-Time Camera-Free Deformation Reconstruction via Flexible Sensor Array and Cage-based Deformation Model." *ICRA 2026* — Under Review.

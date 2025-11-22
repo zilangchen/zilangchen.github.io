@@ -1,0 +1,108 @@
+---
+title: "Real-Time Camera-Free Deformation Reconstruction via Flexible Sensor Array"
+excerpt: "Camera-free, real-time 3D deformation reconstruction system using flexible piezoresistive sensors and learned cage-based Gaussian deformation model."
+image: /images/portfolio/deformation-reconstruction/sensor_all.png
+header:
+  teaser: /images/portfolio/deformation-reconstruction/sensor_all.png
+collection: portfolio
+permalink: /portfolio/deformation-reconstruction
+date: 2025-07-15
+links:
+  - label: Paper (ICRA 2026 Under Review)
+    url: "#"
+  - label: PDF
+    url: /files/Real_Time_Camera_Free_Deformation_Reconstruction_via_Flexible_Sensor_Array_and_Cage_based_deformation_mode.pdf
+projects:
+  - Soft Robotics
+  - Computer Vision
+  - Flexible Electronics
+gallery:
+  - image_path: portfolio/deformation-reconstruction/sensor_all.png
+  - image_path: portfolio/deformation-reconstruction/huge_2.png
+  - image_path: portfolio/deformation-reconstruction/huge_4.png
+  - image_path: portfolio/deformation-reconstruction/inference.png
+  - image_path: portfolio/deformation-reconstruction/motion.png
+---
+
+<h3>Highlights</h3>
+
+<ul>
+<li>Developed a camera-free, real-time deformation reconstruction system for soft robots using flexible piezoresistive sensors and a 4D Gaussian Splatting model.</li>
+<li>Designed and produced a flexible 10×10 piezoresistive sensor array (3×3 cm) with silicon-based flexible capacitance sensors.</li>
+<li>Implemented a GAT-based cage deformer with inverse-distance-weighted propagation on 4D Gaussian Splatting for efficient inference.</li>
+<li>Achieved ≈ 30 FPS real-time rendering, < 5 % mean 3D displacement error, and < 4.7° bending-angle error under bending/twisting/pressing.</li>
+<li>Demonstrated zero-shot camera-free reconstruction on unseen objects. Manuscript submitted to ICRA 2026.</li>
+</ul>
+
+{% include gallery %}
+
+<h3>Project Overview</h3>
+
+<p>During the ISURE Summer Research Program at University of Notre Dame (Jul 2025 – Sep 2025), I worked with Prof. Tingyu Cheng to develop a unified camera-free deformation sensing and rendering system for soft robotics. This project addresses the critical need for accurate 3D reconstruction in dark, confined, or privacy-sensitive environments where traditional camera-based approaches fail.</p>
+
+<h3>Technical Approach</h3>
+
+<h4>Sensor Design & Manufacturing</h4>
+
+<ul>
+<li><strong>Flexible Sensor Array</strong>: Designed and produced a 10×10 piezoresistive sensor array (3×3 cm) that provides sparse pressure-induced resistance readings on the object's surface in real-time. The silicon-based flexible capacitance sensors are conformable to soft robot surfaces.</li>
+<li><strong>Sensor Integration</strong>: Deployed the flexible, tileable piezoresistive array on the robot's nominal STL mesh, yielding rich local deformation signals under bend/twist/press deformations.</li>
+</ul>
+
+<h4>4D Gaussian Splatting Representation</h4>
+
+<ul>
+<li><strong>Multi-view Reconstruction</strong>: Used a stop-motion protocol to scan key static poses and render dense multi-view images with accurate poses via Blender's virtual cameras.</li>
+<li><strong>Temporal Densification</strong>: Applied video frame interpolation to densify time and enable temporally trackable Gaussian models for every frame using a 4D Gaussian Splatting (4DGS) pipeline.</li>
+<li><strong>Per-frame Primitives</strong>: Each frame yields Gaussian primitives that capture fine surface details of the soft robot's deformation.</li>
+</ul>
+
+<h4>Cage-based Deformation Framework</h4>
+
+<ul>
+<li><strong>Graph Attention Network</strong>: Implemented a GNN-based predictor that estimates low-dimensional control displacements for a set of sparse cage control points, rather than directly regressing motions for millions of Gaussians.</li>
+<li><strong>Inverse-Distance-Weighted Propagation</strong>: Displacements are propagated to millions of Gaussians using local weighting strategies, enabling efficient inference while preserving global coherence.</li>
+<li><strong>Canonicalization</strong>: Applied canonicalization per sensed region and re-binding of control points to ensure physical consistency and enable zero-shot generalization.</li>
+</ul>
+
+<h3>Performance Results</h3>
+
+<ul>
+<li><strong>Real-time Rendering</strong>: Achieved ≈ 30 FPS real-time rendering of photorealistic RGB images.</li>
+<li><strong>Deformation Accuracy</strong>: < 5 % mean 3D displacement error and < 4.7° bending-angle error under bending/twisting/pressing deformations.</li>
+<li><strong>Zero-shot Generalization</strong>: Demonstrated zero-shot camera-free reconstruction on unseen objects, showing the system's ability to generalize beyond training data.</li>
+<li><strong>Fine-grained Tracking</strong>: Successfully tracked three representative deformation types – bending, twisting, and pressing – with high fidelity.</li>
+</ul>
+
+<h3>Key Innovations</h3>
+
+<ol>
+<li><strong>Sparse-to-Dense Mapping</strong>: Learned an expressive deformation representation from signals that are orders of magnitude sparser than camera observations, bridging the gap between sparse sensor readings and dense 3D geometry.</li>
+<li><strong>Efficient Architecture</strong>: The cage-based strategy decouples low-dimensional control from high-resolution representation, enabling efficient inference and scalability.</li>
+<li><strong>Unified Pipeline</strong>: Created a complete end-to-end pipeline from sensor design to real-time rendering, demonstrating practical applicability for soft robotics.</li>
+</ol>
+
+<h3>Applications</h3>
+
+<p>This camera-free deformation reconstruction system can serve as an effective solution for soft robotics and other applications in:</p>
+
+<ul>
+<li>Dark or low-light environments where cameras are ineffective</li>
+<li>Confined spaces with limited camera access (e.g., endoscopic scenes, minimally invasive instruments)</li>
+<li>Privacy-sensitive environments where visual recording is restricted</li>
+<li>Real-time manipulation tasks requiring precise geometry recovery</li>
+</ul>
+
+<h3>Publication Status</h3>
+
+<p>Manuscript submitted to <strong>ICRA 2026</strong> (IEEE International Conference on Robotics and Automation). Work conducted in collaboration with Prof. Tingyu Cheng at University of Notre Dame during the ISURE Summer Research Program.</p>
+
+<h3>Future Work</h3>
+
+<ul>
+<li>Extend to multi-sensor fusion for enhanced spatial resolution and robustness</li>
+<li>Investigate adaptive sensor placement strategies for optimal coverage</li>
+<li>Explore real-time learning and adaptation capabilities for new robot morphologies</li>
+<li>Integrate with real-time control systems for closed-loop deformation control</li>
+</ul>
+

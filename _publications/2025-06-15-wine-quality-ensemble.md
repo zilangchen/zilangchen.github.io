@@ -1,14 +1,14 @@
 ---
-title: "Wine Quality Prediction with Ensemble Trees: A Leak-Free Benchmark"
+title: "Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study"
 collection: publications
-category: preprints
+category: conferences
 permalink: /publication/2025-06-15-wine-quality-ensemble
 excerpt: 'A comprehensive benchmark of ensemble learning methods for wine quality assessment, featuring rigorous data leakage prevention and systematic evaluation of Random Forest, Gradient Boosting, XGBoost, LightGBM, and CatBoost on 6,497 Vinho Verde samples. Achieves 69.3% weighted F1-score while identifying key physicochemical predictors for production-ready quality control systems.'
 date: 2025-06-15
-venue: 'arXiv preprint'
+venue: 'ACM IPMLP 2025'
 slidesurl: # URL to slides if available
-paperurl: 'https://arxiv.org/abs/2506.06327'
-citation: 'Chen, Z. (2025). &quot;Wine Quality Prediction with Ensemble Trees: A Leak-Free Benchmark.&quot; <i>arXiv preprint</i> arXiv:2506.06327.'
+paperurl: 'https://doi.org/10.1145/3759928.3759955'
+citation: 'Chen, Z. (2025). &quot;Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study.&quot; <i>ACM IPMLP 2025</i>. DOI: 10.1145/3759928.3759955.'
 ---
 
 ## Abstract
