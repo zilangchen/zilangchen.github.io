@@ -1,0 +1,159 @@
+---
+title: "Real-Time Robotic-Arm Motion Planning from Temporal Logic"
+excerpt: "LCRL-based planners in ROS2 guarantee task fulfillment amid dynamic obstacles using Linear Temporal Logic for expressive task specification."
+image: /images/portfolio/temporal-logic-motion/main.png
+header:
+  teaser: /images/portfolio/temporal-logic-motion/main.png
+collection: portfolio
+permalink: /portfolio/temporal-logic-motion-planning
+date: 2024-02-01
+links:
+  - label: Project Report (PDF)
+    url: /files/Real-Time Robotic-Arm Motion Planning from Temporal Logic.pdf
+  - label: GitHub (Coming Soon)
+    url: "#"
+projects:
+  - Robotics
+  - Motion Planning
+  - Temporal Logic
+gallery:
+  # Add project images here when available
+---
+
+<h3>Highlights</h3>
+
+<ul>
+<li>Developed real-time motion control algorithms and optimized path planner for robotic arms using Linear Temporal Logic (LTL) with Conditional Reasoning (LCRL).</li>
+<li>Implemented LCRL-based planners in ROS2 to guarantee task fulfillment amid dynamic obstacles.</li>
+<li>Integrated high-level temporal logic task specifications with low-level robotic arm execution through ROS2 nodes and MoveIt motion planning framework.</li>
+<li>Built complete pipeline from LTL task description to real-time motion execution with state monitoring and feedback mechanisms.</li>
+<li>Validated system performance in Gazebo simulation environment with multiple complex task scenarios.</li>
+<li>Currently writing a paper that aims to enhance robotic motion accuracy and decision-making in real-time scenarios.</li>
+</ul>
+
+{% include gallery %}
+
+<h3>Project Overview</h3>
+
+<p>This project (SRP Project ID: X202410561821) focuses on developing a real-time robotic arm motion control system based on Temporal Logic for human-robot interaction. The research explores Linear Temporal Logic (LTL) as a bridge between natural language task descriptions and formal robotic control specifications, enabling expressive task modeling that combines the intuitiveness of natural language with the precision of formal methods.</p>
+
+<p>Under the supervision of Prof. Gang Chen at South China University of Technology, the project has been ongoing since February 2024. The system addresses critical challenges in robotics: task understanding difficulties, inflexible control strategies, and unnatural human-robot interactions, especially in complex multi-step tasks with conditional dependencies.</p>
+
+<h3>Technical Approach</h3>
+
+<h4>LCRL (Logically-Constrained Reinforcement Learning)</h4>
+
+<p>The core of our approach is based on LCRL, a novel tool for policy synthesis that combines model-free reinforcement learning algorithms with Linear Temporal Logic (LTL) constraints. Key features include:</p>
+
+<ul>
+<li><strong>LTL to LDBA Conversion</strong>: LTL formulas are transformed into Limit-Deterministic Büchi Automata (LDBA) to enable reward shaping during RL training.</li>
+<li><strong>Model-Free Learning</strong>: No prior knowledge of the Markov Decision Process (MDP) transition model is required; the system learns from execution trajectories alone.</li>
+<li><strong>Directional Exploration</strong>: The LDBA structure provides directional guidance for exploration, effectively avoiding blind traversal of the state space and improving learning efficiency.</li>
+<li><strong>Modular Python Interface</strong>: Supports multiple RL algorithms (Q-learning, NFQ, DDPG) for flexible selection based on task characteristics.</li>
+</ul>
+
+<h4>ROS2 Integration & System Architecture</h4>
+
+<p>The system is implemented on ROS2 robotic arm simulation platform, providing a complete integration between high-level task planning and low-level motion execution:</p>
+
+<ul>
+<li><strong>High-Level Planning Module</strong>: Implements LCRL algorithm to generate task plans that satisfy LTL specifications while adapting to dynamic environments.</li>
+<li><strong>ROS2 Node Implementation</strong>: Developed rclpy nodes to bridge high-level planning results with actual robot actions, enabling seamless communication between planning and execution layers.</li>
+<li><strong>MoveIt Motion Planning</strong>: Integrated MoveIt motion planning framework for collision-free trajectory generation, ensuring safe and efficient arm movements.</li>
+<li><strong>Gazebo Simulation Environment</strong>: Built realistic simulation scenarios in Gazebo to validate system performance under various environmental conditions.</li>
+</ul>
+
+<h4>State Monitoring & Feedback Mechanisms</h4>
+
+<p>To enable closed-loop control, the system implements comprehensive state monitoring and feedback:</p>
+
+<ul>
+<li><strong>Publish-Subscribe Architecture</strong>: Uses ROS2 publish/subscribe mechanism to monitor robotic arm and environment states in real-time.</li>
+<li><strong>Action Feedback</strong>: After each action execution (e.g., grasping), sensor topics provide feedback (gripper pressure, object pickup status), which is interpreted as LTL atomic propositions (e.g., "object O has been grasped").</li>
+<li><strong>Pose Monitoring</strong>: Continuously monitors joint states during movement, providing feedback when target poses are reached ("arrived at position P").</li>
+<li><strong>State Synchronization</strong>: Designed information format sends feedback back to the high-level planning module, updating the current LTL automaton state and enabling adaptive decision-making.</li>
+</ul>
+
+<h3>Key Technical Challenges & Solutions</h3>
+
+<h4>Temporal and Concurrency Handling</h4>
+
+<p>One major challenge was handling temporal and concurrency issues in ROS2:</p>
+
+<ul>
+<li><strong>Asynchronous Execution</strong>: The high-level planner cannot stall and wait during arm movement execution; we implemented asynchronous task handling to maintain system responsiveness.</li>
+<li><strong>Timeout and Failure Management</strong>: Developed robust exception handling mechanisms to manage timeouts and task failures in dynamic environments.</li>
+<li><strong>Real-time Constraints</strong>: Addressed ROS2 platform real-time and concurrent execution requirements through careful node design and message queuing strategies.</li>
+</ul>
+
+<h4>System Stability and Robustness</h4>
+
+<p>Throughout development, we focused on improving system stability and robustness:</p>
+
+<ul>
+<li><strong>Iterative Refinement</strong>: Continuously iterated, tested, and validated the system to reduce instability and achieve efficient algorithm-platform integration.</li>
+<li><strong>Multi-Scenario Validation</strong>: Tested the system across multiple complex scenarios to ensure consistent performance under varying conditions.</li>
+<li><strong>Algorithm Optimization</strong>: Fine-tuned algorithm parameters and reward functions to improve convergence speed and task satisfaction rates.</li>
+</ul>
+
+<h3>Literature Review & Algorithmic Foundation</h3>
+
+<p>This project builds upon and extends several state-of-the-art approaches in temporal logic-based robotic control:</p>
+
+<h4>LCRL Framework</h4>
+<p>We studied and adapted the LCRL (Certified Policy Synthesis via Logically-Constrained Reinforcement Learning) framework, which enables model-free RL to learn policies satisfying LTL specifications. Our implementation leverages LDBA structures for efficient reward shaping and directional exploration.</p>
+
+<h4>Comparison with Alternative Approaches</h4>
+<ul>
+<li><strong>E-LDGBA-LTL</strong>: While providing theoretical advantages for probabilistic satisfaction maximization, this approach has limitations in real-time adaptability and requires known MDP models, which limited its applicability to our dynamic scenarios.</li>
+<li><strong>Modular Deep RL with E-LDGBA</strong>: This modular approach shows promise for continuous motion planning, but the sparse reward problem and slow convergence in training made it less suitable for real-time interactive systems.</li>
+</ul>
+
+<h3>System Performance & Results</h3>
+
+<p>The system demonstrates strong performance in complex robotic manipulation tasks:</p>
+
+<ul>
+<li><strong>Task Satisfaction</strong>: Successfully guarantees task fulfillment according to LTL specifications in dynamic environments with moving obstacles.</li>
+<li><strong>Real-time Responsiveness</strong>: Achieves real-time motion planning and execution, enabling interactive human-robot collaboration scenarios.</li>
+<li><strong>Adaptability</strong>: System can adapt to environmental changes and handle unexpected situations through feedback-based state updates.</li>
+<li><strong>Robustness</strong>: Validated across multiple scenarios in Gazebo simulation, demonstrating consistent performance under various conditions.</li>
+</ul>
+
+<h3>Research Contributions</h3>
+
+<ol>
+<li><strong>LTL-Based Task Specification</strong>: Demonstrated the effectiveness of using Linear Temporal Logic for expressive task description in robotic manipulation, bridging the gap between natural language and formal control.</li>
+<li><strong>Real-time Integration</strong>: Successfully integrated high-level LTL planning with low-level robotic arm execution in ROS2, enabling practical deployment of temporal logic-based control.</li>
+<li><strong>Feedback Mechanism Design</strong>: Developed a comprehensive state monitoring and feedback system that enables closed-loop control and adaptive task execution.</li>
+<li><strong>System Architecture</strong>: Designed a modular, extensible architecture that supports multiple RL algorithms and can be easily adapted for different robotic platforms.</li>
+</ol>
+
+<h3>Future Work</h3>
+
+<ul>
+<li><strong>Paper Preparation</strong>: Currently writing a paper that aims to enhance robotic motion accuracy and decision-making in real-time scenarios, presenting our approach and experimental results.</li>
+<li><strong>Algorithm Enhancement</strong>: Further optimization of LCRL-based planners for improved convergence speed and task satisfaction rates in more complex scenarios.</li>
+<li><strong>Real Robot Deployment</strong>: Extend the system from simulation to real robotic hardware, addressing challenges in sensor integration and real-world uncertainties.</li>
+<li><strong>Interactive HRI</strong>: Explore enhanced human-robot interaction capabilities, allowing users to provide real-time task specifications and adaptations.</li>
+<li><strong>Extended Temporal Logic</strong>: Investigate integration with more expressive temporal logic formalisms (e.g., Signal Temporal Logic) for richer task specifications.</li>
+</ul>
+
+<h3>Project Information</h3>
+
+<ul>
+<li><strong>Project Duration</strong>: February 2024 – Present (Ongoing)</li>
+<li><strong>Project Type</strong>: Student Research Program (SRP), SCUT</li>
+<li><strong>Project ID</strong>: X202410561821</li>
+<li><strong>Supervisor</strong>: Prof. Gang Chen, Shien-Ming Wu School of Intelligent Engineering, SCUT</li>
+<li><strong>Technologies</strong>: ROS2, MoveIt, Gazebo, Python (rclpy), LTL, Reinforcement Learning, LCRL</li>
+</ul>
+
+<h3>Key Publications & References</h3>
+
+<ul>
+<li>Hasanbeig, H., Kroening, D., Abate, A. (2022). "LCRL: Certified Policy Synthesis via Logically-Constrained Reinforcement Learning." QEST.</li>
+<li>Cai M, Hasanbeig M, Xiao S, et al. (2021). "Modular deep reinforcement learning for continuous motion planning with temporal logic." IEEE Robotics and Automation Letters, 6(4): 7973-7980.</li>
+<li>Cai M, Xiao S, Li B, et al. (2021). "Reinforcement learning based temporal logic control with maximum probabilistic satisfaction." IEEE International Conference on Robotics and Automation (ICRA): 806-812.</li>
+</ul>
+

@@ -216,3 +216,43 @@
   - Publications论文状态更新和新论文添加
   - PDF文件和图片资源
   - 开发记录更新
+
+## <Cursor-AI 2025-11-23 04:56:38>
+
+### 修改目的
+
+根据PDF文章内容创建详细的Real-Time Robotic-Arm Motion Planning项目的portfolio页面
+
+### 修改内容摘要
+
+- 读取PDF文件内容（"Real-Time Robotic-Arm Motion Planning from Temporal Logic.pdf"）
+- 提取项目的完整技术细节和实现方法
+- 创建新的portfolio页面：`2024-02-01-temporal-logic-motion-planning.html`
+- 将PDF文件复制到files目录
+- 创建详细的项目描述，包括：
+  - 项目概述和背景
+  - LCRL (Logically-Constrained Reinforcement Learning) 技术方法
+  - ROS2集成和系统架构
+  - 状态监控和反馈机制
+  - 技术挑战和解决方案
+  - 文献综述和算法基础
+  - 系统性能结果
+  - 研究贡献
+  - 未来工作计划
+
+### 影响范围
+
+- `_portfolio/2024-02-01-temporal-logic-motion-planning.html` - 新建portfolio页面
+- `files/Real-Time Robotic-Arm Motion Planning from Temporal Logic.pdf` - 添加PDF文件
+
+### 技术细节
+
+- 使用pdfplumber库读取PDF内容（30页）
+- 提取项目背景、研究方法、技术实现、实验结果等关键信息
+- 项目信息：
+  - 项目编号：X202410561821
+  - 时间：2024年4月至2025年3月（实际从2024年2月开始，进行中）
+  - 导师：Prof. Gang Chen
+  - 技术栈：ROS2, MoveIt, Gazebo, Python (rclpy), LTL, Reinforcement Learning, LCRL
+- Portfolio页面包含完整的技术描述、系统架构、性能结果和未来工作计划
+- 使用placeholder图片，后续可以添加实际项目图片
