@@ -187,3 +187,32 @@
 - 新添加的ICRA 2026论文使用conferences类别，状态为Under Review
 - Publications页面会自动显示这两个论文条目，按类别分组
 - 首页Publications部分显示手动添加的引用格式，与publications页面自动生成的列表互补
+
+## <Cursor-AI 2025-11-23 04:33:59>
+
+### 修改目的
+
+提交所有更新到GitHub仓库
+
+### 修改内容摘要
+
+- 提交所有更改到Git仓库（commit fe8ecad）
+- 推送到GitHub成功
+
+### 影响范围
+
+- 17个文件更改
+- 407行新增，83行删除
+- 包含CV更新、Portfolio更新、Publications更新、图片文件等
+
+### 技术细节
+
+- Git提交信息：feat: 更新CV、Portfolio和Publications内容
+- 提交ID：fe8ecad
+- 推送状态：成功推送到 origin/master
+- 提交包含：
+  - CV和About页面更新
+  - Portfolio项目重命名和更新
+  - Publications论文状态更新和新论文添加
+  - PDF文件和图片资源
+  - 开发记录更新
