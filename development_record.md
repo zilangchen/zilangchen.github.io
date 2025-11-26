@@ -296,3 +296,153 @@
 - 为每个项目添加Project Overview部分，说明项目背景、目标和导师信息
 - Wine Quality项目基于已发表的IPMLP 2025论文创建完整的portfolio页面
 - 所有项目名称现在与用户提供的标准名称完全一致
+
+## <Cursor-AI 2025-11-26 22:45:39>
+
+### 修改目的
+
+为Wine Quality和Temporal Logic两个项目创建对应的图片文件夹
+
+### 修改内容摘要
+
+- 创建图片文件夹：
+  - `images/portfolio/wine-quality-analysis/` - Wine Quality项目图片文件夹
+  - `images/portfolio/temporal-logic-motion/` - Temporal Logic项目图片文件夹
+- 更新portfolio页面的图片路径：
+  - `2024-06-15-wine-quality-analysis.html` - 更新图片路径为 `/images/portfolio/wine-quality-analysis/main.png`
+  - `2024-02-01-temporal-logic-motion-planning.html` - 更新图片路径为 `/images/portfolio/temporal-logic-motion/main.png`
+- 配置gallery：
+  - Wine Quality页面添加gallery配置和include语句
+  - Temporal Logic页面已配置gallery
+
+### 影响范围
+
+- `images/portfolio/wine-quality-analysis/` - 新建图片文件夹
+- `images/portfolio/temporal-logic-motion/` - 新建图片文件夹
+- `_portfolio/2024-06-15-wine-quality-analysis.html` - 更新图片路径和gallery配置
+- `_portfolio/2024-02-01-temporal-logic-motion-planning.html` - 更新图片路径
+
+### 技术细节
+
+- 创建两个新的图片文件夹，用于存放对应项目的图片资源
+- 文件夹命名与portfolio页面permalink保持一致，便于管理和维护
+- 图片路径已更新，当用户添加图片时可以放在对应的文件夹中
+- gallery配置已完善，支持显示多张项目图片
+
+## <Cursor-AI 2025-11-26 22:57:30>
+
+### 修改目的
+
+将用户添加的图片文件更新到对应的portfolio页面gallery中
+
+### 修改内容摘要
+
+- 检查图片文件夹中的图片文件：
+  - Wine Quality项目：7张图片（1.png - 7.png）
+  - Temporal Logic项目：3张图片（1.png - 3.png）
+- 更新Wine Quality portfolio页面：
+  - 更新主图片路径为 `/images/portfolio/wine-quality-analysis/1.png`
+  - 添加所有7张图片到gallery配置
+- 更新Temporal Logic portfolio页面：
+  - 更新主图片路径为 `/images/portfolio/temporal-logic-motion/1.png`
+  - 添加所有3张图片到gallery配置
+
+### 影响范围
+
+- `_portfolio/2024-06-15-wine-quality-analysis.html` - 更新图片路径和gallery配置
+- `_portfolio/2024-02-01-temporal-logic-motion-planning.html` - 更新图片路径和gallery配置
+
+### 技术细节
+
+- Wine Quality项目使用第1张图片（1.png）作为主图片和teaser图片
+- Temporal Logic项目使用第1张图片（1.png）作为主图片和teaser图片
+- 所有图片都已添加到gallery配置中，会在页面中显示
+- 图片路径使用相对路径格式（portfolio/项目名/图片名.png）
+
+## <Cursor-AI 2025-11-26 23:16:56>
+
+### 修改目的
+
+为吴哥之花/RoboCon项目创建图片文件夹
+
+### 修改内容摘要
+
+- 创建图片文件夹：`images/portfolio/angkor-bloom/` - RoboCon 'Angkor Bloom'竞赛项目图片文件夹
+- 该文件夹用于存放吴哥之花项目的参赛照片和资料
+
+### 影响范围
+
+- `images/portfolio/angkor-bloom/` - 新建图片文件夹
+
+### 技术细节
+
+- 文件夹命名为"angkor-bloom"，对应RoboCon 'Angkor Bloom'竞赛
+- 这是2023年8月的全国大学生机器人竞赛项目，获得三等奖（Top 30%）
+- 文件夹已创建，等待用户添加项目图片
+
+## <Cursor-AI 2025-11-26 23:22:00>
+
+### 修改目的
+
+为吴哥之花/RoboCon项目创建portfolio页面
+
+### 修改内容摘要
+
+- 创建新的portfolio页面：`_portfolio/2023-08-15-angkor-bloom.html`
+- 页面标题：RoboCon 'Angkor Bloom' - National College Student Robotics Competition
+- 配置图片路径和gallery：
+  - 主图片：`/images/portfolio/angkor-bloom/1.JPG`
+  - Gallery：添加所有8张图片（1.JPG - 8.JPG）
+- 添加项目描述：
+  - 项目概述
+  - 竞赛亮点
+  - 技术贡献
+  - 获奖情况（三等奖，Top 30%，2023年8月）
+
+### 影响范围
+
+- `_portfolio/2023-08-15-angkor-bloom.html` - 新建portfolio页面
+
+### 技术细节
+
+- 页面日期设置为2023-08-15，对应竞赛时间
+- permalink设置为 `/portfolio/angkor-bloom`
+- 图片文件使用大写.JPG扩展名，路径已正确配置
+- 项目标签：Robotics Competition, Robot Design
+- 所有8张竞赛照片都已添加到gallery配置中
+
+## <Cursor-AI 2025-11-26 23:44:01>
+
+### 修改目的
+
+为5个portfolio项目添加视频链接和视频嵌入显示
+
+### 修改内容摘要
+
+- 检查并找到了所有5个项目的视频文件：
+  1. ball-robot: video1.mp4
+  2. climb-exo: video1.MOV
+  3. deformation-reconstruction: video1.MP4
+  4. water-robot: video1.mp4
+  5. smart-home: video1.mp4
+- 更新所有portfolio页面的links字段，添加视频链接
+- 在所有页面中添加HTML5 video标签，使视频可以直接在页面上播放
+- 每个视频都有独立的"Demo Video"部分，位于gallery之后
+
+### 影响范围
+
+- `_portfolio/2024-02-20-ball-picking-robot.html` - 添加视频链接和嵌入
+- `_portfolio/2025-01-30-climbing-hand-exo.html` - 添加视频链接和嵌入
+- `_portfolio/2025-07-15-deformation-reconstruction.html` - 添加视频链接和嵌入
+- `_portfolio/2022-09-15-water-surface-robot.html` - 添加视频链接和嵌入
+- `_portfolio/2024-09-10-smart-home-terminal.html` - 添加视频链接和嵌入
+
+### 技术细节
+
+- 使用HTML5 `<video>` 标签嵌入视频，支持controls属性（播放控制）
+- 视频样式设置为响应式：max-width: 800px，width: 100%
+- 视频格式支持：
+  - MP4格式：ball-robot, deformation-reconstruction, water-robot, smart-home
+  - MOV格式：climb-exo
+- links字段中已添加视频链接，用户也可以通过链接直接访问视频文件
+- 所有视频都添加了fallback文本，对于不支持video标签的浏览器会显示提示信息

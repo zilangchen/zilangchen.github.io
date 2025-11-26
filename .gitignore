@@ -17,4 +17,5 @@ vendor/
 .bundle/
 
 # Ignore folders related to IDEs
-.vscode/
+.vscode/images/portfolio/deformation-reconstruction/video1.MP4
+images/portfolio/deformation-reconstruction/video1.MP4
