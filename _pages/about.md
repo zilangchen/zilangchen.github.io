@@ -7,7 +7,7 @@ author_profile: true
 
 ## Profile
 
-I am an undergraduate at the **Shien-Ming Wu School of Intelligent Engineering**, South China University of Technology (SCUT), where I will receive my B.Eng. in Intelligent Manufacturing Engineering in July 2026. My research interests lie at the intersection of machine learning, robotics, and embedded systems. I am particularly interested in developing camera-free sensing systems for soft robotics, real-time motion planning algorithms, and deploying lightweight machine learning models on resource-constrained devices.
+I am an undergraduate at the **Shien-Ming Wu School of Intelligent Engineering**, South China University of Technology (SCUT), where I will receive my B.Eng. in Intelligent Manufacturing Engineering in July 2026. My research interests lie at the intersection of machine learning, robotics, and embedded systems. My long-term goal is to build simulation-driven learning systems that enable humanoid robots to acquire generalizable embodied skills and transfer them safely to the real world.
 
 ## Contact
 
