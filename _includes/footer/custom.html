@@ -19,7 +19,7 @@
 <!-- Simple Lightbox for Gallery Images -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Create lightbox overlay
+    /* Create lightbox overlay */
     const lightboxOverlay = document.createElement('div');
     lightboxOverlay.className = 'lightbox-overlay';
     lightboxOverlay.innerHTML = `
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const lightboxImg = lightboxOverlay.querySelector('img');
     const closeBtn = lightboxOverlay.querySelector('.lightbox-close');
     
-    // Add click event to both gallery images and portfolio main images
+    /* Add click event to both gallery images and portfolio main images */
     document.querySelectorAll('a[data-lightbox="gallery"], a[data-lightbox="portfolio-main"]').forEach(function(link) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Close lightbox
+    /* Close lightbox */
     function closeLightbox() {
         lightboxOverlay.classList.remove('active');
         document.body.style.overflow = '';
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Close with Escape key
+    /* Close with Escape key */
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
             closeLightbox();
