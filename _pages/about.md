@@ -7,13 +7,13 @@ author_profile: true
 
 ## Profile
 
-I am an M.S.E. student in the **Department of Mechanical Engineering and Applied Mechanics (MEAM)** at the University of Pennsylvania. My research interests lie at the intersection of robotics, machine learning, and embedded systems, with a particular interest in simulation-driven learning and embodied intelligence. My long-term goal is to develop learning systems that enable humanoid robots to acquire generalizable skills in simulation and transfer them safely to the real world.
+I'm currently an MSE student in the **Mechanical Engineering and Applied Mechanics (MEAM)** program at the University of Pennsylvania. My research interests lie at the intersection of robotics, machine learning, and embedded systems, with a particular interest in simulation-driven learning and embodied intelligence. My long-term goal is to develop learning systems that enable humanoid robots to acquire generalizable skills in simulation and transfer them safely to the real world.
 
 ## Contact
 
-- zilang.chen@outlook.com (Personal)  
-- +1 (267) 521-3967
-- Philadelphia, PA, USA
+- **Email:** [zilang.chen@outlook.com](mailto:zilang.chen@outlook.com)
+- **Phone number:** [+1 (267) 521-3967](tel:+12675213967)
+- **Location:** Philadelphia, PA, USA
 
 ## Education
 
@@ -23,36 +23,35 @@ Aug 2026 – Present
 **B.Eng. Intelligent Manufacturing Engineering**, South China University of Technology, Guangzhou  
 Sep 2022 – Jul 2026 • GPA 3.8/4.0 (Top 10%)
 
-**Research Workshop: Computer Vision and Robot Sensors**, Carnegie Mellon University, Online  
-Oct 2024 – Dec 2024 • Tutored by Prof. Cameron Riviere
+**International Summer Undergraduate Research Experience (ISURE)**, University of Notre Dame, USA<br>
+Jul 2025 – Sep 2025
 
 **Summer Session**, University of California, Los Angeles, USA  
-Jun 2024 – Aug 2024 • GPA 4.0/4.0 • Math 156 Machine Learning
-
-**International Summer Undergraduate Research Experience (ISURE)**, University of Notre Dame, USA  
-Jul 2025 – Sep 2025 
+Jun 2024 – Aug 2024 • GPA 4.0/4.0
 
 ## Research Experience
 
-**Real-Time Camera-Free Deformation Reconstruction on Soft Robot via Flexible Sensor Array and Cage-Based Deformation Model** — ISURE, University of Notre Dame (Jul 2025 – Sep 2025)<br>
+**Real-Time Robotic-Arm Motion Planning from Temporal Logic** — SRP, SCUT (Feb 2024 – Present)<br>
+Advisor: Prof. Gang Chen<br>
+• Implementing LCRL-based planners in ROS to guarantee task fulfilment amid dynamic obstacles.
+
+**Real-Time Camera-Free Deformation Reconstruction via Flexible Sensor Array and Cage-Based Deformation Model** — ISURE, University of Notre Dame (Jul 2025 – Sep 2025)<br>
 Advisor: Prof. Tingyu Cheng  
 • Achieved a camera-free, real-time deformation reconstruction system for soft robotics by developing a complete pipeline with a low-cost flexible piezoresistive sensor array and a 4D Gaussian model. Designed and produced the sensor array and soft robots. Achieved ≈ 30 FPS real-time rendering, < 5 % mean 3D displacement error, and < 4.7° bending-angle error. Paper accepted to IEEE/RSJ IROS 2026.
+
+**Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study** — UCLA (Jun 2024 – Aug 2024)<br>
+Advisor: Prof. Chunyang Liao<br>
+• Investigated the relationship between wine components and quality. Built a unified, leakage-free ML pipeline to ensure strict separation of train, validation, and test data and reproducible evaluation. Published in the proceedings of ACM IPMLP 2025 ([DOI: 10.1145/3759928.3759955](https://doi.org/10.1145/3759928.3759955)).
+
+## Project Experience
 
 **Climbing-Assisted Hand Exoskeleton** — Team ADDLM, SCUT (Feb 2025 – Jun 2025)  
 Advisor: Prof. Jingcheng Lei  
 • Developed a 448 g glove with passive ratchet locking and series-elastic actuation; locks within 0.18 s and holds 16 N without slip on a 75° climbing rig.
 
-**Real-Time Robotic-Arm Motion Planning from Temporal Logic** — SRP, SCUT (Feb 2024 – Present)  
-Advisor: Prof. Gang Chen  
-• Implementing LCRL-based planners in ROS to guarantee task fulfilment amid dynamic obstacles.
-
 **Embedded Smart Home Terminal Based on Lightweight Machine Learning** — SCUT (Sep 2024 – Jan 2025)  
 Advisor: Prof. Zhicong Huang  
 • Developed an embedded smart home terminal to enable voice-controlled interactions. Collected voice data and performed MFCC feature extraction. Trained and deployed a lightweight neural network on an embedded chip to achieve low-power offline speech recognition. Enabled seamless smart-home orchestration through integrating device control via OneNet and connecting the Xinghuo LLM backend for context-aware dialogues.
-
-**A Unified, Leak-Free Comparative Study of Wine Quality** — UCLA (Jun 2024 – Aug 2024)  
-Advisor: Prof. Chunyang Liao  
-• Investigated the relationship between wine components and quality. Built a unified, leakage-free ML pipeline to benchmark to ensure strict separation of train/validation/test and reproducible evaluation. Paper accepted by ACM IPMLP 2025 (DOI: 10.1145/3759928.3759955).
 
 **Remote-Controlled Multifunctional Ball Picking and Placing Robot** — SCUT (Feb 2024 – Jul 2024)  
 Advisor: Prof. Yingjie Zhang  
@@ -72,6 +71,6 @@ Advisor: Prof. Ye Chen
 
 ## Publications
 
-Chen, Z. (2025). "Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study." *IPMLP 2025 (ACM)*. DOI: 10.1145/3759928.3759955.
+Chen, Z. (2025). "Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study." *Proceedings of the 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition*, 162–170. [https://doi.org/10.1145/3759928.3759955](https://doi.org/10.1145/3759928.3759955)
 
 Shou, L.; Chen, Z.; Xu, W.; Luo, Y.; Cheng, T. (2026). "Real-Time Camera-Free Deformation Reconstruction via Flexible Sensor Array and Cage-Based Deformation Model." *IEEE/RSJ IROS 2026* — Accepted.

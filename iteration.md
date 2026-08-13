@@ -19,3 +19,12 @@
 - Validation: `make check` passed; eight portfolio dates render newest-to-oldest; the local browser loaded local CSS; the lightbox changed from `display: none` to `display: flex` and back without page errors.
 - Risks / follow-ups: Production remains unchanged until the local commits are pushed to GitHub Pages.
 - Commit: `cfe604f`; `0aa9b1b`; the portfolio and gallery fixes are included in the current commit.
+
+### 2026-08-13 19:46 | Refine Profile page structure and academic citation
+- Goal: Improve the Profile page's wording, contact readability, education chronology, experience classification, and first-author publication citation.
+- Changed files: `_pages/about.md`, `scripts/check_site_content.rb`, `iteration.md`.
+- Commands: `make check`; `make serve`; local browser inspection of headings, contact labels, layout, links, and wrapping behavior; `git diff --check`.
+- Outputs: Reorganized research and project experience, removed lower-value education details, added semantic contact links, and aligned the IPMLP citation with DOI metadata.
+- Validation: Jekyll build and content checks passed; desktop rendering was visually reviewed; contact and DOI links use normal wrapping; education and experience placement are regression-tested.
+- Risks / follow-ups: The CV and publication detail pages remain separate review scopes; production remains unchanged until this commit is explicitly pushed.
+- Commit: This entry is included in the Profile refinement commit.

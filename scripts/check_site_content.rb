@@ -30,6 +30,56 @@ assert(profile_pages.all? { |html| html.include?("University of Pennsylvania") }
 assert(home.include?("Aug 2026 – Present"), "Penn education date is missing")
 assert(home.include?("+1 (267) 521-3967"), "updated phone number is missing")
 assert(home.include?("Philadelphia, PA, USA"), "updated location is missing")
+assert(home.include?("currently an MSE student"), "current MSE profile statement is missing")
+assert(home.include?("<strong>Email:</strong>"), "contact email label is missing")
+assert(home.include?("<strong>Phone number:</strong>"), "contact phone label is missing")
+assert(home.include?("<strong>Location:</strong>"), "contact location label is missing")
+assert(!home.include?("(Personal)"), "obsolete personal-email label remains on the profile")
+assert(!home.include?("Research Workshop: Computer Vision and Robot Sensors"),
+       "removed online research workshop remains on the profile")
+assert(!home.include?("Math 156 Machine Learning"),
+       "removed UCLA course detail remains on the profile")
+
+education_order = [
+  "University of Pennsylvania, Philadelphia",
+  "South China University of Technology, Guangzhou",
+  "International Summer Undergraduate Research Experience (ISURE)",
+  "University of California, Los Angeles, USA"
+]
+education_positions = education_order.map { |text| home.index(text) }
+assert(education_positions.all?, "one or more expected education entries are missing")
+assert(education_positions == education_positions.sort,
+       "education entries are not ordered by latest end date")
+
+research_section = home[/<h2 id="research-experience">.*?(?=<h2 id="project-experience">)/m]
+project_section = home[/<h2 id="project-experience">.*?(?=<h2 id="honors--awards">)/m]
+assert(research_section, "research experience section is missing")
+assert(project_section, "project experience section is missing")
+
+research_titles = [
+  "Real-Time Robotic-Arm Motion Planning from Temporal Logic",
+  "Real-Time Camera-Free Deformation Reconstruction via Flexible Sensor Array",
+  "Wine Quality Prediction with Ensemble Trees"
+]
+project_titles = [
+  "Climbing-Assisted Hand Exoskeleton",
+  "Embedded Smart Home Terminal Based on Lightweight Machine Learning",
+  "Remote-Controlled Multifunctional Ball Picking and Placing Robot",
+  "Bionic Water-Strider Robot"
+]
+research_titles.each do |title|
+  assert(research_section.include?(title), "research entry is missing or misclassified: #{title}")
+  assert(!project_section.include?(title), "research entry appears in project experience: #{title}")
+end
+project_titles.each do |title|
+  assert(project_section.include?(title), "project entry is missing or misclassified: #{title}")
+  assert(!research_section.include?(title), "project entry appears in research experience: #{title}")
+end
+assert(home.include?("Proceedings of the 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition"),
+       "full IPMLP proceedings title is missing from the profile citation")
+assert(home.include?("162–170"), "IPMLP publication page range is missing")
+assert(home.include?('href="https://doi.org/10.1145/3759928.3759955"'),
+       "clickable IPMLP DOI is missing")
 
 forbidden = [
   "zilangchen2026@163.com",
