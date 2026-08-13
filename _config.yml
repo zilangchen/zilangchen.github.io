@@ -12,7 +12,7 @@ site_theme: "default"
 title: "Zilang Chen"
 title_separator: "-"
 name: &name "Zilang Chen"
-description: &description "Undergraduate student in Intelligent Engineering at SCUT. Research interests: Machine Learning, Robotics, and Embedded Systems."
+description: &description "M.S.E. student in Mechanical Engineering and Applied Mechanics at the University of Pennsylvania. Research interests: Robotics, Machine Learning, and Embodied Intelligence."
 url: "https://zilangchen.github.io"
 baseurl: "" # the subpath of your site, e.g. "/blog"
 repository: "zilangchen/zilangchen.github.io"
@@ -25,16 +25,16 @@ author:
   avatar: "profile.png"
   name: "Zilang Chen"
   pronouns: # example: "she/her"
-  bio: "Undergraduate student in Intelligent Engineering at South China University of Technology. Interested in Machine Learning, Robotics, and Embedded Systems."
-  location: "Guangzhou, China"
-  employer: "South China University of Technology"
+  bio: "M.S.E. student in Mechanical Engineering and Applied Mechanics at the University of Pennsylvania. Interested in robotics, machine learning, and embodied intelligence."
+  location: "Philadelphia, PA, USA"
+  employer: "University of Pennsylvania"
   uri: # URL
   email: "zilang.chen@outlook.com"
 
   # Academic websites
   academia: # URL
   arxiv: # URL - Update with the correct link to your profile
-  googlescholar: "#"
+  googlescholar:
   impactstory: # URL
   # orcid: "http://orcid.org/yourorcidurl"
   semantic: # URL

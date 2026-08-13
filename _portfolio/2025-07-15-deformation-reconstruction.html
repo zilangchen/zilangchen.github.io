@@ -8,11 +8,7 @@ collection: portfolio
 permalink: /portfolio/deformation-reconstruction
 date: 2025-09-01
 links:
-  - label: Demo Video (Large file - see repository)
-    url: "#"
-  - label: Paper (ICRA 2026 Under Review)
-    url: "#"
-  - label: PDF
+  - label: Paper (IEEE/RSJ IROS 2026, Accepted)
     url: /files/Real_Time_Camera_Free_Deformation_Reconstruction_via_Flexible_Sensor_Array_and_Cage_based_deformation_mode.pdf
 projects:
   - Soft Robotics
@@ -30,10 +26,10 @@ gallery:
 
 <ul>
 <li>Developed a camera-free, real-time deformation reconstruction system for soft robots using flexible piezoresistive sensors and a 4D Gaussian Splatting model.</li>
-<li>Designed and produced a flexible 10×10 piezoresistive sensor array (3×3 cm) with silicon-based flexible capacitance sensors.</li>
+<li>Designed and produced a flexible 10×10 piezoresistive sensor array (3×3 cm) that conforms to soft robot surfaces.</li>
 <li>Implemented a GAT-based cage deformer with inverse-distance-weighted propagation on 4D Gaussian Splatting for efficient inference.</li>
 <li>Achieved ≈ 30 FPS real-time rendering, < 5 % mean 3D displacement error, and < 4.7° bending-angle error under bending/twisting/pressing.</li>
-<li>Demonstrated zero-shot camera-free reconstruction on unseen objects. Manuscript submitted to ICRA 2026.</li>
+<li>Demonstrated zero-shot camera-free reconstruction on unseen objects. Paper accepted to IEEE/RSJ IROS 2026.</li>
 </ul>
 
 {% include gallery %}
@@ -51,7 +47,7 @@ gallery:
 <h4>Sensor Design & Manufacturing</h4>
 
 <ul>
-<li><strong>Flexible Sensor Array</strong>: Designed and produced a 10×10 piezoresistive sensor array (3×3 cm) that provides sparse pressure-induced resistance readings on the object's surface in real-time. The silicon-based flexible capacitance sensors are conformable to soft robot surfaces.</li>
+<li><strong>Flexible Sensor Array</strong>: Designed and produced a 10×10 piezoresistive sensor array (3×3 cm) that provides sparse pressure-induced resistance readings on the object's surface in real time. The array conforms to soft robot surfaces.</li>
 <li><strong>Sensor Integration</strong>: Deployed the flexible, tileable piezoresistive array on the robot's nominal STL mesh, yielding rich local deformation signals under bend/twist/press deformations.</li>
 </ul>
 
@@ -101,7 +97,7 @@ gallery:
 
 <h3>Publication Status</h3>
 
-<p>Manuscript submitted to <strong>ICRA 2026</strong> (IEEE International Conference on Robotics and Automation). Work conducted in collaboration with Prof. Tingyu Cheng at University of Notre Dame during the ISURE Summer Research Program.</p>
+<p>Accepted to the <strong>2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2026)</strong>. Work conducted in collaboration with Prof. Tingyu Cheng at University of Notre Dame during the ISURE Summer Research Program.</p>
 
 <h3>Future Work</h3>
 
@@ -111,4 +107,3 @@ gallery:
 <li>Explore real-time learning and adaptation capabilities for new robot morphologies</li>
 <li>Integrate with real-time control systems for closed-loop deformation control</li>
 </ul>
-
