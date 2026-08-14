@@ -132,7 +132,8 @@ stale_publication_claims = [
   "significance testing",
   "90%+ of the predictive signal",
   "128GB DDR5",
-  "All code, configurations, and detailed experimental logs"
+  "All code, configurations, and detailed experimental logs",
+  "Dimensionality reduction to these five variables"
 ]
 corrected_pages = [home, cv, publications, deformation_publication, wine_publication, deformation_portfolio, wine_portfolio].join("\n")
 stale_publication_claims.each do |text|
@@ -145,6 +146,10 @@ assert(wine_publication.include?("512 GB RAM"), "wine compute specification is n
 assert(wine_publication.include?("162–170"), "wine proceedings page range is missing")
 assert(wine_publication.include?("View ACM Record"), "ACM DOI link label is misleading")
 assert(wine_publication.include?("Download PDF"), "local wine PDF link is missing")
+assert(wine_portfolio.include?("each model-and-dataset combination"),
+       "wine project page does not describe feature selection precisely")
+assert(wine_portfolio.include?('href="https://doi.org/10.1145/3759928.3759955"'),
+       "wine project page DOI is not clickable")
 
 publication_title_positions = [arxiv_title, "Wine Quality Prediction with Ensemble Trees"].map do |title|
   publications.index(title)
