@@ -6,12 +6,13 @@ author_profile: true
 ---
 
 {% include base_path %}
+{% assign sorted_publications = site.publications | sort: "date" | reverse %}
 
 <!-- New style rendering if publication categories are defined -->
 {% if site.publication_category %}
   {% for category in site.publication_category  %}
     {% assign title_shown = false %}
-    {% for post in site.publications reversed %}
+    {% for post in sorted_publications %}
       {% if post.category != category[0] %}
         {% continue %}
       {% endif %}
@@ -23,10 +24,9 @@ author_profile: true
     {% endfor %}
   {% endfor %}
 {% else %}
-  {% for post in site.publications reversed %}
+  {% for post in sorted_publications %}
     {% include archive-single.html %}
   {% endfor %}
 {% endif %}
-
 
 

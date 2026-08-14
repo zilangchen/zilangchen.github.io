@@ -1,6 +1,6 @@
 ---
-title: "Real-Time Camera-Free Deformation Reconstruction via Flexible Sensor Array"
-excerpt: "Camera-free, real-time 3D deformation reconstruction system using flexible piezoresistive sensors and learned cage-based Gaussian deformation model."
+title: "Zero-Shot Deformation Reconstruction for Soft Robots"
+excerpt: "Camera-free, zero-shot reconstruction using a flexible piezoresistive sensor array and a cage-based 3D Gaussian deformation model."
 image: /images/portfolio/deformation-reconstruction/sensor_all.png
 header:
   teaser: /images/portfolio/deformation-reconstruction/sensor_all.png
@@ -9,7 +9,7 @@ permalink: /portfolio/deformation-reconstruction
 date: 2025-09-01
 links:
   - label: Paper (IEEE/RSJ IROS 2026, Accepted)
-    url: /files/Real_Time_Camera_Free_Deformation_Reconstruction_via_Flexible_Sensor_Array_and_Cage_based_deformation_mode.pdf
+    url: https://arxiv.org/abs/2603.19543
 projects:
   - Soft Robotics
   - Computer Vision
@@ -25,11 +25,11 @@ gallery:
 <h3>Highlights</h3>
 
 <ul>
-<li>Developed a camera-free, real-time deformation reconstruction system for soft robots using flexible piezoresistive sensors and a 4D Gaussian Splatting model.</li>
+<li>Developed a camera-free, zero-shot deformation reconstruction framework for soft robots using flexible piezoresistive sensing and cage-based 3D Gaussian modeling.</li>
 <li>Designed and produced a flexible 10×10 piezoresistive sensor array (3×3 cm) that conforms to soft robot surfaces.</li>
-<li>Implemented a GAT-based cage deformer with inverse-distance-weighted propagation on 4D Gaussian Splatting for efficient inference.</li>
-<li>Achieved ≈ 30 FPS real-time rendering, < 5 % mean 3D displacement error, and < 4.7° bending-angle error under bending/twisting/pressing.</li>
-<li>Demonstrated zero-shot camera-free reconstruction on unseen objects. Paper accepted to IEEE/RSJ IROS 2026.</li>
+<li>Implemented a GAT-based cage deformer with inverse-distance-weighted propagation to dense Gaussian primitives.</li>
+<li>Achieved average full-body results of 0.67 IoU, 0.65 SSIM, and 3.48 mm Chamfer distance on unseen soft robots.</li>
+<li>Demonstrated zero-shot camera-free reconstruction without robot-specific retraining. Paper accepted to IEEE/RSJ IROS 2026.</li>
 </ul>
 
 {% include gallery %}
@@ -48,38 +48,38 @@ gallery:
 
 <ul>
 <li><strong>Flexible Sensor Array</strong>: Designed and produced a 10×10 piezoresistive sensor array (3×3 cm) that provides sparse pressure-induced resistance readings on the object's surface in real time. The array conforms to soft robot surfaces.</li>
-<li><strong>Sensor Integration</strong>: Deployed the flexible, tileable piezoresistive array on the robot's nominal STL mesh, yielding rich local deformation signals under bend/twist/press deformations.</li>
+<li><strong>Sensor Integration</strong>: Attached the flexible patch to a selected surface region, where it captures tactile signals during bending and twisting.</li>
 </ul>
 
-<h4>4D Gaussian Splatting Representation</h4>
+<h4>Canonical 3D Gaussian Representation</h4>
 
 <ul>
-<li><strong>Multi-view Reconstruction</strong>: Used a stop-motion protocol to scan key static poses and render dense multi-view images with accurate poses via Blender's virtual cameras.</li>
-<li><strong>Temporal Densification</strong>: Applied video frame interpolation to densify time and enable temporally trackable Gaussian models for every frame using a 4D Gaussian Splatting (4DGS) pipeline.</li>
-<li><strong>Per-frame Primitives</strong>: Each frame yields Gaussian primitives that capture fine surface details of the soft robot's deformation.</li>
+<li><strong>Static Geometry Proxy</strong>: Initialized each undeformed object from a nominal geometric proxy, such as its fabrication STL file.</li>
+<li><strong>Gaussian Representation</strong>: Converted the canonical geometry into dense Gaussian primitives for real-time deformation and photorealistic rendering.</li>
+<li><strong>Zero-shot Deployment</strong>: Reused the trained tactile-to-cage mapping on unseen soft robots without collecting robot-specific deformation data or fine-tuning the model.</li>
 </ul>
 
 <h4>Cage-based Deformation Framework</h4>
 
 <ul>
-<li><strong>Graph Attention Network</strong>: Implemented a GNN-based predictor that estimates low-dimensional control displacements for a set of sparse cage control points, rather than directly regressing motions for millions of Gaussians.</li>
-<li><strong>Inverse-Distance-Weighted Propagation</strong>: Displacements are propagated to millions of Gaussians using local weighting strategies, enabling efficient inference while preserving global coherence.</li>
-<li><strong>Canonicalization</strong>: Applied canonicalization per sensed region and re-binding of control points to ensure physical consistency and enable zero-shot generalization.</li>
+<li><strong>Graph Attention Network</strong>: Predicted low-dimensional displacements of sparse cage-control nodes from encoded tactile measurements.</li>
+<li><strong>Inverse-Distance-Weighted Propagation</strong>: Propagated cage motion to dense Gaussian primitives while preserving global geometric continuity.</li>
+<li><strong>Boundary-aware Control</strong>: Coupled the sensed region to neighboring geometry to reduce discontinuities outside the sensor footprint.</li>
 </ul>
 
 <h3>Performance Results</h3>
 
 <ul>
-<li><strong>Real-time Rendering</strong>: Achieved ≈ 30 FPS real-time rendering of photorealistic RGB images.</li>
-<li><strong>Deformation Accuracy</strong>: < 5 % mean 3D displacement error and < 4.7° bending-angle error under bending/twisting/pressing deformations.</li>
-<li><strong>Zero-shot Generalization</strong>: Demonstrated zero-shot camera-free reconstruction on unseen objects, showing the system's ability to generalize beyond training data.</li>
-<li><strong>Fine-grained Tracking</strong>: Successfully tracked three representative deformation types – bending, twisting, and pressing – with high fidelity.</li>
+<li><strong>Full-body Reconstruction</strong>: Averaged 0.67 IoU, 0.65 SSIM, and 3.48 mm Chamfer distance across unseen bending and twisting soft robots.</li>
+<li><strong>Angular Accuracy</strong>: Averaged 4.7° error for bending and 4.9° for twisting.</li>
+<li><strong>Runtime</strong>: Reached approximately 30 FPS with the coarse Gaussian setting and 5 FPS at high resolution on a single RTX 3070 Ti.</li>
+<li><strong>Additional Demonstration</strong>: Reconstructed pressure-induced deformation on a wallet as a qualitative proof of concept.</li>
 </ul>
 
 <h3>Key Innovations</h3>
 
 <ol>
-<li><strong>Sparse-to-Dense Mapping</strong>: Learned an expressive deformation representation from signals that are orders of magnitude sparser than camera observations, bridging the gap between sparse sensor readings and dense 3D geometry.</li>
+<li><strong>Sparse-to-Dense Mapping</strong>: Mapped local tactile observations to object-wide deformation through a compact, structured cage representation.</li>
 <li><strong>Efficient Architecture</strong>: The cage-based strategy decouples low-dimensional control from high-resolution representation, enabling efficient inference and scalability.</li>
 <li><strong>Unified Pipeline</strong>: Created a complete end-to-end pipeline from sensor design to real-time rendering, demonstrating practical applicability for soft robotics.</li>
 </ol>
@@ -97,7 +97,7 @@ gallery:
 
 <h3>Publication Status</h3>
 
-<p>Accepted to the <strong>2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2026)</strong>. Work conducted in collaboration with Prof. Tingyu Cheng at University of Notre Dame during the ISURE Summer Research Program.</p>
+<p>Accepted to the <strong>2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2026)</strong> on June 16, 2026. The <a href="https://arxiv.org/abs/2603.19543">current arXiv manuscript</a> is the public version available now and may differ slightly from the eventual proceedings version. Work conducted with Prof. Tingyu Cheng at the University of Notre Dame during the ISURE Summer Research Program.</p>
 
 <h3>Future Work</h3>
 

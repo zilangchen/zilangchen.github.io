@@ -23,6 +23,10 @@ home = read_built("index.html")
 portfolio = read_built("portfolio/index.html")
 cv = read_built("cv/index.html")
 publications = read_built("publications/index.html")
+deformation_publication = read_built("publication/2026-05-31-deformation-reconstruction.html")
+wine_publication = read_built("publication/2025-06-15-wine-quality-ensemble.html")
+deformation_portfolio = read_built("portfolio/deformation-reconstruction.html")
+wine_portfolio = read_built("portfolio/wine-quality-analysis.html")
 
 profile_pages = [home, cv, publications]
 assert(profile_pages.all? { |html| html.include?("University of Pennsylvania") },
@@ -58,7 +62,7 @@ assert(project_section, "project experience section is missing")
 
 research_titles = [
   "Real-Time Robotic-Arm Motion Planning from Temporal Logic",
-  "Real-Time Camera-Free Deformation Reconstruction via Flexible Sensor Array",
+  "Zero-Shot Deformation Reconstruction for Soft Robots",
   "Wine Quality Prediction with Ensemble Trees"
 ]
 project_titles = [
@@ -93,8 +97,63 @@ forbidden.each do |text|
   assert(!all_checked.include?(text), "stale public text remains: #{text}")
 end
 assert(all_checked.include?("IEEE/RSJ IROS 2026"), "accepted IROS venue is missing")
-assert(publications.include?("Accepted to <i>IEEE/RSJ IROS 2026</i>, 2026"),
+assert(publications.include?("Accepted to <i>IEEE/RSJ IROS 2026</i>"),
        "publication listing does not use accepted-status wording")
+assert(publications.include?("June 16, 2026"), "IROS acceptance date is missing")
+
+arxiv_title = "Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling"
+publication_pages = [home, cv, publications, deformation_publication, deformation_portfolio]
+assert(publication_pages.all? { |html| html.include?(arxiv_title) || html.include?("Zero-Shot Deformation Reconstruction for Soft Robots") },
+       "the current public deformation-reconstruction title is not synchronized")
+assert(deformation_publication.include?('href="https://arxiv.org/abs/2603.19543"'),
+       "arXiv abstract link is missing")
+assert(deformation_publication.include?('href="https://arxiv.org/pdf/2603.19543"'),
+       "arXiv PDF link is missing")
+assert(deformation_publication.include?("Accepted to <i>IEEE/RSJ IROS 2026</i>"),
+       "deformation detail page does not show accepted status")
+assert(!deformation_publication.include?("Published in <i>IEEE/RSJ IROS 2026</i>"),
+       "accepted IROS paper is incorrectly rendered as published")
+assert(!deformation_publication.include?('itemprop="datePublished"'),
+       "accepted paper incorrectly exposes a publication date")
+assert(!deformation_publication.include?('property="article:published_time"'),
+       "accepted paper incorrectly exposes Open Graph publication time")
+
+deformation_required = ["0.67 IoU", "0.65 SSIM", "3.48 mm Chamfer", "4.9°", "5 FPS", "static geometric proxy"]
+deformation_required.each do |text|
+  assert(deformation_publication.include?(text), "current arXiv result or scope is missing: #{text}")
+end
+
+stale_publication_claims = [
+  "Real-Time Camera-Free Deformation Reconstruction via Flexible Sensor Array and Cage-Based Deformation Model",
+  "&lt;5% mean 3D displacement error",
+  "Multi-Objective Tuning",
+  "mutual information ranking",
+  "95% CI",
+  "significance testing",
+  "90%+ of the predictive signal",
+  "128GB DDR5",
+  "All code, configurations, and detailed experimental logs"
+]
+corrected_pages = [home, cv, publications, deformation_publication, wine_publication, deformation_portfolio, wine_portfolio].join("\n")
+stale_publication_claims.each do |text|
+  assert(!corrected_pages.include?(text), "stale or unsupported publication claim remains: #{text}")
+end
+
+assert(wine_publication.include?("Weighted F1 is the sole hyperparameter-optimization objective"),
+       "wine optimization objective is not corrected")
+assert(wine_publication.include?("512 GB RAM"), "wine compute specification is not corrected")
+assert(wine_publication.include?("162–170"), "wine proceedings page range is missing")
+assert(wine_publication.include?("View ACM Record"), "ACM DOI link label is misleading")
+assert(wine_publication.include?("Download PDF"), "local wine PDF link is missing")
+
+publication_title_positions = [arxiv_title, "Wine Quality Prediction with Ensemble Trees"].map do |title|
+  publications.index(title)
+end
+assert(publication_title_positions.all?, "one or more publication titles are missing")
+assert(publication_title_positions == publication_title_positions.sort,
+       "publication entries are not ordered newest first")
+assert(!publications.match?(/<p class="archive__item-excerpt"[^>]*>\s*<\/p>/),
+       "publication listing contains an empty excerpt paragraph")
 
 portfolio_dates = portfolio.scan(/<time datetime="([^"]+)"/).flatten.map do |value|
   DateTime.parse(value)
@@ -103,6 +162,12 @@ assert(portfolio_dates.length == 8,
        "expected 8 portfolio dates, found #{portfolio_dates.length}")
 assert(portfolio_dates == portfolio_dates.sort.reverse,
        "portfolio entries are not ordered newest first")
+assert(portfolio.scan("Project date:").length == 8,
+       "portfolio cards do not consistently label project dates")
+assert(deformation_portfolio.include?("Project date:"),
+       "deformation project detail does not label its date clearly")
+assert(deformation_portfolio.include?('href="https://arxiv.org/abs/2603.19543"'),
+       "deformation project detail is missing its current public manuscript link")
 main_css = read_built("assets/css/main.css")
 assert(main_css.include?(".lightbox-overlay{display:none"),
        "lightbox overlay is not hidden by default")

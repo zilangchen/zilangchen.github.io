@@ -38,9 +38,9 @@ Jul 2025 – Sep 2025
 Advisor: Prof. Gang Chen  
 Studied the LCRL (Linear Temporal Logic with Conditional Reasoning) algorithm and robotic arm control principles. Completed real-time control strategies modeling and testing with ROS in motion analysis and simulation. Developed real-time motion control algorithms and optimized path planner for robotic arms, to fulfill precise motion control with integrated temporal logic and improve real-time responsiveness in dynamic environments. Currently writing a paper that aims to enhance robotic motion accuracy and decision-making in real-time scenarios.
 
-**Real-Time Camera-Free Deformation Reconstruction on Soft Robot via Flexible Sensor Array and Cage-Based Deformation Model** — ISURE, University of Notre Dame (Jul 2025 – Sep 2025)<br>
+**Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling** — ISURE, University of Notre Dame (Jul 2025 – Sep 2025)<br>
 Advisor: Prof. Tingyu Cheng  
-Achieved a camera-free, real-time deformation reconstruction system for soft robotics by developing a complete pipeline with a low-cost flexible piezoresistive sensor array and a 4D Gaussian model. Designed and produced the sensor array and soft robots. Iterated the flexible pressure-sensor matrix, used a GAT-based cage deformer with inverse-distance-weighted propagation on 4DGS, and applied key-pose multi-view rendering + frame interpolation to strengthen supervision and reduce data-collection overhead. Implemented the GNN cage-deformer and GPU propagation, integrated the real-time renderer, collected data, and ran evaluations. Achieved ≈ 30 FPS real-time rendering, < 5 % mean 3D displacement error, and < 4.7° bending-angle error under bending/twisting/pressing. Demonstrated zero-shot camera-free reconstruction on unseen objects. Paper accepted to IEEE/RSJ IROS 2026.
+Developed a camera-free deformation reconstruction framework that combines a flexible 10×10 piezoresistive sensor array, a GAT-based cage deformer, inverse-distance-weighted propagation, and 3D Gaussian rendering. The current public version reports average full-body results of 0.67 IoU, 0.65 SSIM, and 3.48 mm Chamfer distance on unseen bending and twisting soft robots without robot-specific retraining. The system reaches approximately 30 FPS in its coarse Gaussian setting and 5 FPS at high resolution on an RTX 3070 Ti. Paper accepted to IEEE/RSJ IROS 2026; current public version: arXiv:2603.19543.
 
 **Embedded Smart Home Terminal Based on Lightweight Machine Learning** — SCUT (Sep 2024 – Jan 2025)  
 Advisor: Prof. Zhicong Huang  
@@ -71,7 +71,8 @@ Implemented real-time motion control, electrical system setup, and remote wirele
 ## Publications
 
 <ul>
-  {% for post in site.publications reversed %}
+  {% assign sorted_publications = site.publications | sort: "date" | reverse %}
+  {% for post in sorted_publications %}
     {% include archive-single-cv.html %}
   {% endfor %}
 </ul>

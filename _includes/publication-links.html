@@ -1,0 +1,25 @@
+{% assign publication = include.publication %}
+{% if publication.citation or publication.paperurl or publication.pdfurl or publication.slidesurl or publication.bibtexurl %}
+  <p{% if include.small %} style="font-size: smaller"{% endif %}>
+    {% if publication.citation %}Recommended citation: {{ publication.citation }}{% endif %}
+    {% if publication.paperurl or publication.pdfurl or publication.slidesurl or publication.bibtexurl %}
+      {% if publication.citation %}<br />{% endif %}
+      {% assign publication_link_separator = "" %}
+      {% if publication.paperurl %}
+        <a href="{{ publication.paperurl }}">{{ publication.paperlabel | default: "View Paper" }}</a>
+        {% assign publication_link_separator = " | " %}
+      {% endif %}
+      {% if publication.pdfurl %}
+        {{ publication_link_separator }}<a href="{{ publication.pdfurl }}">{{ publication.pdflabel | default: "Download PDF" }}</a>
+        {% assign publication_link_separator = " | " %}
+      {% endif %}
+      {% if publication.slidesurl %}
+        {{ publication_link_separator }}<a href="{{ publication.slidesurl }}">Download Slides</a>
+        {% assign publication_link_separator = " | " %}
+      {% endif %}
+      {% if publication.bibtexurl %}
+        {{ publication_link_separator }}<a href="{{ publication.bibtexurl }}">Download BibTeX</a>
+      {% endif %}
+    {% endif %}
+  </p>
+{% endif %}

@@ -35,9 +35,9 @@ Jun 2024 – Aug 2024 • GPA 4.0/4.0
 Advisor: Prof. Gang Chen<br>
 • Implementing LCRL-based planners in ROS to guarantee task fulfilment amid dynamic obstacles.
 
-**Real-Time Camera-Free Deformation Reconstruction via Flexible Sensor Array and Cage-Based Deformation Model** — ISURE, University of Notre Dame (Jul 2025 – Sep 2025)<br>
+**Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling** — ISURE, University of Notre Dame (Jul 2025 – Sep 2025)<br>
 Advisor: Prof. Tingyu Cheng  
-• Achieved a camera-free, real-time deformation reconstruction system for soft robotics by developing a complete pipeline with a low-cost flexible piezoresistive sensor array and a 4D Gaussian model. Designed and produced the sensor array and soft robots. Achieved ≈ 30 FPS real-time rendering, < 5 % mean 3D displacement error, and < 4.7° bending-angle error. Paper accepted to IEEE/RSJ IROS 2026.
+• Developed a camera-free framework that maps tactile measurements from a flexible sensor array to cage-controlled 3D Gaussian deformation. The current public version reports 0.67 IoU, 0.65 SSIM, and 3.48 mm Chamfer distance on unseen soft robots without robot-specific retraining. Paper accepted to IEEE/RSJ IROS 2026.
 
 **Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study** — UCLA (Jun 2024 – Aug 2024)<br>
 Advisor: Prof. Chunyang Liao<br>
@@ -73,4 +73,4 @@ Advisor: Prof. Ye Chen
 
 Chen, Z. (2025). "Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study." *Proceedings of the 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition*, 162–170. [https://doi.org/10.1145/3759928.3759955](https://doi.org/10.1145/3759928.3759955)
 
-Shou, L.; Chen, Z.; Xu, W.; Luo, Y.; Cheng, T. (2026). "Real-Time Camera-Free Deformation Reconstruction via Flexible Sensor Array and Cage-Based Deformation Model." *IEEE/RSJ IROS 2026* — Accepted.
+Shou, L.; Chen, Z.; Xu, W.; Luo, Y.; Cheng, T. (2026). "Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling." *IEEE/RSJ IROS 2026* — Accepted. [arXiv:2603.19543](https://arxiv.org/abs/2603.19543)
