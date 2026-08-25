@@ -27,6 +27,7 @@ deformation_publication = read_built("publication/2026-05-31-deformation-reconst
 wine_publication = read_built("publication/2025-06-15-wine-quality-ensemble.html")
 deformation_portfolio = read_built("portfolio/deformation-reconstruction.html")
 wine_portfolio = read_built("portfolio/wine-quality-analysis.html")
+angkor_portfolio = read_built("portfolio/angkor-bloom.html")
 
 profile_pages = [home, cv, publications]
 assert(profile_pages.all? { |html| html.include?("University of Pennsylvania") },
@@ -160,17 +161,46 @@ assert(publication_title_positions == publication_title_positions.sort,
 assert(!publications.match?(/<p class="archive__item-excerpt"[^>]*>\s*<\/p>/),
        "publication listing contains an empty excerpt paragraph")
 
-portfolio_dates = portfolio.scan(/<time datetime="([^"]+)"/).flatten.map do |value|
-  DateTime.parse(value)
+portfolio_titles = [
+  "Zero-Shot Deformation Reconstruction for Soft Robots",
+  "Climbing-Assisted Hand Exoskeleton",
+  "Embedded Smart Home Terminal Based on Lightweight Machine Learning",
+  "Analysis of Wine Quality Based on Multiple Machine Learning Methods",
+  "Remote-Controlled Multifunctional Ball Picking and Placing Robot",
+  "RoboCon ‘Angkor Bloom’ - National College Student Robotics Competition",
+  "Biomimetic Water Surface Robot with Automatic Obstacle Avoidance"
+]
+portfolio_title_positions = portfolio_titles.map { |title| portfolio.index(title) }
+assert(portfolio_title_positions.all?, "one or more visible portfolio projects are missing")
+assert(portfolio_title_positions == portfolio_title_positions.sort,
+       "portfolio entries are not ordered by latest project end date")
+assert(!portfolio.include?("Real-Time Robotic Arm Motion Control Algorithm Based on Temporal Logic"),
+       "hidden temporal-logic project remains in the portfolio listing")
+temporal_output = File.join(ROOT, "_site", "portfolio", "temporal-logic-motion-planning.html")
+assert(!File.exist?(temporal_output), "hidden temporal-logic detail page was generated")
+
+portfolio_periods = [
+  "Jul 2025 – Sep 2025",
+  "Feb 2025 – Jun 2025",
+  "Sep 2024 – Jan 2025",
+  "Jun 2024 – Aug 2024",
+  "Feb 2024 – Jul 2024",
+  "Dec 2022 – Jul 2023",
+  "Sep 2022 – Jan 2023"
+]
+assert(portfolio.scan("Project period:").length == 7,
+       "portfolio cards do not consistently label project periods")
+portfolio_periods.each do |period|
+  assert(portfolio.include?(period), "portfolio period is missing: #{period}")
 end
-assert(portfolio_dates.length == 8,
-       "expected 8 portfolio dates, found #{portfolio_dates.length}")
-assert(portfolio_dates == portfolio_dates.sort.reverse,
-       "portfolio entries are not ordered newest first")
-assert(portfolio.scan("Project date:").length == 8,
-       "portfolio cards do not consistently label project dates")
-assert(deformation_portfolio.include?("Project date:"),
-       "deformation project detail does not label its date clearly")
+assert(!portfolio.include?("Project date:"), "portfolio listing still exposes exact sort dates")
+assert(deformation_portfolio.include?("Project period:"),
+       "deformation project detail does not label its period clearly")
+assert(!deformation_portfolio.include?('itemprop="datePublished"'),
+       "portfolio detail incorrectly exposes its hidden sort date as a publication date")
+assert(!angkor_portfolio.include?("Top 30%"), "unsupported RoboCon ranking remains")
+assert(angkor_portfolio.include?("July 5–8, 2023"),
+       "verified RoboCon national-finals dates are missing")
 assert(deformation_portfolio.include?('href="https://arxiv.org/abs/2603.19543"'),
        "deformation project detail is missing its current public manuscript link")
 main_css = read_built("assets/css/main.css")
