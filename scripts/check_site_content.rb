@@ -49,6 +49,65 @@ assert(!home.include?("Research Workshop: Computer Vision and Robot Sensors"),
 assert(!home.include?("Math 156 Machine Learning"),
        "removed UCLA course detail remains on the profile")
 
+cv_required = [
+  "Philadelphia, PA, USA",
+  "(Personal)",
+  "Visiting Student, UCLA Summer Sessions",
+  "Math 156 Machine Learning",
+  "Ecoflex",
+  "R/R0 normalization",
+  "Co-designed and executed the acquisition protocol",
+  "separate inverse distance weighting step",
+  "RTX 3070 Ti",
+  "robot-specific retraining",
+  "arXiv:2603.19543",
+  "OneNET",
+  "iFLYTEK Spark LLM",
+  "pp. 162–170",
+  "soft-robot fabrication",
+  "Embedded Systems &amp; Electronics",
+  "ROBOCON Third Prize in the National College Student Robotics Competition"
+]
+cv_required.each do |text|
+  assert(cv.include?(text), "updated or retained CV detail is missing: #{text}")
+end
+
+cv_forbidden = [
+  "Research Workshop: Computer Vision and Robot Sensors",
+  "Real-Time Robotic Arm Motion Control Algorithm Based on Temporal Logic",
+  "International Summer Undergraduate Research Experience (ISURE)",
+  "Top 10%",
+  "Top 20%",
+  "Top 30%",
+  "OneNet",
+  "Xinghuo LLM",
+  "TinyML",
+  "on-chip inference",
+  "extensive mechanical assembly",
+  "soft robot manufacture",
+  "Certificate of Achievement",
+  "Angkor Bloom"
+]
+cv_forbidden.each do |text|
+  assert(!cv.include?(text), "removed or superseded CV detail remains: #{text}")
+end
+
+cv_publication_heading = cv.index('<h2 id="publications">')
+cv_skills_heading = cv.index('<h2 id="skills">')
+assert(cv_publication_heading && cv_skills_heading,
+       "CV Publications or Skills heading is missing")
+assert(cv_publication_heading < cv_skills_heading,
+       "CV Publications section is not placed before Skills")
+
+cv_publication_section = cv[/<h2 id="publications">.*?(?=<h2 id="skills">)/m]
+assert(cv_publication_section, "CV Publications section could not be extracted")
+wine_cv_position = cv_publication_section.index("Wine Quality Prediction with Ensemble Trees")
+deformation_cv_position = cv_publication_section.index("Zero-Shot Deformation Reconstruction for Soft Robots")
+assert(wine_cv_position && deformation_cv_position,
+       "one or more CV publication entries are missing")
+assert(wine_cv_position < deformation_cv_position,
+       "first-author wine paper is not listed before the IROS paper in the CV")
+
 education_order = [
   "University of Pennsylvania, Philadelphia",
   "South China University of Technology, Guangzhou",

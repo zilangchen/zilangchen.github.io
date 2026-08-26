@@ -91,3 +91,12 @@
 - Validation: `make check` passed with all Gallery regressions; every project page rendered the expected image count with zero broken images and zero horizontal overflow at desktop and 390 px; Gallery items were centered; the Zero-Shot lightbox opened the selected high-resolution figure and restored body scrolling when closed.
 - Risks / follow-ups: A concurrent, broader rewrite of the Zero-Shot project body appeared during this task and is intentionally preserved outside this Gallery commit; pre-existing unrelated dirty files also remain unstaged.
 - Commit: This entry is included in the project-gallery refinement commit.
+
+### 2026-08-26 15:36 | Synchronize website CV with the latest Word CV
+- Goal: Apply the user-confirmed content and ordering changes from the latest Word CV while retaining accurate website-only details.
+- Changed files: `_pages/cv.md`, `scripts/check_site_content.rb`, `iteration.md`.
+- Commands: `make check`; `ruby -c scripts/check_site_content.rb`; task-scoped `git diff --check`; local Jekyll preview; desktop and 390 px browser inspection.
+- Outputs: Removed the CMU workshop, duplicate ISURE education entry, temporal-logic project, rankings, and deprecated skill wording; updated the Notre Dame, smart-home, wine, ball-robot, skills, and award text; moved Publications before Skills and placed the first-author wine paper before the IROS paper. Retained the website contact details, UCLA Math 156, RTX 3070 Ti, arXiv link, and no-retraining scope.
+- Validation: `make check` and Ruby syntax checks passed; content regressions verify required and removed CV text plus section and publication order; browser inspection found no horizontal overflow at 1280 px or 390 px and no console errors or warnings.
+- Risks / follow-ups: The ROBOCON award name follows the user-confirmed Word CV wording and can be revisited if the award certificate supplies a different official English title. Existing unrelated worktree changes remain unstaged. Production remains unchanged until an explicit push.
+- Commit: This entry is included in the website CV synchronization commit.
