@@ -55,3 +55,12 @@
 - Validation: `make check` passed; the task-scoped diff check passed; the rendered page uses an H1-to-H2 hierarchy, has no horizontal overflow at 390 px, and exposes descriptive alt text for all seven gallery images. The repository-wide diff check still reports a pre-existing trailing blank line in the unrelated dirty file `format_images.py`.
 - Risks / follow-ups: The existing HEVC MOV remains incompatible with the tested browser and is intentionally deferred to a separate media-optimization task; the exact servo-driver model remains omitted because the report's BOM conflicts with its design and manufacturing sections.
 - Commit: This entry is included in the climbing hand-exoskeleton page commit.
+
+### 2026-08-26 12:33 | Standardize Portfolio cover layout
+- Goal: Give every Portfolio listing cover the same centered dimensions while keeping diagrams, CAD renders, landscape photos, and portrait photos fully visible.
+- Changed files: `_pages/portfolio.html`, `_sass/layout/_archive.scss`, `iteration.md`.
+- Commands: `make check`; `make serve`; `git diff --check -- _pages/portfolio.html _sass/layout/_archive.scss`; local browser inspection at desktop and 390 px widths; cover-lightbox interaction check; Publication and project-gallery scope checks.
+- Outputs: Added a Portfolio-only style scope and standardized all seven visible cover frames to a centered 4:3 layout with contained, non-cropped images, consistent spacing, a subtle neutral background, and no float-based positioning.
+- Validation: `make check` passed; all seven frames measured 756 x 567 px in the 1280 px desktop preview and 343 x 257 px at 390 px, with identical horizontal positions, `object-fit: contain`, and no horizontal overflow. The lightbox opened and closed successfully; Publication markup and the existing project Gallery styles remained outside the new scope. The task-scoped diff check passed; the repository-wide diff check still reports the pre-existing trailing blank line in the unrelated dirty file `format_images.py`.
+- Risks / follow-ups: Portrait and extra-wide source images intentionally show balanced internal whitespace instead of being cropped; the user will review this first production layout before any optional visual-density tuning.
+- Commit: This entry is included in the Portfolio cover-layout commit.
