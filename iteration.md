@@ -109,3 +109,12 @@
 - Validation: `make check` passed after the concurrent Smart Home assertions were synchronized; generated HTML reported bullet counts of `3, 3, 3, 3`; browser inspection found no horizontal overflow and no console errors or warnings at either tested width.
 - Risks / follow-ups: Concurrent Smart Home edits in `_pages/cv.md` and `scripts/check_site_content.rb` belong to another task and are excluded from this commit. Production remains unchanged until an explicit push.
 - Commit: This entry is included in the CV research-bullet structure commit.
+
+### 2026-08-26 15:54 | Rewrite embedded smart-home terminal project page
+- Goal: Reconcile the Smart Home project with the original presentation and user-confirmed facts, then reorganize the page so each technical figure appears beside the subsystem it explains.
+- Changed files: `_portfolio/2024-09-10-smart-home-terminal.html`, `_pages/about.md`, `_pages/cv.md`, `scripts/check_site_content.rb`, `iteration.md`.
+- Commands: `make check`; task-scoped `git diff --check`; local Jekyll preview; desktop and 390 px browser inspection; gallery image-load and video-metadata checks.
+- Outputs: Corrected the validation accuracy to 89.1% across seven classes; removed unsupported power, latency, packet-loss, production-readiness, four-layer PCB, firmware-stack, and placeholder-link claims; separated OneNET device control from iFLYTEK Spark dialogue; corrected hardware names; added the author's contribution; and distributed all eight images across architecture, recognition, cloud, and hardware sections. The vertical demo video is now centered with a bounded width and poster.
+- Validation: `make check` passed with Smart Home regression coverage; all eight project images loaded with descriptive alt text; the page had no horizontal overflow at 1440 px or 390 px; the video reported valid 544 x 960 metadata with no media error and rendered at 360 px wide on desktop and 343 px on mobile. The task-scoped diff check passed; the repository-wide diff check still reports the pre-existing trailing blank line in the unrelated dirty file `format_images.py`.
+- Risks / follow-ups: The 19 MB H.264/AAC demo remains intentionally uncompressed; a later media-specific task may reduce its mobile transfer size without changing the content. Concurrent CV bullet-formatting work remains separately owned and preserved.
+- Commit: This entry is included in the embedded smart-home project-page commit.

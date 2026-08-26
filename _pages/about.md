@@ -49,9 +49,9 @@ Advisor: Prof. Chunyang Liao<br>
 Advisor: Prof. Jingcheng Lei  
 • Developed a 448 g glove with passive ratchet locking and series-elastic actuation; locks within 0.18 s and holds 16 N without slip on a 75° climbing rig.
 
-**Embedded Smart Home Terminal Based on Lightweight Machine Learning** — SCUT (Sep 2024 – Jan 2025)  
+**Embedded Smart Home Terminal Based on Lightweight Machine Learning** — SCUT (Sep 2024 – Dec 2024)<br>
 Advisor: Prof. Zhicong Huang  
-• Developed an embedded smart home terminal to enable voice-controlled interactions. Collected voice data and performed MFCC feature extraction. Trained and deployed a lightweight neural network on an embedded chip to achieve low-power offline speech recognition. Enabled seamless smart-home orchestration through integrating device control via OneNet and connecting the Xinghuo LLM backend for context-aware dialogues.
+• Led project planning and team coordination; collected and processed speech data; implemented MFCC feature processing and neural-network training; and contributed to ESP32 firmware, system integration, and testing. The prototype achieved 89.1% validation accuracy across seven local command classes, connected device control to OneNET over MQTT, and used the iFLYTEK Spark LLM for dialogue and weather and time queries.
 
 **Remote-Controlled Multifunctional Ball Picking and Placing Robot** — SCUT (Feb 2024 – Jul 2024)  
 Advisor: Prof. Yingjie Zhang  

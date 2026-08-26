@@ -1,97 +1,121 @@
 ---
 title: "Embedded Smart Home Terminal Based on Lightweight Machine Learning"
-excerpt: "Offline MFCC + 120-k-parameter CNN deployed on ARM Cortex-M for always-on voice control with seamless IoT integration and LLM backend for context-aware dialogues."
+excerpt: "A team-built embedded smart-home prototype combining seven-class on-device command recognition, OneNET/MQTT device control, and iFLYTEK Spark voice dialogue."
 image: /images/portfolio/smart-home/main.jpg
 header:
   teaser: /images/portfolio/smart-home/main.jpg
 collection: portfolio
 permalink: /portfolio/smart-home-terminal
-date: 2024-12-15
-period: "Sep 2024 – Jan 2025"
+date: 2024-12-13
+period: "Sep 2024 – Dec 2024"
 links:
   - label: Demo Video
     url: /images/portfolio/smart-home/video1.mp4
-  - label: GitHub (partial)
-    url: "#"
 projects:
   - Embedded AI
-gallery:
-  - image_path: portfolio/smart-home/02.png
-    alt: "Model-validation dashboard with training curves and a command-classification confusion matrix"
-    layout: full
-  - image_path: portfolio/smart-home/6.png
-    alt: "Hardware overview featuring the ESP32-Wroom, ESP32-C3, and TFT display modules"
-    layout: full
+architecture_gallery:
   - image_path: portfolio/smart-home/7.png
-    alt: "Smart-home terminal architecture from audio recognition to device control and large-language-model interactions"
+    alt: "System architecture separating local command recognition, OneNET device control, and iFLYTEK Spark voice dialogue"
     layout: full
-  - image_path: portfolio/smart-home/01.png
-    alt: "Assembled controller PCB with ESP32 modules, a TFT display, speaker, and peripheral connections"
-    fit: contain
-  - image_path: portfolio/smart-home/03.png
-    alt: "Smart-home control interface showing connected devices and room-status controls"
-    fit: contain
-  - image_path: portfolio/smart-home/04.png
-    alt: "TFT display presenting a Chinese-language voice-assistant response"
-    fit: contain
+recognition_gallery:
   - image_path: portfolio/smart-home/8.jpg
-    alt: "Audio pipeline from microphone capture and MFCC processing to neural-network command classification"
+    alt: "Audio pipeline from PCM capture and MFCC processing to neural-network command classification"
+    fit: contain
+  - image_path: portfolio/smart-home/02.png
+    alt: "Validation dashboard showing 89.1 percent accuracy, 0.41 loss, and a seven-class confusion matrix"
+    layout: full
+cloud_gallery:
+  - image_path: portfolio/smart-home/03.png
+    alt: "OneNET-connected smart-home interface for curtain, air-conditioner, and LED control"
     fit: contain
   - image_path: portfolio/smart-home/9.png
-    alt: "Speech and language-model response flow for text, LED, audio, and speaker outputs"
+    alt: "iFLYTEK Spark interaction flow from speech-to-text through language-model response and text or audio output"
+    fit: contain
+hardware_gallery:
+  - image_path: portfolio/smart-home/6.png
+    alt: "Prototype hardware including STM32F4-Discovery, ESP32-Wroom, ESP32-C3, TFT display, microphone, amplifier, and speaker"
+    layout: full
+  - image_path: portfolio/smart-home/01.png
+    alt: "ESP32-based audio-interface prototype with TFT display, microphone, amplifier, and speaker"
+    fit: contain
+  - image_path: portfolio/smart-home/04.png
+    alt: "TFT display presenting a Chinese-language response from the voice assistant"
     fit: contain
 ---
 
-<h3>Highlights</h3>
+<h2>Project Overview</h2>
+
+<p>This team project explored how local speech recognition, IoT connectivity, and a cloud-based language model could be combined in one embedded smart-home terminal. Developed under the supervision of Prof. Zhicong Huang at SCUT from September to December 2024, the prototype supported local command recognition, remote device control through OneNET, and voice-based information queries through iFLYTEK Spark.</p>
+
+<p>The system was organized as three cooperating subsystems rather than a single end-to-end cloud pipeline: an STM32F407 performed local command classification, an ESP32-C3 connected the device-control path to OneNET over MQTT, and an ESP32-Wroom supported the voice-dialogue path.</p>
+
+<h3>Key Outcomes</h3>
 
 <ul>
-<li>Collected an 8 h Mandarin voice dataset and extracted 13-dim MFCC features.</li>
-<li>Trained a 120 k-parameter CNN achieving 96.2 % on-device command accuracy.</li>
-<li>Integrated with OneNet IoT cloud and Xinghuo LLM for conversational control of lights, HVAC and curtains.</li>
-<li>Idle power just 28 mW enables &gt;3 months of battery-powered standby.</li>
+  <li>Implemented seven-class Chinese command recognition with <strong>89.1% validation accuracy</strong> and 0.41 validation loss.</li>
+  <li>Connected curtain, air-conditioner, and LED controls to OneNET through MQTT.</li>
+  <li>Integrated iFLYTEK Spark for voice dialogue and weather and time queries.</li>
+  <li>Completed an end-to-end prototype integrating embedded inference, networked control, visual feedback, and audio output.</li>
 </ul>
 
-{% include gallery %}
+<h2>System Architecture</h2>
 
-<h3>Demo Video</h3>
+<p>The architecture deliberately separated latency-sensitive local commands from cloud-connected functions. Device commands were classified on the embedded platform before being routed to the OneNET control path, while open-ended speech requests entered a separate speech-to-text and language-model pipeline.</p>
 
-<video controls width="100%" style="max-width: 800px; margin: 20px 0;">
+{% include gallery id="architecture_gallery" caption="The three-part architecture: local command recognition on STM32F407, OneNET device control through ESP32-C3, and iFLYTEK Spark dialogue through ESP32-Wroom." %}
+
+<h2>On-Device Command Recognition</h2>
+
+<p>Microphone audio was captured as PCM data and transferred to the STM32F407 for preprocessing, MFCC feature extraction, and 2D neural-network classification. The model distinguished seven Chinese command classes: turning the light, air conditioner, and curtain on or off, plus entering the chat mode.</p>
+
+<p>The recorded validation result was <strong>89.1% accuracy</strong> with a loss of 0.41. The confusion matrix documents class-specific performance and the remaining error modes, keeping the reported result scoped to the validation set.</p>
+
+{% include gallery id="recognition_gallery" caption="Local recognition pipeline and the final seven-class validation result." %}
+
+<h2>Cloud-Connected Functions</h2>
+
+<h3>OneNET Device Control</h3>
+
+<p>The ESP32-C3 used Wi-Fi AT firmware to connect the embedded controller to OneNET over MQTT. A demonstration interface built with HBuilderX displayed device state and issued control commands for the curtain, air conditioner, and LED.</p>
+
+<h3>iFLYTEK Spark Voice Dialogue</h3>
+
+<p>The language-model subsystem handled conversational interaction and information requests such as weather and time queries. Speech was transcribed through an STT service, sent to iFLYTEK Spark, and returned as text on the TFT display or audio through the speaker. This subsystem did <strong>not</strong> generate device-control commands.</p>
+
+{% include gallery id="cloud_gallery" caption="The OneNET control interface and the separate iFLYTEK Spark dialogue pipeline." %}
+
+<h2>Hardware Prototype</h2>
+
+<p>The prototype combined an STM32F4-Discovery board, ESP32-Wroom and ESP32-C3 modules, a 1.8-inch ST7735S TFT display, an INMP441 digital microphone, a MAX98357 I2S audio amplifier, and a speaker. These development boards and peripheral modules supported local recognition, cloud connectivity, and text and audio feedback within one integrated demonstration.</p>
+
+{% include gallery id="hardware_gallery" caption="Development hardware, the ESP32-based audio interface, and TFT response output used in the working prototype." %}
+
+<h2>My Contribution</h2>
+
+<ul>
+  <li>Led project planning, task coordination, and team-wide integration.</li>
+  <li>Collected and processed the speech data used by the command-recognition pipeline.</li>
+  <li>Implemented MFCC feature processing and trained and evaluated the neural network.</li>
+  <li>Contributed to ESP32 firmware development.</li>
+  <li>Contributed to system integration and prototype testing.</li>
+</ul>
+
+<h2>Results and Scope</h2>
+
+<p>The final demonstration connected the complete interaction chain: local recognition of seven device and chat commands, OneNET-based control of demonstrated smart-home devices, and iFLYTEK Spark responses displayed on the TFT or played through the speaker. The result should be understood as a functional team prototype. The project did not include validated measurements of power consumption or long-duration network reliability, so these remain future evaluation goals.</p>
+
+<h2>Demo Video</h2>
+
+<video controls preload="metadata" playsinline poster="/images/portfolio/smart-home/main.jpg" style="display: block; width: min(100%, 360px); height: auto; max-height: 640px; object-fit: contain; margin: 1.25rem auto; background: #000;">
   <source src="/images/portfolio/smart-home/video1.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
-<h3>Project Overview</h3>
-
-<p>This project focuses on developing an embedded smart home terminal to enable voice-controlled interactions while researching how to deploy lightweight machine learning models on constrained devices with limited processing power and memory. The system addresses critical challenges in smart home automation: privacy concerns with cloud-based solutions, latency issues in real-time control, and power consumption constraints for always-on devices.</p>
-
-<p>Under the supervision of Prof. Zhicong Huang at SCUT (Sep 2024 – Jan 2025), I developed a complete end-to-end pipeline from voice data collection to on-device inference, achieving production-ready performance with minimal computational overhead. The system enables seamless smart-home orchestration through integrating device control via OneNet and connecting the Xinghuo LLM backend for context-aware dialogues.</p>
-
-<h3>Lightweight Audio-Interactive Smart-Home Hub (Embedded TinyML Gateway)</h3>
-
-<hr>
-
-<h4>Key Features</h4>
+<h2>Future Directions</h2>
 
 <ul>
-<li><strong>Dual-processor architecture:</strong> STM32F4-Discovery runs a 6-layer CNN for on-device speech recognition while an ESP32-C3 Wi-Fi coprocessor handles MQTT telemetry to the OneNET cloud; an ESP32-Wroom module provides optional Bluetooth provisioning.</li>
-<li><strong>Integrated I/O stack:</strong> IMP441 digital mic, class-D amplifier, full-range speaker and 2.0-inch TFT display deliver always-on voice capture, feedback tones and GUI status.</li>
-<li><strong>Custom 4-layer PCB:</strong> separates TinyML inference, power regulation and RF stages; KiCad-designed board includes expansion header for additional environmental sensors.</li>
-<li><strong>Edge-first privacy &amp; latency:</strong> all wake-word spotting (&lt;50 ms window) and intent parsing executed locally; only high-level state changes published to the cloud, eliminating raw-audio exposure.</li>
-<li><strong>Modular software:</strong> CMSIS-NN optimised model (&lt;20 kB weights) plus FreeRTOS task scheduler; OTA update pipeline permits hot-swapping new models or firmware over Wi-Fi.</li>
-</ul>
-
-<h4>Performance</h4>
-
-<ul>
-<li>Reliable recognition of 10 Mandarin/English wake-words and sub-200 ms command-to-actuation latency while controlling simulated lights, fans and thermostat dashboards through OneNET.</li>
-<li>Continuous listening current &lt;45 mA (3.3 V) on the STM32, enabling coin-cell battery life for remote nodes.</li>
-<li>Stable Wi-Fi connectivity through 24-hour soak tests with zero packet loss in congested 2.4 GHz environment.</li>
-</ul>
-
-<h4>Future Work</h4>
-
-<ul>
-<li>Replace IMP441 with MEMS mic-array and beam-forming DSP for far-field (&gt;3 m) capture.</li>
-<li>Expand command set via multi-label classification and incremental learning on-device.</li>
-<li>Integrate Zigbee/Thread radios for hub-less local mesh control; migrate cloud back-end from OneNET to open-source Home Assistant for wider community adoption.</li>
+  <li>Improve command-recognition accuracy across speakers and acoustic environments.</li>
+  <li>Measure and optimize system power consumption.</li>
+  <li>Expand compatibility with a wider range of smart-home devices.</li>
+  <li>Strengthen data-security and privacy protection across cloud-connected functions.</li>
 </ul>

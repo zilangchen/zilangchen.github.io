@@ -265,7 +265,7 @@ assert(!File.exist?(temporal_output), "hidden temporal-logic detail page was gen
 portfolio_periods = [
   "Jul 2025 – Sep 2025",
   "Feb 2025 – Jun 2025",
-  "Sep 2024 – Jan 2025",
+  "Sep 2024 – Dec 2024",
   "Jun 2024 – Aug 2024",
   "Feb 2024 – Jul 2024",
   "Dec 2022 – Jul 2023",
@@ -286,6 +286,59 @@ assert(angkor_portfolio.include?("July 5–8, 2023"),
        "verified RoboCon national-finals dates are missing")
 assert(deformation_portfolio.include?('href="https://arxiv.org/abs/2603.19543"'),
        "deformation project detail is missing its current public manuscript link")
+
+smart_home_required = [
+  "89.1% validation accuracy",
+  "seven Chinese command classes",
+  "OneNET Device Control",
+  "iFLYTEK Spark Voice Dialogue",
+  "weather and time queries",
+  "This subsystem did <strong>not</strong> generate device-control commands",
+  "1.8-inch ST7735S TFT display",
+  "INMP441 digital microphone",
+  "MAX98357 I2S audio amplifier",
+  "My Contribution",
+  "Led project planning, task coordination, and team-wide integration",
+  "Sep 2024 – Dec 2024",
+  'preload="metadata"',
+  'poster="/images/portfolio/smart-home/main.jpg"'
+]
+smart_home_required.each do |text|
+  assert(smart_home_portfolio.include?(text),
+         "corrected smart-home detail is missing: #{text}")
+end
+
+smart_home_forbidden = [
+  "96.2",
+  "8 h Mandarin",
+  "13-dim MFCC",
+  "120 k-parameter",
+  "28 mW",
+  "45 mA",
+  "10 Mandarin/English",
+  "4-layer PCB",
+  "KiCad",
+  "CMSIS-NN",
+  "FreeRTOS",
+  "OTA update",
+  "24-hour soak tests",
+  "achieving production-ready performance",
+  "GitHub (partial)"
+]
+smart_home_forbidden.each do |text|
+  assert(!smart_home_portfolio.include?(text),
+         "unsupported smart-home claim remains: #{text}")
+end
+assert(!smart_home_portfolio.include?('href="#"'),
+       "smart-home detail still contains a placeholder link")
+
+smart_home_synced_pages = [home, cv, smart_home_portfolio]
+assert(smart_home_synced_pages.all? { |html| html.include?("Sep 2024 – Dec 2024") },
+       "smart-home project period is not synchronized")
+assert(smart_home_synced_pages.all? { |html| html.include?("89.1%") },
+       "smart-home validation accuracy is not synchronized")
+assert(smart_home_synced_pages.all? { |html| html.include?("seven") },
+       "smart-home seven-class scope is not synchronized")
 
 project_galleries = {
   "deformation reconstruction" => [deformation_portfolio, 5, 5],

@@ -35,12 +35,12 @@ Advisor: Prof. Tingyu Cheng
 - Iterated the 10 × 10 piezoresistive sensor matrix and integrated the team's GAT cage deformer with the separate inverse distance weighting step that propagates cage motion to 3D Gaussian primitives. Applied multiview rendering of key poses and RIFE temporal interpolation to strengthen the 4DGS supervision while reducing manual data capture. Co-designed and executed the acquisition protocol using a mechanical fixture, collected and performed quality control on all structured light scans and sensor measurements, implemented per-channel R/R0 normalization, supported pipeline orchestration, and conducted the evaluations.
 - The system achieved approximately 30 FPS in the coarse Gaussian setting and 5 FPS at high resolution on an RTX 3070 Ti, with a 3.48 mm mean full-body Chamfer distance, 0.67 IoU, 0.65 SSIM, and mean angular errors of 4.7° for bending and 4.9° for twisting. It demonstrated camera-free zero-shot reconstruction on two unseen soft robots without robot-specific retraining. The work was accepted to IEEE/RSJ IROS 2026; current public version: [arXiv:2603.19543](https://arxiv.org/abs/2603.19543).
 
-**Embedded Smart Home Terminal Based on Lightweight Machine Learning** — SCUT (Sep 2024 – Jan 2025)  
+**Embedded Smart Home Terminal Based on Lightweight Machine Learning** — SCUT (Sep 2024 – Dec 2024)<br>
 Advisor: Prof. Zhicong Huang  
 
-- Developed an embedded smart home terminal to enable voice-controlled interactions, and researched how to deploy lightweight machine learning models on constrained devices with limited processing power and memory.
-- Collected voice data and performed MFCC feature extraction. Trained and deployed a lightweight neural network on an embedded chip to achieve low-power offline speech recognition.
-- Enabled seamless smart-home orchestration with minimal compute and memory budgets by integrating device control via OneNET and connecting the iFLYTEK Spark LLM backend for context-aware dialogues.
+- Led project planning and team coordination for an embedded smart-home terminal.
+- Collected and processed speech data, implemented MFCC feature processing and neural-network training, and contributed to ESP32 firmware, system integration, and testing.
+- Achieved 89.1% validation accuracy across seven local command classes, connected curtain, air-conditioner, and LED control to OneNET over MQTT, and used the iFLYTEK Spark LLM for dialogue and weather and time queries.
 
 **A Unified, Leak-Free Comparative Study of Wine Quality** — UCLA (Jun 2024 – Aug 2024)  
 Advisor: Prof. Chunyang Liao  
