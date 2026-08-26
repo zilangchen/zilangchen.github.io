@@ -37,15 +37,24 @@ Advisor: Prof. Tingyu Cheng
 
 **Embedded Smart Home Terminal Based on Lightweight Machine Learning** — SCUT (Sep 2024 – Jan 2025)  
 Advisor: Prof. Zhicong Huang  
-Developed an embedded smart home terminal to enable voice-controlled interactions, and researched how to deploy lightweight machine learning models on constrained devices with limited processing power and memory. Collected voice data and performed MFCC feature extraction. Trained and deployed a lightweight neural network on an embedded chip to achieve low-power offline speech recognition. Enabled seamless smart-home orchestration with minimal compute and memory budgets by integrating device control via OneNET and connecting the iFLYTEK Spark LLM backend for context-aware dialogues.
+
+- Developed an embedded smart home terminal to enable voice-controlled interactions, and researched how to deploy lightweight machine learning models on constrained devices with limited processing power and memory.
+- Collected voice data and performed MFCC feature extraction. Trained and deployed a lightweight neural network on an embedded chip to achieve low-power offline speech recognition.
+- Enabled seamless smart-home orchestration with minimal compute and memory budgets by integrating device control via OneNET and connecting the iFLYTEK Spark LLM backend for context-aware dialogues.
 
 **A Unified, Leak-Free Comparative Study of Wine Quality** — UCLA (Jun 2024 – Aug 2024)  
 Advisor: Prof. Chunyang Liao  
-Investigated the relationship between wine components and quality. Employed stratified splitting, fold-wise preprocessing, SMOTE-Tomek, cost-sensitive learning, and Optuna hyperparameter search. Reported held-out performance with weighted-F1 and ablations for feature parsimony and efficiency. Built a unified, leakage-free machine-learning pipeline with strict train/validation/test separation and reproducible evaluation. The resulting paper was published in the ACM proceedings of IPMLP 2025 (pp. 162–170; DOI: 10.1145/3759928.3759955).
+
+- Investigated the relationship between wine components and quality. Employed stratified splitting, fold-wise preprocessing, SMOTE-Tomek, cost-sensitive learning, and Optuna hyperparameter search.
+- Reported held-out performance with weighted-F1 and ablations for feature parsimony and efficiency.
+- Built a unified, leakage-free machine-learning pipeline with strict train/validation/test separation and reproducible evaluation. The resulting paper was published in the ACM proceedings of IPMLP 2025 (pp. 162–170; DOI: 10.1145/3759928.3759955).
 
 **Remote-Controlled Multifunctional Ball Picking and Placing Robot** — SCUT (Feb 2024 – Jul 2024)  
 Advisor: Prof. Yingjie Zhang  
-Implemented real-time motion control, electrical system setup, and remote wireless control in designing a pick-and-place robot to complete the task of moving balls from the field to designated locations. Utilized kinematic analysis and Mecanum wheels to achieve robot omnidirectional movement. Developed embedded code to control the robot's servos and motors with PID and PWM techniques. Modeled and fabricated the robot using SolidWorks and 3D printing for rapid iteration. Validated precise grasp-transport-drop cycles in testing where the robot demonstrated stable trajectory tracking and fast repositioning under changing target layouts.
+
+- Implemented real-time motion control, electrical system setup, and remote wireless control in designing a pick-and-place robot to complete the task of moving balls from the field to designated locations.
+- Utilized kinematic analysis and Mecanum wheels to achieve robot omnidirectional movement. Developed embedded code to control the robot's servos and motors with PID and PWM techniques. Modeled and fabricated the robot using SolidWorks and 3D printing for rapid iteration.
+- Validated precise grasp-transport-drop cycles in testing where the robot demonstrated stable trajectory tracking and fast repositioning under changing target layouts.
 
 ## Publications
 

@@ -92,6 +92,26 @@ cv_forbidden.each do |text|
   assert(!cv.include?(text), "removed or superseded CV detail remains: #{text}")
 end
 
+cv_research_section = cv[/<h2 id="research-experience">.*?(?=<h2 id="publications">)/m]
+assert(cv_research_section, "CV Research Experience section could not be extracted")
+cv_research_projects = [
+  "Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling",
+  "Embedded Smart Home Terminal Based on Lightweight Machine Learning",
+  "A Unified, Leak-Free Comparative Study of Wine Quality",
+  "Remote-Controlled Multifunctional Ball Picking and Placing Robot"
+]
+cv_research_positions = cv_research_projects.map { |title| cv_research_section.index(title) }
+assert(cv_research_positions.all?, "one or more CV research projects are missing")
+assert(cv_research_positions == cv_research_positions.sort,
+       "CV research projects are not in the expected order")
+cv_research_positions.each_with_index do |start_position, index|
+  end_position = cv_research_positions[index + 1] || cv_research_section.length
+  project_html = cv_research_section[start_position...end_position]
+  bullet_count = project_html.scan(/<li>/).length
+  assert(bullet_count == 3,
+         "CV research project does not contain exactly 3 bullet points: #{cv_research_projects[index]}")
+end
+
 cv_publication_heading = cv.index('<h2 id="publications">')
 cv_skills_heading = cv.index('<h2 id="skills">')
 assert(cv_publication_heading && cv_skills_heading,

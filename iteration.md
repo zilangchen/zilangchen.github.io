@@ -100,3 +100,12 @@
 - Validation: `make check` and Ruby syntax checks passed; content regressions verify required and removed CV text plus section and publication order; browser inspection found no horizontal overflow at 1280 px or 390 px and no console errors or warnings.
 - Risks / follow-ups: The ROBOCON award name follows the user-confirmed Word CV wording and can be revisited if the award certificate supplies a different official English title. Existing unrelated worktree changes remain unstaged. Production remains unchanged until an explicit push.
 - Commit: This entry is included in the website CV synchronization commit.
+
+### 2026-08-26 15:52 | Restore bullet structure in CV research projects
+- Goal: Make every Research Experience entry use the same readable three-bullet structure instead of rendering several projects as uninterrupted paragraphs.
+- Changed files: `_pages/cv.md`, `scripts/check_site_content.rb`, `iteration.md`.
+- Commands: `make check`; `ruby -c scripts/check_site_content.rb`; task-scoped `git diff --check`; generated-CV bullet-count check; local desktop and 390 px browser inspection.
+- Outputs: Split the Smart Home, wine-quality, and ball-robot descriptions into three bullets each. The concurrent Smart Home factual rewrite remains preserved in the worktree but outside this commit. Added a project-by-project regression requiring exactly three bullets for all four Research Experience entries.
+- Validation: `make check` passed after the concurrent Smart Home assertions were synchronized; generated HTML reported bullet counts of `3, 3, 3, 3`; browser inspection found no horizontal overflow and no console errors or warnings at either tested width.
+- Risks / follow-ups: Concurrent Smart Home edits in `_pages/cv.md` and `scripts/check_site_content.rb` belong to another task and are excluded from this commit. Production remains unchanged until an explicit push.
+- Commit: This entry is included in the CV research-bullet structure commit.
