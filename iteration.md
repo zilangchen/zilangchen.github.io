@@ -64,3 +64,12 @@
 - Validation: `make check` passed; all seven frames measured 756 x 567 px in the 1280 px desktop preview and 343 x 257 px at 390 px, with identical horizontal positions, `object-fit: contain`, and no horizontal overflow. The lightbox opened and closed successfully; Publication markup and the existing project Gallery styles remained outside the new scope. The task-scoped diff check passed; the repository-wide diff check still reports the pre-existing trailing blank line in the unrelated dirty file `format_images.py`.
 - Risks / follow-ups: Portrait and extra-wide source images intentionally show balanced internal whitespace instead of being cropped; the user will review this first production layout before any optional visual-density tuning.
 - Commit: This entry is included in the Portfolio cover-layout commit.
+
+### 2026-08-26 12:38 | Version the main stylesheet URL
+- Goal: Prevent an already-open browser from retaining the previous Portfolio CSS for GitHub Pages' ten-minute cache window after a deployment.
+- Changed files: `_includes/head.html`, `iteration.md`.
+- Commands: production CSS header and content checks; `make check`; generated HTML inspection; `git diff --check -- _includes/head.html iteration.md`.
+- Outputs: Added the GitHub Pages build revision to the main stylesheet URL, with a local-build timestamp fallback, so each deployment requests its own immutable CSS URL without changing the stylesheet itself.
+- Validation: The production CSS contained the new Portfolio rules, while the initial browser review still held the old unversioned CSS; the revisioned build must render a non-empty `main.css?v=<revision>` URL and will be rechecked after deployment.
+- Risks / follow-ups: GitHub Pages supplies the deployed commit SHA through `jekyll-github-metadata`; local builds use `site.time` so the query value is never empty. No user data, credentials, or external dependency is introduced.
+- Commit: This entry is included in the stylesheet cache-versioning commit.
