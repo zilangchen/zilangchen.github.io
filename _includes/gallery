@@ -7,11 +7,13 @@
 {% endif %}
 
 {% comment %}
-  Force half layout for all galleries (2 images per row)
+  Use a two-column gallery by default. Individual images can opt into a
+  full-width row with `layout: full` or preserve their complete frame with
+  `fit: contain` in the page front matter.
 {% endcomment %}
 {% assign gallery_layout = 'half' %}
 
-<figure class="{{ gallery_layout }} {{ include.class }}">
+<figure class="project-gallery {{ gallery_layout }} {{ include.class }}">
   {% for img in gallery %}
     {% capture img_url %}
       {% if img.image_path contains "://" %}
@@ -22,7 +24,7 @@
     {% endcapture %}
     
     {% if img.url %}
-      <a href=
+      <a class="gallery-item{% if img.layout == 'full' %} gallery-item--full{% endif %}" href=
         {% if img.url contains "://" %}
           "{{ img.url }}"
         {% else %}
@@ -30,11 +32,11 @@
         {% endif %}
         {% if img.title %}title="{{ img.title }}"{% endif %}
       >
-        <img src="{{ img_url | strip }}" alt="{% if img.alt %}{{ img.alt }}{% endif %}" class="gallery-image">
+        <img src="{{ img_url | strip }}" alt="{{ img.alt | default: page.title }}" class="gallery-image{% if img.fit == 'contain' or img.layout == 'full' %} gallery-image--contain{% endif %}" loading="lazy" decoding="async">
       </a>
     {% else %}
-      <a href="{{ img_url | strip }}" data-lightbox="gallery" {% if img.title %}data-title="{{ img.title }}"{% endif %}>
-        <img src="{{ img_url | strip }}" alt="{% if img.alt %}{{ img.alt }}{% endif %}" class="gallery-image">
+      <a class="gallery-item{% if img.layout == 'full' %} gallery-item--full{% endif %}" href="{{ img_url | strip }}" data-lightbox="gallery" {% if img.title %}data-title="{{ img.title }}"{% endif %}>
+        <img src="{{ img_url | strip }}" alt="{{ img.alt | default: page.title }}" class="gallery-image{% if img.fit == 'contain' or img.layout == 'full' %} gallery-image--contain{% endif %}" loading="lazy" decoding="async">
       </a>
     {% endif %}
   {% endfor %}

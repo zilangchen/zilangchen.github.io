@@ -26,8 +26,12 @@ publications = read_built("publications/index.html")
 deformation_publication = read_built("publication/2026-05-31-deformation-reconstruction.html")
 wine_publication = read_built("publication/2025-06-15-wine-quality-ensemble.html")
 deformation_portfolio = read_built("portfolio/deformation-reconstruction.html")
+exo_portfolio = read_built("portfolio/climbing-hand-exo.html")
+smart_home_portfolio = read_built("portfolio/smart-home-terminal.html")
 wine_portfolio = read_built("portfolio/wine-quality-analysis.html")
+ball_robot_portfolio = read_built("portfolio/ball-picking-robot.html")
 angkor_portfolio = read_built("portfolio/angkor-bloom.html")
+water_robot_portfolio = read_built("portfolio/water-surface-robot.html")
 
 profile_pages = [home, cv, publications]
 assert(profile_pages.all? { |html| html.include?("University of Pennsylvania") },
@@ -203,6 +207,44 @@ assert(angkor_portfolio.include?("July 5–8, 2023"),
        "verified RoboCon national-finals dates are missing")
 assert(deformation_portfolio.include?('href="https://arxiv.org/abs/2603.19543"'),
        "deformation project detail is missing its current public manuscript link")
+
+project_galleries = {
+  "deformation reconstruction" => [deformation_portfolio, 5, 5],
+  "hand exoskeleton" => [exo_portfolio, 2, 2],
+  "smart-home terminal" => [smart_home_portfolio, 3, 8],
+  "wine-quality analysis" => [wine_portfolio, 7, 7],
+  "ball-picking robot" => [ball_robot_portfolio, 1, 2],
+  "RoboCon Angkor Bloom" => [angkor_portfolio, 0, 0],
+  "water-surface robot" => [water_robot_portfolio, 3, 4]
+}
+
+gallery_images = []
+project_galleries.each do |name, (html, expected_full, expected_contain)|
+  image_tags = html.scan(/<img\b[^>]*>/).select do |tag|
+    tag.match?(/\bclass="[^"]*\bgallery-image\b/)
+  end
+  gallery_images.concat(image_tags)
+
+  full_count = html.scan("gallery-item--full").length
+  contain_count = html.scan("gallery-image--contain").length
+  assert(full_count == expected_full,
+         "#{name} gallery expected #{expected_full} full-width images, found #{full_count}")
+  assert(contain_count == expected_contain,
+         "#{name} gallery expected #{expected_contain} contained images, found #{contain_count}")
+end
+
+assert(gallery_images.length == 49,
+       "expected 49 visible project-gallery images, found #{gallery_images.length}")
+gallery_images.each_with_index do |tag, index|
+  alt_text = tag[/\balt="([^"]*)"/, 1]
+  assert(alt_text && !alt_text.strip.empty?,
+         "gallery image #{index + 1} has missing or empty alt text")
+  assert(tag.include?('loading="lazy"'),
+         "gallery image #{index + 1} does not use lazy loading")
+  assert(tag.include?('decoding="async"'),
+         "gallery image #{index + 1} does not use asynchronous decoding")
+end
+
 main_css = read_built("assets/css/main.css")
 assert(main_css.include?(".lightbox-overlay{display:none"),
        "lightbox overlay is not hidden by default")
@@ -210,6 +252,12 @@ assert(main_css.include?(".lightbox-overlay.active{display:flex"),
        "active lightbox overlay styling is missing")
 assert(!main_css.include?("figure .lightbox-overlay"),
        "lightbox overlay styling is incorrectly scoped under figure")
+assert(main_css.include?(".project-gallery.half>.gallery-item--full{width:100%}"),
+       "full-width project-gallery styling is missing")
+assert(main_css.include?(".project-gallery .gallery-image--contain{object-fit:contain"),
+       "contained project-gallery styling is missing")
+assert(main_css.include?('.page__content mjx-container[display="true"]{display:block;max-width:100%;overflow-x:auto'),
+       "narrow-screen display-math overflow protection is missing")
 
 cv_publications = cv.scan(/<article class="archive__item"/).length
 assert(cv_publications == 2,

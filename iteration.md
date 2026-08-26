@@ -73,3 +73,12 @@
 - Validation: The production CSS contained the new Portfolio rules, while the initial browser review still held the old unversioned CSS; the revisioned build must render a non-empty `main.css?v=<revision>` URL and will be rechecked after deployment.
 - Risks / follow-ups: GitHub Pages supplies the deployed commit SHA through `jekyll-github-metadata`; local builds use `site.time` so the query value is never empty. No user data, credentials, or external dependency is introduced.
 - Commit: This entry is included in the stylesheet cache-versioning commit.
+
+### 2026-08-26 13:14 | Improve project-gallery readability and responsiveness
+- Goal: Review all seven visible project galleries and preserve technical figures, diagrams, and portrait media without disruptive cropping while retaining an orderly photo layout.
+- Changed files: `_includes/gallery`, `_sass/layout/_base.scss`, seven visible `_portfolio/` records, `scripts/check_site_content.rb`, and `iteration.md`.
+- Commands: `make check`; `make serve`; task-scoped `git diff --check`; desktop and 390 px browser inspection of all seven project pages; Zero-Shot lightbox interaction check.
+- Outputs: Added per-image full-width and contained-display options, applied full-width natural-ratio rendering to 21 technical figures, used contained rendering for 28 images, centered incomplete rows, added meaningful alt text to all 49 visible gallery images, and enabled lazy asynchronous image loading. A mobile equation-overflow guard was added after the Zero-Shot page review exposed a narrow-screen overflow.
+- Validation: `make check` passed with all Gallery regressions; every project page rendered the expected image count with zero broken images and zero horizontal overflow at desktop and 390 px; Gallery items were centered; the Zero-Shot lightbox opened the selected high-resolution figure and restored body scrolling when closed.
+- Risks / follow-ups: A concurrent, broader rewrite of the Zero-Shot project body appeared during this task and is intentionally preserved outside this Gallery commit; pre-existing unrelated dirty files also remain unstaged.
+- Commit: This entry is included in the project-gallery refinement commit.

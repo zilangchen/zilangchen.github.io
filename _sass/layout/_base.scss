@@ -267,6 +267,41 @@ figure {
       height: 350px;
     }
   }
+
+  &.project-gallery {
+    justify-content: center;
+    column-gap: 1em;
+    row-gap: 0;
+
+    &.half > .gallery-item--full {
+      width: 100%;
+    }
+
+    .gallery-image--contain {
+      object-fit: contain;
+      background: rgba(127, 127, 127, 0.06);
+      border: 1px solid var(--global-border-color);
+      box-sizing: border-box;
+
+      &:hover {
+        transform: none;
+      }
+    }
+
+    .gallery-item--full .gallery-image {
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+    }
+  }
+}
+
+/* Keep long display equations inside the content column on narrow screens. */
+.page__content mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 /* Lightbox overlay for gallery and portfolio images */
