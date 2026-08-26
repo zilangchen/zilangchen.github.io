@@ -33,88 +33,213 @@ gallery:
     layout: full
 ---
 
-<h3>Highlights</h3>
+<h2>Project Overview</h2>
 
-<ul>
-<li>Developed a camera-free, zero-shot deformation reconstruction framework for soft robots using flexible piezoresistive sensing and cage-based 3D Gaussian modeling.</li>
-<li>Designed and produced a flexible 10×10 piezoresistive sensor array (3×3 cm) that conforms to soft robot surfaces.</li>
-<li>Implemented a GAT-based cage deformer with inverse-distance-weighted propagation to dense Gaussian primitives.</li>
-<li>Achieved average full-body results of 0.67 IoU, 0.65 SSIM, and 3.48 mm Chamfer distance on unseen soft robots.</li>
-<li>Demonstrated zero-shot camera-free reconstruction without robot-specific retraining. Paper accepted to IEEE/RSJ IROS 2026.</li>
-</ul>
+<p>I completed this project during the ISURE Summer Research Program at the University of Notre Dame. I worked closely with Linrui Shou and the broader research team under the supervision of Prof. Tingyu Cheng.</p>
+
+<p>The goal was to reconstruct deformation across the entire body of a soft robot using measurements from a small tactile sensor. The model was trained on a compliant fabric substrate and later evaluated on two pneumatic soft robots that were not included in the training data.</p>
+
+<p>During deployment, a 10 × 10 resistance matrix drives a deformation cage that controls a dense 3D Gaussian representation. Each test robot is initialized from an undeformed geometry model, such as its fabrication STL file. The system does not require camera input, a new deformation dataset, or additional training for that robot.</p>
+
+<p>This approach is intended for situations in which continuous camera observation is difficult, including environments with occlusion, poor lighting, or limited space.</p>
 
 {% include gallery %}
 
-<h3>Demo Video</h3>
+<h2>Technical Pipeline and Algorithm</h2>
 
-<p><strong>Note:</strong> The demo video file is too large to host directly on GitHub Pages. Please download it from the repository or contact for access.</p>
+<p>The following section describes the method developed by the research team as a whole. My individual responsibilities are described separately in the <strong>My Contributions</strong> section.</p>
 
-<h3>Project Overview</h3>
+<h3>Creating the Training Supervision</h3>
 
-<p>During the ISURE Summer Research Program at University of Notre Dame (Jul 2025 – Sep 2025), I worked with Prof. Tingyu Cheng to develop a unified camera-free deformation sensing and rendering system for soft robotics. This project addresses the critical need for accurate 3D reconstruction in dark, confined, or privacy-sensitive environments where traditional camera-based approaches fail.</p>
+<p>The model was trained on a 10 × 10 cm compliant fabric substrate with a 3 × 3 cm tactile sensor attached to its central region. A mechanical fixture produced repeatable bending and twisting configurations while keeping each selected pose fixed.</p>
 
-<h3>Technical Approach</h3>
+<p>For each deformation type, 20 representative poses were captured with a structured light scanner. Each reconstructed shape was then rendered from 100 fixed virtual viewpoints in Blender. The camera parameters remained consistent across poses so that the rendered images shared the same spatial reference.</p>
 
-<h4>Sensor Design & Manufacturing</h4>
+<p>Because 4D Gaussian Splatting requires a continuous image sequence rather than a small set of isolated poses, RIFE was used to generate 8 to 16 intermediate frames between neighboring poses. This produced approximately 160 time steps for each virtual view and about 16,000 rendered images for each type of motion.</p>
 
-<ul>
-<li><strong>Flexible Sensor Array</strong>: Designed and produced a 10×10 piezoresistive sensor array (3×3 cm) that provides sparse pressure-induced resistance readings on the object's surface in real time. The array conforms to soft robot surfaces.</li>
-<li><strong>Sensor Integration</strong>: Attached the flexible patch to a selected surface region, where it captures tactile signals during bending and twisting.</li>
-</ul>
+<p>The rendered sequences and camera parameters were then processed with 4DGS. The result was a dense set of Gaussian primitives whose centers remained temporally corresponding as the object changed shape. These Gaussian trajectories provided the geometric supervision used to train the tactile deformation model.</p>
 
-<h4>Canonical 3D Gaussian Representation</h4>
+<p>Scanning, Blender rendering, RIFE, and 4DGS were only used to construct the training supervision. They were not required during deployment.</p>
 
-<ul>
-<li><strong>Static Geometry Proxy</strong>: Initialized each undeformed object from a nominal geometric proxy, such as its fabrication STL file.</li>
-<li><strong>Gaussian Representation</strong>: Converted the canonical geometry into dense Gaussian primitives for real-time deformation and photorealistic rendering.</li>
-<li><strong>Zero-shot Deployment</strong>: Reused the trained tactile-to-cage mapping on unseen soft robots without collecting robot-specific deformation data or fine-tuning the model.</li>
-</ul>
+<h3>Processing the Tactile Measurements</h3>
 
-<h4>Cage-based Deformation Framework</h4>
+<p>The tactile patch contained a 10 × 10 grid of electrodes, a Velostat piezoresistive layer, and TPU encapsulation. The electronics scanned the 100 sensing channels and generated one resistance matrix for each sensor frame.</p>
 
-<ul>
-<li><strong>Graph Attention Network</strong>: Predicted low-dimensional displacements of sparse cage-control nodes from encoded tactile measurements.</li>
-<li><strong>Inverse-Distance-Weighted Propagation</strong>: Propagated cage motion to dense Gaussian primitives while preserving global geometric continuity.</li>
-<li><strong>Boundary-aware Control</strong>: Coupled the sensed region to neighboring geometry to reduce discontinuities outside the sensor footprint.</li>
-</ul>
+<p>Raw voltage measurements were first converted into resistance values. Each channel was then normalized by dividing its measured resistance <em>R</em> by its resting resistance <em>R</em><sub>0</sub>:</p>
 
-<h3>Performance Results</h3>
+\[
+R_{\mathrm{normalized}}=\frac{R}{R_0}.
+\]
 
-<ul>
-<li><strong>Full-body Reconstruction</strong>: Averaged 0.67 IoU, 0.65 SSIM, and 3.48 mm Chamfer distance across unseen bending and twisting soft robots.</li>
-<li><strong>Angular Accuracy</strong>: Averaged 4.7° error for bending and 4.9° for twisting.</li>
-<li><strong>Runtime</strong>: Reached approximately 30 FPS with the coarse Gaussian setting and 5 FPS at high resolution on a single RTX 3070 Ti.</li>
-<li><strong>Additional Demonstration</strong>: Reconstructed pressure-induced deformation on a wallet as a qualitative proof of concept.</li>
-</ul>
+<p>A low pass IIR filter reduced temporal noise, while a 3 × 3 median filter reduced isolated spatial noise in the resistance matrix.</p>
 
-<h3>Key Innovations</h3>
+<p>A lightweight convolutional encoder converted the normalized 10 × 10 matrix into a compact tactile feature. The model also received a six band sinusoidal encoding of normalized time. This encoding indicated the current position within the deformation sequence. It was not a camera signal; it provided temporal context that helped the network distinguish sensor patterns occurring at different stages of bending or twisting.</p>
 
-<ol>
-<li><strong>Sparse-to-Dense Mapping</strong>: Mapped local tactile observations to object-wide deformation through a compact, structured cage representation.</li>
-<li><strong>Efficient Architecture</strong>: The cage-based strategy decouples low-dimensional control from high-resolution representation, enabling efficient inference and scalability.</li>
-<li><strong>Unified Pipeline</strong>: Created a complete end-to-end pipeline from sensor design to real-time rendering, demonstrating practical applicability for soft robotics.</li>
-</ol>
+<p>The tactile feature and temporal encoding were concatenated before being passed to the deformation network.</p>
 
-<h3>Applications</h3>
+<h3>Representing Deformation with a Control Cage</h3>
 
-<p>This camera-free deformation reconstruction system can serve as an effective solution for soft robotics and other applications in:</p>
+<p>Predicting the displacement of every Gaussian primitive directly would require the network to output hundreds of thousands of motion vectors. The framework instead represented deformation with a regular control cage containing 15 × 15 × 15 nodes, or 3,375 control points.</p>
 
-<ul>
-<li>Dark or low-light environments where cameras are ineffective</li>
-<li>Confined spaces with limited camera access (e.g., endoscopic scenes, minimally invasive instruments)</li>
-<li>Privacy-sensitive environments where visual recording is restricted</li>
-<li>Real-time manipulation tasks requiring precise geometry recovery</li>
-</ul>
+<p>Each Gaussian center <em>p</em><sub>j</sub> was connected to its nearby cage nodes <em>c</em><sub>i</sub>. The connection weights were calculated in advance using inverse distance weighting:</p>
 
-<h3>Publication Status</h3>
+\[
+w_{ij}
+=
+\frac{
+    \frac{1}{\lVert p_j-c_i\rVert+\varepsilon}
+}{
+    \sum_{i' \in \mathcal{N}_k(j)}
+    \frac{1}{\lVert p_j-c_{i'}\rVert+\varepsilon}
+}.
+\]
 
-<p>Accepted to the <strong>2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2026)</strong> on June 16, 2026. The <a href="https://arxiv.org/abs/2603.19543">current arXiv manuscript</a> is the public version available now and may differ slightly from the eventual proceedings version. Work conducted with Prof. Tingyu Cheng at the University of Notre Dame during the ISURE Summer Research Program.</p>
+<p>A nearby cage node therefore had more influence on a Gaussian than a distant node. The weights were normalized so that the contribution from the neighboring cage nodes summed to one.</p>
 
-<h3>Future Work</h3>
+<p>This representation reduced the prediction problem from a very large set of Gaussian displacements to a compact and spatially structured set of control point displacements.</p>
 
-<ul>
-<li>Extend to multi-sensor fusion for enhanced spatial resolution and robustness</li>
-<li>Investigate adaptive sensor placement strategies for optimal coverage</li>
-<li>Explore real-time learning and adaptation capabilities for new robot morphologies</li>
-<li>Integrate with real-time control systems for closed-loop deformation control</li>
-</ul>
+<h3>Extracting the Cage Training Labels</h3>
+
+<p>The 4DGS sequence provided the observed displacement of every Gaussian center at each time step. However, the graph network needed target displacements for the cage nodes rather than for the Gaussians.</p>
+
+<p>Because the relationships between the cage nodes and Gaussian centers were already defined by the inverse distance weights, the system recovered the corresponding cage motion by solving a least squares problem for every training frame:</p>
+
+\[
+\min_{\{\Delta c_i\}}
+\sum_j
+\left\|
+\Delta p_j^{\mathrm{gt}}
+-
+\sum_i w_{ij}\Delta c_i
+\right\|_2^2.
+\]
+
+<p>Here, Δ<em>p</em><sub>j</sub><sup>gt</sup> is the Gaussian displacement obtained from 4DGS, while Δ<em>c</em><sub>i</sub> is the unknown displacement of a cage node. The solution produced the cage motion that best reproduced the dense Gaussian deformation. These cage displacements became the target labels used to train the tactile model.</p>
+
+<p>This step connects the image based 4DGS supervision to the sensor based deformation network.</p>
+
+<h3>Predicting Cage Motion with Graph Attention</h3>
+
+<p>The deformation cage was represented as a graph. Each node corresponded to a cage control point and was connected to its six spatial neighbors.</p>
+
+<p>The combined tactile and temporal feature was passed to a graph attention network. The network contained two GAT layers with four attention heads and 256 hidden units, followed by a GraphConv layer and an MLP. Its final output was a three dimensional displacement vector for every cage node.</p>
+
+<p>Graph attention allowed each node to combine information from its neighbors while assigning different importance to different spatial relationships. This encouraged neighboring parts of the cage to move coherently while still allowing bending and twisting to produce different deformation patterns.</p>
+
+<p>The cage therefore served two purposes. It reduced the size of the network output, and it introduced a spatial structure that discouraged disconnected or irregular motion outside the area directly covered by the sensor.</p>
+
+<h3>Training Objective</h3>
+
+<p>The network was trained with a cage regression term and a temporal smoothness term:</p>
+
+\[
+\mathcal{L}
+=
+\frac{1}{N_c}
+\sum_i
+\left\|
+\Delta c_i^{\mathrm{pred}}
+-
+\Delta c_i^{\mathrm{gt}}
+\right\|_2^2
++
+\lambda
+\left\|
+\Delta c_i^{\mathrm{pred}}(t)
+-
+\Delta c_i^{\mathrm{pred}}(t-1)
+\right\|_2^2.
+\]
+
+<p>The first term trained the network to reproduce the cage motion obtained from the 4DGS supervision. The second term penalized sudden changes between neighboring time steps, reducing visible jitter while preserving the underlying motion.</p>
+
+<p>Gaussian noise was added to the sensor input during training to improve robustness to measurement variation. Optional exponential moving average smoothing was also applied during inference to improve temporal stability.</p>
+
+<h3>Propagating Cage Motion to the Gaussian Model</h3>
+
+<p>During inference, the network predicted the displacement Δ<em>c</em><sub>i</sub> of every cage node. The precomputed inverse distance weights were then used to propagate that motion to each Gaussian center:</p>
+
+\[
+\Delta p_j
+=
+\sum_{i \in \mathcal{N}_k(j)}
+w_{ij}\Delta c_i.
+\]
+
+<p>This operation allowed a relatively small number of cage nodes to control a dense Gaussian representation. It also propagated deformation beyond the sensor area while maintaining smooth transitions between neighboring regions.</p>
+
+<p>The system therefore did not attempt to predict every point on the robot independently. It predicted a structured cage motion and used geometry to expand that motion across the complete object.</p>
+
+<h3>Rendering the Reconstructed Deformation</h3>
+
+<p>After propagation, the system updated the centers of the Gaussian primitives and rendered the resulting deformation with a 3D Gaussian rasterizer.</p>
+
+<p>Only the Gaussian positions were updated at runtime. Their color, opacity, and covariance remained fixed from the representation prepared during training. The renderer therefore did not need to reconstruct the complete visual model for every incoming sensor frame.</p>
+
+<p>This design allowed the system to run at approximately 30 FPS with the coarse Gaussian setting and 5 FPS at high resolution on a single NVIDIA RTX 3070 Ti.</p>
+
+<h3>Deployment on Unseen Soft Robots</h3>
+
+<p>The tactile model was trained only with deformation data collected from the compliant fabric platform. It was later deployed on two soft robots that were not present in the training data. One robot performed pneumatic bending, while the other performed pneumatic twisting.</p>
+
+<p>For each robot, the system began with a static model of its undeformed geometry, such as the STL file used during fabrication. This geometry was converted into a canonical Gaussian representation, and the sensor region was aligned with the corresponding cage region.</p>
+
+<p>The same tactile patch and trained network were then used directly. Each resistance matrix was encoded, the graph network predicted the cage motion, inverse distance weighting updated the Gaussian centers, and the renderer displayed the reconstructed deformation.</p>
+
+<p>No deformation dataset was collected for either test robot. The network was not retrained or fine tuned for their geometry, and no camera image or rendered supervision was supplied during inference. This is the specific meaning of zero shot deployment in this project.</p>
+
+<h2>My Contributions</h2>
+
+<h3>Experiment Design</h3>
+
+<p>I worked with Linrui Shou to design the data collection protocol. This included determining the deformation range, defining the measurement sequence and repetition procedure, and configuring the mechanical fixture so that each pose remained fixed during scanning and sensor measurement.</p>
+
+<p>I also iterated and tested the 10 × 10 piezoresistive sensor matrix used in the experiments.</p>
+
+<h3>Data Collection and Quality Control</h3>
+
+<p>I collected all structured light scans and tactile measurements used in the bending, twisting, and robot experiments. I also captured the experimental photographs and videos.</p>
+
+<p>At each fixed pose, the sensor continuously produced multiple frames. I waited for the readings to stabilize and retained one representative frame. I checked the data for abnormal measurements and repeated the corresponding acquisition when necessary.</p>
+
+<h3>Software and Pipeline Integration</h3>
+
+<p>I implemented the normalization that divides each sensor channel by its resting resistance, <em>R</em><sub>0</sub>. I also wrote supporting tools for sensor recording, pipeline orchestration, experiment logging, and data inspection.</p>
+
+<p>I helped connect the existing RIFE, 4DGS, training, inference, and rendering components into the experimental workflow. My role focused on connecting these components with the data collection and evaluation process.</p>
+
+<h3>Evaluation, Paper, and Figures</h3>
+
+<p>I conducted the system evaluations and prepared the sensor structure diagram, robot angle comparisons, angle annotations, and final experimental images. I also selected the samples and photographs used in the paper.</p>
+
+<p>I drafted part of the Introduction and worked closely with Linrui Shou on the organization and technical presentation of the manuscript through regular discussions and revisions.</p>
+
+<h2>Results</h2>
+
+<p>The system was evaluated on two previously unseen soft robots. The following results were calculated across the entire robot body and averaged over the test sequences.</p>
+
+<p><strong>Geometry reconstruction:</strong> The average IoU was 0.67 ± 0.20, and the average Chamfer distance was 3.48 ± 0.96 mm.</p>
+
+<p><strong>Rendered appearance:</strong> The average SSIM between the rendered images and the corresponding real observations was 0.65 ± 0.18.</p>
+
+<p><strong>Motion accuracy:</strong> The mean angle error was 4.7° for bending and 4.9° for twisting.</p>
+
+<p><strong>Runtime:</strong> The system ran at approximately 30 FPS with the coarse Gaussian setting and 5 FPS at high resolution on a single NVIDIA RTX 3070 Ti.</p>
+
+<p><strong>Additional demonstration:</strong> The system also reconstructed deformation caused by pressing a wallet fitted with the sensor. This experiment was a qualitative proof of concept and was not included in the bending and twisting metrics.</p>
+
+<h2>Exploratory Capacitive Sensor Prototype</h2>
+
+<p>Alongside the published system, I designed, fabricated, and tested a flexible capacitive sensor prototype made with Ecoflex silicone. This separate study explored whether a capacitive design could detect shear and lateral forces that are difficult to measure with the piezoresistive sensor used in the paper.</p>
+
+<p>The first prototype was evaluated in preliminary shear experiments. Its sensitivity did not yet meet the requirements for integration into the reconstruction system, so it was not used in the IROS paper or its reported experiments. The results provide a starting point for future sensor designs that can distinguish normal pressure from shear loading.</p>
+
+<h2>Publication</h2>
+
+<p><strong>Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling</strong></p>
+
+<p>Linrui Shou, Zilang Chen, Wenjia Xu, Yiyue Luo, and Tingyu Cheng</p>
+
+<p>Accepted to the 2026 IEEE/RSJ International Conference on Intelligent Robots and Systems on June 16, 2026.</p>
+
+<p><a href="https://arxiv.org/abs/2603.19543">Read the current manuscript on arXiv</a></p>

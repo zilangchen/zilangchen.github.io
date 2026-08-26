@@ -74,6 +74,15 @@
 - Risks / follow-ups: GitHub Pages supplies the deployed commit SHA through `jekyll-github-metadata`; local builds use `site.time` so the query value is never empty. No user data, credentials, or external dependency is introduced.
 - Commit: This entry is included in the stylesheet cache-versioning commit.
 
+### 2026-08-26 13:16 | Expand soft-robot deformation project page
+- Goal: Explain the complete training and inference pipeline, distinguish the team's method from the author's individual contributions, and align the public claims with the paper and user-confirmed experimental work.
+- Changed files: `_portfolio/2025-07-15-deformation-reconstruction.html`, `iteration.md`.
+- Commands: `make check`; `git diff --check -- _portfolio/2025-07-15-deformation-reconstruction.html`; local Jekyll preview; desktop and 390 px browser inspection.
+- Outputs: Reorganized the page around the project overview, 4DGS training supervision, tactile preprocessing, cage-label extraction, graph-attention deformation, inverse-distance propagation, deployment, individual contributions, measured results, and the separate Ecoflex capacitive prototype.
+- Validation: `make check` passed; the task-scoped diff check passed; the browser console reported zero errors and warnings; the page had no horizontal overflow at 1280 px or 390 px; the least-squares equation remained fully visible at 390 px.
+- Risks / follow-ups: The website CV remains unchanged pending user confirmation of the differences found in the latest Word CV. Existing unrelated worktree changes, including the pre-existing gallery metadata on this project page, are intentionally excluded from this commit. Production remains unchanged until an explicit push.
+- Commit: This entry is included in the soft-robot project-page commit.
+
 ### 2026-08-26 13:14 | Improve project-gallery readability and responsiveness
 - Goal: Review all seven visible project galleries and preserve technical figures, diagrams, and portrait media without disruptive cropping while retaining an orderly photo layout.
 - Changed files: `_includes/gallery`, `_sass/layout/_base.scss`, seven visible `_portfolio/` records, `scripts/check_site_content.rb`, and `iteration.md`.
