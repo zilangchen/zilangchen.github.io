@@ -36,6 +36,25 @@ water_robot_portfolio = read_built("portfolio/water-surface-robot.html")
 profile_pages = [home, cv, publications]
 assert(profile_pages.all? { |html| html.include?("University of Pennsylvania") },
        "Penn affiliation is missing from a profile sidebar")
+
+navigation_order = ['/portfolio/">Portfolio</a>', '/publications/">Publications</a>', '/cv/">CV</a>']
+navigation_positions = navigation_order.map { |link| home.index(link) }
+assert(navigation_positions.all?, "one or more primary navigation links are missing")
+assert(navigation_positions == navigation_positions.sort,
+       "primary navigation is not ordered as Portfolio, Publications, CV")
+
+active_navigation = {
+  home => /masthead__menu-item--lg persist is-active.*?aria-current="page".*?>Zilang Chen<\/a>/m,
+  portfolio => /masthead__menu-item is-active.*?href="[^"]*\/portfolio\/" aria-current="page">Portfolio<\/a>/m,
+  deformation_portfolio => /masthead__menu-item is-active.*?href="[^"]*\/portfolio\/" aria-current="page">Portfolio<\/a>/m,
+  publications => /masthead__menu-item is-active.*?href="[^"]*\/publications\/" aria-current="page">Publications<\/a>/m,
+  deformation_publication => /masthead__menu-item is-active.*?href="[^"]*\/publications\/" aria-current="page">Publications<\/a>/m,
+  cv => /masthead__menu-item is-active.*?href="[^"]*\/cv\/" aria-current="page">CV<\/a>/m
+}
+active_navigation.each do |html, pattern|
+  assert(html.match?(pattern), "current primary navigation item is not marked active")
+end
+
 assert(home.include?("Aug 2026 – Present"), "Penn education date is missing")
 assert(home.include?("+1 (267) 521-3967"), "updated phone number is missing")
 assert(home.include?("Philadelphia, PA, USA"), "updated location is missing")

@@ -118,3 +118,12 @@
 - Validation: `make check` passed with Smart Home regression coverage; all eight project images loaded with descriptive alt text; the page had no horizontal overflow at 1440 px or 390 px; the video reported valid 544 x 960 metadata with no media error and rendered at 360 px wide on desktop and 343 px on mobile. The task-scoped diff check passed; the repository-wide diff check still reports the pre-existing trailing blank line in the unrelated dirty file `format_images.py`.
 - Risks / follow-ups: The 19 MB H.264/AAC demo remains intentionally uncompressed; a later media-specific task may reduce its mobile transfer size without changing the content. Concurrent CV bullet-formatting work remains separately owned and preserved.
 - Commit: This entry is included in the embedded smart-home project-page commit.
+
+### 2026-08-27 02:01 | Improve primary navigation affordances
+- Goal: Reorder the primary navigation and make its clickable, current, hover, and keyboard-focus states easier to recognize.
+- Changed files: `_data/navigation.yml`, `_includes/masthead.html`, `_sass/layout/_navigation.scss`, `scripts/check_site_content.rb`, `iteration.md`.
+- Commands: `make check`; `ruby -c scripts/check_site_content.rb`; task-scoped `git diff --check`; generated-page navigation order and active-state assertions.
+- Outputs: Reordered the navigation to Portfolio, Publications, and CV; added persistent active states and `aria-current` coverage for section indexes and collection details; enlarged link hit areas; strengthened hover and keyboard-focus feedback; and aligned the collapsed menu with light and dark themes.
+- Validation: Jekyll built successfully and `Site content checks passed.`; generated pages expose the expected navigation order and identify the current Home, Portfolio, Publications, or CV section.
+- Risks / follow-ups: Desktop, mobile, hover, focus, and dark-theme behavior will receive final browser verification together with the remaining approved interaction changes before deployment.
+- Commit: This entry is included in the primary-navigation affordance commit.
