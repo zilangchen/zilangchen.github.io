@@ -311,7 +311,7 @@ portfolio_titles = [
   "Embedded Smart Home Terminal Based on Lightweight Machine Learning",
   "Analysis of Wine Quality Based on Multiple Machine Learning Methods",
   "Remote-Controlled Multifunctional Ball-Collecting Robot",
-  "RoboCon ‘Angkor Bloom’ - National College Student Robotics Competition",
+  "ROBOCON 2023 “Casting Flowers over Angkor Wat”",
   "Biomimetic Water Surface Robot with Automatic Obstacle Avoidance"
 ]
 portfolio_title_positions = portfolio_titles.map { |title| portfolio.index(title) }
@@ -345,6 +345,26 @@ assert(!deformation_portfolio.include?('itemprop="datePublished"'),
 assert(!angkor_portfolio.include?("Top 30%"), "unsupported RoboCon ranking remains")
 assert(angkor_portfolio.include?("July 5–8, 2023"),
        "verified RoboCon national-finals dates are missing")
+angkor_required = [
+  "National Third Prize",
+  "Rabbit Robot",
+  "laser cutting and 3D printing",
+  "fabrication and assembly of the ring pickup mechanism",
+  "limited contribution to the embedded implementation",
+  "official award list"
+]
+angkor_required.each do |text|
+  assert(angkor_portfolio.include?(text), "RoboCon detail is missing confirmed content: #{text}")
+end
+angkor_forbidden = [
+  "Control system development and implementation",
+  "Strategic planning and competition execution",
+  "Mechanical design and fabrication of robot components",
+  'href="#"'
+]
+angkor_forbidden.each do |text|
+  assert(!angkor_portfolio.include?(text), "unsupported RoboCon content remains: #{text}")
+end
 assert(deformation_portfolio.include?('href="https://arxiv.org/abs/2603.19543"'),
        "deformation project detail is missing its current public manuscript link")
 
@@ -498,7 +518,7 @@ project_galleries = {
   "smart-home terminal" => [smart_home_portfolio, 3, 8],
   "wine-quality analysis" => [wine_portfolio, 7, 7],
   "ball-picking robot" => [ball_robot_portfolio, 3, 5],
-  "RoboCon Angkor Bloom" => [angkor_portfolio, 0, 0],
+  "RoboCon Angkor Bloom" => [angkor_portfolio, 2, 8],
   "water-surface robot" => [water_robot_portfolio, 3, 4]
 }
 
