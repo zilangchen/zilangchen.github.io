@@ -306,6 +306,39 @@ assert(angkor_portfolio.include?("July 5–8, 2023"),
 assert(deformation_portfolio.include?('href="https://arxiv.org/abs/2603.19543"'),
        "deformation project detail is missing its current public manuscript link")
 
+portfolio_teaser_links = portfolio.scan(
+  /<a class="archive__item-teaser-link" href="([^"]+)" aria-label="View project: ([^"]+)">/
+)
+assert(portfolio_teaser_links.length == 7,
+       "expected 7 Portfolio teaser links to project details, found #{portfolio_teaser_links.length}")
+portfolio_teaser_links.each do |href, label|
+  assert(href.include?("/portfolio/") && !href.match?(/\.(?:jpe?g|png|gif|webp)\z/i),
+         "Portfolio teaser does not link to a project detail: #{href}")
+  assert(!label.strip.empty?, "Portfolio teaser link has an empty accessible label")
+end
+assert(!portfolio.include?('data-lightbox="portfolio-main"'),
+       "Portfolio listing still opens cover images in a lightbox")
+
+portfolio_detail_pages = {
+  "deformation reconstruction" => deformation_portfolio,
+  "hand exoskeleton" => exo_portfolio,
+  "smart-home terminal" => smart_home_portfolio,
+  "wine-quality analysis" => wine_portfolio,
+  "ball-picking robot" => ball_robot_portfolio,
+  "RoboCon Angkor Bloom" => angkor_portfolio,
+  "water-surface robot" => water_robot_portfolio
+}
+portfolio_detail_pages.each do |name, html|
+  assert(html.match?(%r{<nav class="page__back-nav" aria-label="Portfolio navigation">.*?<a class="page__back-link" href="[^"]*/portfolio/">.*?Back to Portfolio}m),
+         "#{name} detail is missing the Back to Portfolio link")
+  assert(!html.include?('href="#" class="pagination--pager disabled"'),
+         "#{name} detail still exposes a disabled pagination link as href=#")
+end
+assert(!deformation_publication.include?('class="page__back-link"'),
+       "Portfolio back navigation leaked into a publication detail")
+assert(deformation_portfolio.include?('data-lightbox="gallery"'),
+       "project-detail Gallery lightbox behavior is missing")
+
 smart_home_required = [
   "89.1% validation accuracy",
   "seven Chinese command classes",

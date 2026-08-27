@@ -169,6 +169,39 @@
 
 
 /*
+   Portfolio context navigation
+   ========================================================================== */
+
+.page__back-nav {
+  margin: 0 0 0.75rem;
+}
+
+.page__back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0.35rem 0.7rem;
+  color: var(--global-link-color);
+  font-family: $sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--global-border-color);
+  border-radius: $border-radius;
+
+  &:hover {
+    color: var(--global-link-color-hover);
+    background: var(--global-border-color);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--global-link-color);
+    outline-offset: 2px;
+  }
+}
+
+
+/*
    Priority plus navigation
    ========================================================================== */
 

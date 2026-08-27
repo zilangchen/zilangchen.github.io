@@ -33,9 +33,17 @@
             {{ teaser | prepend: "/images/" | prepend: base_path }}
           {% endif %}
         {% endcapture %}
-        <a href="{{ full_teaser_url | strip }}" data-lightbox="portfolio-main" data-title="{{ title }}">
-          <img src="{{ full_teaser_url | strip }}" alt="{{ title }}" class="{% if include.type == "grid" %}grid-teaser{% else %}list-teaser-main{% endif %}">
-        </a>
+        {% assign teaser_src = full_teaser_url | strip %}
+        {% assign accessible_title = title | strip_html | strip_newlines | escape %}
+        {% if post.collection == 'portfolio' %}
+          <a class="archive__item-teaser-link" href="{{ base_path }}{{ post.url }}" aria-label="View project: {{ accessible_title }}">
+            <img src="{{ teaser_src }}" alt="{{ accessible_title }}" class="{% if include.type == "grid" %}grid-teaser{% else %}list-teaser-main{% endif %}">
+          </a>
+        {% else %}
+          <a href="{{ teaser_src }}" data-lightbox="portfolio-main" data-title="{{ accessible_title }}">
+            <img src="{{ teaser_src }}" alt="{{ accessible_title }}" class="{% if include.type == "grid" %}grid-teaser{% else %}list-teaser-main{% endif %}">
+          </a>
+        {% endif %}
       </div>
     {% endif %}
     

@@ -127,3 +127,12 @@
 - Validation: Jekyll built successfully and `Site content checks passed.`; generated pages expose the expected navigation order and identify the current Home, Portfolio, Publications, or CV section.
 - Risks / follow-ups: Desktop, mobile, hover, focus, and dark-theme behavior will receive final browser verification together with the remaining approved interaction changes before deployment.
 - Commit: This entry is included in the primary-navigation affordance commit.
+
+### 2026-08-27 02:03 | Connect Portfolio cards and project navigation
+- Goal: Make Portfolio cover images open their project details and provide a clear, accessible route back to the Portfolio index from every project page.
+- Changed files: `_includes/archive-single.html`, `_includes/footer/custom.html`, `_includes/post_pagination.html`, `_layouts/single.html`, `_sass/layout/_navigation.scss`, `scripts/check_site_content.rb`, `iteration.md`.
+- Commands: `make check`; `ruby -c scripts/check_site_content.rb`; task-scoped `git diff --check`; generated-link, Back to Portfolio, Gallery, and pagination assertions.
+- Outputs: Pointed all seven Portfolio cover images to their corresponding detail pages; limited lightbox behavior to project-detail Gallery images; added a 44 px contextual Back to Portfolio control; and replaced disabled `href="#"` pagination links with non-interactive disabled text.
+- Validation: Jekyll built successfully and `Site content checks passed.`; all seven generated covers resolve to project routes, all seven detail pages include the contextual return link, Publication pages remain unaffected, and project Gallery lightboxes remain present.
+- Risks / follow-ups: Mouse, keyboard, Gallery, desktop, and mobile interaction behavior will receive final browser verification before deployment.
+- Commit: This entry is included in the Portfolio navigation commit.
