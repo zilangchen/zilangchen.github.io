@@ -200,7 +200,7 @@ cv_research_projects = [
   "Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling",
   "Embedded Smart Home Terminal Based on Lightweight Machine Learning",
   "A Unified, Leak-Free Comparative Study of Wine Quality",
-  "Remote-Controlled Multifunctional Ball Picking and Placing Robot"
+  "Remote-Controlled Multifunctional Ball-Collecting Robot"
 ]
 cv_research_positions = cv_research_projects.map { |title| cv_research_section.index(title) }
 assert(cv_research_positions.all?, "one or more CV research projects are missing")
@@ -310,7 +310,7 @@ portfolio_titles = [
   "Climbing-Assisted Hand Exoskeleton",
   "Embedded Smart Home Terminal Based on Lightweight Machine Learning",
   "Analysis of Wine Quality Based on Multiple Machine Learning Methods",
-  "Remote-Controlled Multifunctional Ball Picking and Placing Robot",
+  "Remote-Controlled Multifunctional Ball-Collecting Robot",
   "RoboCon ‘Angkor Bloom’ - National College Student Robotics Competition",
   "Biomimetic Water Surface Robot with Automatic Obstacle Avoidance"
 ]
@@ -437,12 +437,67 @@ assert(smart_home_synced_pages.all? { |html| html.include?("89.1%") },
 assert(smart_home_synced_pages.all? { |html| html.include?("seven") },
        "smart-home seven-class scope is not synchronized")
 
+ball_robot_required = [
+  "Remote-Controlled Multifunctional Ball-Collecting Robot",
+  "Feb 2024 – Jul 2024",
+  "second overall in the final course competition",
+  "50 cm × 50 cm × 50 cm",
+  "C50C controller built around the STM32F407VET6",
+  "24 V, 1:51 planetary-geared brushed motors",
+  "My Contribution",
+  "Wrote most of the STM32 control program",
+  "Co-tuned the PID and PWM motor-control behavior",
+  "Solely operated the robot by remote control during the competition",
+  "¥3,401.43",
+  'preload="metadata"',
+  'poster="/images/portfolio/ball-robot/01.png"'
+]
+ball_robot_required.each do |text|
+  assert(ball_robot_portfolio.include?(text),
+         "corrected ball-robot detail is missing: #{text}")
+end
+
+ball_robot_forbidden = [
+  "Remote-Controlled Multifunctional Ball Picking and Placing Robot",
+  "28 N",
+  "1.2 m",
+  "&lt;3 °",
+  "7.4 V",
+  "5200 mAh",
+  "20 min",
+  "35°",
+  "12-litre",
+  "45 s",
+  "30 % faster",
+  "6 basketballs",
+  "60 ping-pong balls",
+  "15 tennis-ball equivalents",
+  "L298N",
+  "carbon-PETG",
+  "180 g",
+  "magnetic-encoder",
+  "stable trajectory tracking",
+  "precise grasp-transport-drop"
+]
+ball_robot_forbidden.each do |text|
+  assert(!ball_robot_portfolio.include?(text),
+         "unsupported ball-robot claim remains: #{text}")
+end
+
+ball_robot_synced_pages = [cv, ball_robot_portfolio]
+assert(ball_robot_synced_pages.all? { |html| html.include?("Remote-Controlled Multifunctional Ball-Collecting Robot") },
+       "ball-robot title is not synchronized")
+assert(ball_robot_synced_pages.all? { |html| html.include?("Feb 2024 – Jul 2024") },
+       "ball-robot project period is not synchronized")
+assert(ball_robot_synced_pages.all? { |html| html.include?("second overall") },
+       "ball-robot competition result is not synchronized")
+
 project_galleries = {
   "deformation reconstruction" => [deformation_portfolio, 5, 5],
   "hand exoskeleton" => [exo_portfolio, 2, 2],
   "smart-home terminal" => [smart_home_portfolio, 3, 8],
   "wine-quality analysis" => [wine_portfolio, 7, 7],
-  "ball-picking robot" => [ball_robot_portfolio, 1, 2],
+  "ball-picking robot" => [ball_robot_portfolio, 3, 5],
   "RoboCon Angkor Bloom" => [angkor_portfolio, 0, 0],
   "water-surface robot" => [water_robot_portfolio, 3, 4]
 }

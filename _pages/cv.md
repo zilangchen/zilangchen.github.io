@@ -49,12 +49,12 @@ Advisor: Prof. Chunyang Liao
 - Reported held-out performance with weighted-F1 and ablations for feature parsimony and efficiency.
 - Built a unified, leakage-free machine-learning pipeline with strict train/validation/test separation and reproducible evaluation. The resulting paper was published in the ACM proceedings of IPMLP 2025 (pp. 162–170; DOI: 10.1145/3759928.3759955).
 
-**Remote-Controlled Multifunctional Ball Picking and Placing Robot** — SCUT (Feb 2024 – Jul 2024)  
+**Remote-Controlled Multifunctional Ball-Collecting Robot** — SCUT (Feb 2024 – Jul 2024)<br>
 Advisor: Prof. Yingjie Zhang  
 
-- Implemented real-time motion control, electrical system setup, and remote wireless control in designing a pick-and-place robot to complete the task of moving balls from the field to designated locations.
-- Utilized kinematic analysis and Mecanum wheels to achieve robot omnidirectional movement. Developed embedded code to control the robot's servos and motors with PID and PWM techniques. Modeled and fabricated the robot using SolidWorks and 3D printing for rapid iteration.
-- Validated precise grasp-transport-drop cycles in testing where the robot demonstrated stable trajectory tracking and fast repositioning under changing target layouts.
+- Led the team and coordinated project planning, integration, and competition preparation; solely operated the robot by remote control during the final course competition, where the team placed second overall.
+- Wrote most of the STM32 control program, co-tuned the PID/PWM motor-control behavior, and shared responsibility for the electrical setup and wiring.
+- Contributed to part of the SolidWorks modeling and assisted with prototype fabrication and assembly for the collision-based, Mecanum-wheel ball-collecting robot.
 
 ## Publications
 
