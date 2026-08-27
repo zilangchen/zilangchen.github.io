@@ -11,26 +11,26 @@ hide_title: true
 
   <p>I am an M.S.E. student in Mechanical Engineering and Applied Mechanics at the University of Pennsylvania, with a background in intelligent manufacturing. My work brings together robotics, machine learning, and embedded systems.</p>
 
-  <p>I want robots to infer their physical state from limited sensing, learn representations that transfer across platforms, and operate reliably under hardware and data constraints. My projects span tactile sensing and 3D reconstruction for soft robots, wearable mechanisms, and embedded inference. I am most drawn to work in which experimental design, sensing, data processing, modeling, and physical testing have to function as one system. These experiences shape my current interests in embodied perception, learning from limited data, and transferring skills safely from simulation to real robots.</p>
+  <p>I am now interested in robot learning and algorithms that enable robots to interpret multimodal observations, understand instructions, and act in changing physical environments. In particular, I hope to study vision-language-action models, learning-based manipulation, and methods that improve policy generalization and transfer. My previous work in tactile sensing, 3D reconstruction, embedded control, and physical prototyping gives me a systems perspective for connecting algorithmic decisions with real sensing and hardware constraints.</p>
 </section>
 
-<section class="home-section" aria-labelledby="research-directions-heading">
-  <h2 id="research-directions-heading">Research Directions</h2>
+<section class="home-section" aria-labelledby="research-interests-heading">
+  <h2 id="research-interests-heading">Research Interests</h2>
 
   <div class="home-direction-grid">
     <article class="home-direction-card">
-      <h3>Embodied Perception</h3>
-      <p>Tactile sensing and 3D state estimation for robots whose deformation or contact state is difficult to observe directly.</p>
+      <h3>Vision-Language-Action Models</h3>
+      <p>Multimodal policies that connect visual observations, language instructions, and robot actions for manipulation and physical interaction.</p>
     </article>
 
     <article class="home-direction-card">
-      <h3>Simulation and Transfer</h3>
-      <p>Learning from limited physical data and using simulation or structured supervision to support transfer across objects and platforms.</p>
+      <h3>Robot Learning, Planning, and Control</h3>
+      <p>Learning, planning, and control methods that support data-efficient adaptation and generalization across tasks, objects, and environments.</p>
     </article>
 
     <article class="home-direction-card">
-      <h3>Robot Hardware and Embedded Systems</h3>
-      <p>Mechanism design, embedded sensing and control, and real-time deployment under physical and computational constraints.</p>
+      <h3>Embodied Systems and Evaluation</h3>
+      <p>Connecting robot algorithms with sensing, control, and physical experiments to evaluate reliability under real hardware constraints.</p>
     </article>
   </div>
 </section>

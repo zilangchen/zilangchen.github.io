@@ -65,18 +65,20 @@ assert(home.include?('role="button" tabindex="0" aria-label="Toggle color theme"
 
 home_required = [
   "About",
-  "Research Directions",
-  "Embodied Perception",
-  "Simulation and Transfer",
-  "Robot Hardware and Embedded Systems",
+  "Research Interests",
+  "Vision-Language-Action Models",
+  "Robot Learning, Planning, and Control",
+  "Embodied Systems and Evaluation",
   "Selected Work",
   "Recent Publications",
   "Explore",
-  "experimental design, sensing, data processing, modeling, and physical testing",
-  "transferring skills safely from simulation to real robots",
+  "I am now interested in robot learning and algorithms",
+  "I hope to study vision-language-action models",
+  "connecting algorithmic decisions with real sensing and hardware constraints",
   "A flexible piezoresistive array drives a 3D Gaussian model",
   "The glove monitors grip pressure",
-  "The terminal recognizes seven spoken commands locally",
+  "A remote-controlled Mecanum-wheel robot used collision-based ball collection",
+  "solely operated the robot in competition",
   "Accepted to <em>IEEE/RSJ IROS 2026</em>.",
   "Published in <em>IPMLP 2025</em> · Proceedings published by ACM."
 ]
@@ -104,7 +106,7 @@ end
 home_project_titles = [
   "Zero-Shot Deformation Reconstruction for Soft Robots",
   "Climbing-Assisted Hand Exoskeleton",
-  "Embedded Smart Home Terminal Based on Lightweight Machine Learning"
+  "Remote-Controlled Multifunctional Ball-Collecting Robot"
 ]
 home_project_positions = home_project_titles.map { |title| home.index(title) }
 assert(home_project_positions.all?, "one or more featured homepage projects are missing")
@@ -118,7 +120,7 @@ assert(home.scan("<strong>My role.</strong>").length == 3,
 home_project_paths = [
   "/portfolio/deformation-reconstruction",
   "/portfolio/climbing-hand-exo",
-  "/portfolio/smart-home-terminal"
+  "/portfolio/ball-picking-robot"
 ]
 home_project_cards = home.scan(/<article class="home-project-card">(.*?)<\/article>/m).map(&:first)
 home_project_paths.each_with_index do |path, index|
