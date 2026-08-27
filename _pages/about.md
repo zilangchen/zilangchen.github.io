@@ -75,7 +75,7 @@ hide_title: true
           {% if publication.status == 'accepted' %}
             Accepted to <em>{{ publication.venue }}</em>.
           {% else %}
-            Published in <em>{{ publication.venue }}</em>.
+            Published in <em>{{ publication.venue }}</em>{% if publication.venue_note %} · {{ publication.venue_note }}{% endif %}.
           {% endif %}
         </p>
         <p class="home-output-card__links">

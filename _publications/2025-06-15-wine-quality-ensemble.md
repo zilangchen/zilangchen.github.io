@@ -5,7 +5,8 @@ category: conferences
 permalink: /publication/2025-06-15-wine-quality-ensemble
 excerpt: 'A unified, leakage-free comparison of Random Forest, Gradient Boosting, XGBoost, LightGBM, and CatBoost on 6,497 Vinho Verde samples. Gradient Boosting achieved the highest weighted F1 scores, while Random Forest offered the strongest accuracy–efficiency trade-off.'
 date: 2025-07-12
-venue: 'ACM IPMLP 2025'
+venue: 'IPMLP 2025'
+venue_note: 'Proceedings published by ACM'
 status: published
 paperurl: 'https://doi.org/10.1145/3759928.3759955'
 paperlabel: 'View ACM Record'

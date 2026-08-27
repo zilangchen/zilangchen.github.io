@@ -48,7 +48,11 @@ layout: default
         {% elsif page.collection == 'publications' and page.status == 'accepted' %}
           <p>Accepted to <i>{{ page.venue }}</i> — <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>
         {% elsif page.collection == 'publications' and page.venue and page.date %}
-          <p>Published in <i>{{ page.venue }}</i> — <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>
+          {% if page.venue_note %}
+            <p><i>{{ page.venue }}</i> · {{ page.venue_note }} · <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>
+          {% else %}
+            <p>Published in <i>{{ page.venue }}</i> — <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>
+          {% endif %}
         {% elsif page.collection == 'portfolio' %}
           {% if page.period or page.date %}
             <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Project period:</strong> {% if page.period %}{{ page.period }}{% else %}<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %Y" }}</time>{% endif %}</p>

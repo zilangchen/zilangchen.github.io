@@ -56,7 +56,11 @@
         {% elsif post.collection == 'publications' and post.status == 'accepted' %}
           <p>Accepted to <i>{{ post.venue }}</i> — <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time></p>
         {% elsif post.collection == 'publications' %}
-          <p>Published in <i>{{ post.venue }}</i> — <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time></p>
+          {% if post.venue_note %}
+            <p><i>{{ post.venue }}</i> · {{ post.venue_note }} · <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time></p>
+          {% else %}
+            <p>Published in <i>{{ post.venue }}</i> — <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time></p>
+          {% endif %}
         {% elsif post.collection == 'portfolio' %}
           {% if post.period or post.date %}
             <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Project period:</strong> {% if post.period %}{{ post.period }}{% else %}<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %Y" }}</time>{% endif %}</p>
@@ -71,7 +75,7 @@
     <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></p>
     {% endif %}
 
-    {% include publication-links.html publication=post %}
+    {% include publication-links.html publication=post hide_citation=true %}
 
   </article>
 </div>

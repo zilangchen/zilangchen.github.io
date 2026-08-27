@@ -78,7 +78,7 @@ home_required = [
   "The glove monitors grip pressure",
   "The terminal recognizes seven spoken commands locally",
   "Accepted to <em>IEEE/RSJ IROS 2026</em>.",
-  "Published in <em>ACM IPMLP 2025</em>."
+  "Published in <em>IPMLP 2025</em> · Proceedings published by ACM."
 ]
 home_required.each do |text|
   assert(home.include?(text), "homepage identity or research section is missing: #{text}")
@@ -245,6 +245,10 @@ assert(all_checked.include?("IEEE/RSJ IROS 2026"), "accepted IROS venue is missi
 assert(publications.include?("Accepted to <i>IEEE/RSJ IROS 2026</i>"),
        "publication listing does not use accepted-status wording")
 assert(publications.include?("June 16, 2026"), "IROS acceptance date is missing")
+assert(publications.include?("<i>IPMLP 2025</i> · Proceedings published by ACM ·"),
+       "publication listing does not use the approved IPMLP venue wording")
+assert(!publications.include?("Recommended citation:"),
+       "publication listing still exposes full recommended citations")
 
 arxiv_title = "Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling"
 publication_pages = [home, cv, publications, deformation_publication, deformation_portfolio]
@@ -291,6 +295,16 @@ assert(wine_publication.include?("512 GB RAM"), "wine compute specification is n
 assert(wine_publication.include?("162–170"), "wine proceedings page range is missing")
 assert(wine_publication.include?("View ACM Record"), "ACM DOI link label is misleading")
 assert(wine_publication.include?("Download PDF"), "local wine PDF link is missing")
+assert(wine_publication.include?("<i>IPMLP 2025</i> · Proceedings published by ACM ·"),
+       "wine detail page does not use the approved IPMLP venue wording")
+assert(wine_publication.include?("Recommended citation:"),
+       "wine detail page no longer exposes its recommended citation")
+assert(deformation_publication.include?("Recommended citation:"),
+       "IROS detail page no longer exposes its recommended citation")
+assert(cv.include?("Proceedings of the 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition"),
+       "wine citation data was removed from the CV")
+assert(![home, publications, wine_publication].join("\n").include?("ACM IPMLP 2025"),
+       "superseded IPMLP venue wording remains on a primary publication surface")
 assert(wine_portfolio.include?("each model-and-dataset combination"),
        "wine project page does not describe feature selection precisely")
 assert(wine_portfolio.include?('href="https://doi.org/10.1145/3759928.3759955"'),
