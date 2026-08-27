@@ -3,6 +3,7 @@ layout: archive
 permalink: /
 title: "Zilang Chen"
 author_profile: true
+hide_title: true
 ---
 
 <section class="home-section home-intro" aria-labelledby="about-heading">

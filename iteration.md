@@ -145,3 +145,12 @@
 - Validation: Jekyll built successfully and `Site content checks passed.`; Ruby syntax and task-scoped diff checks passed. The three project media frames measured equally at 313 x 235 px on wide desktop, 348 x 261 px at 768 px, and 341 x 256 px on mobile. The 768 px layout used two columns with the third card centered; all tested widths had zero horizontal overflow; dark navigation hover contrast measured 5.77:1; the project-image, return, Gallery, theme, and collapsed-menu flows worked with zero browser warnings or errors.
 - Risks / follow-ups: The existing Gallery lightbox still lacks full dialog focus management and remains a separate accessibility improvement. Repository-wide `git diff --check` continues to report the pre-existing trailing blank line in the unrelated dirty file `format_images.py`; that file and the other pre-existing dirty assets remain excluded.
 - Commit: This entry is included in the homepage research-identity commit.
+
+### 2026-08-27 02:26 | Tighten homepage mobile hierarchy and touch targets
+- Goal: Remove the repeated visible name from the mobile first screen while preserving a semantic page heading, and ensure every Explore action meets the site's 44 px touch-target standard.
+- Changed files: `_pages/about.md`, `_layouts/archive.html`, `_sass/layout/_home.scss`, `scripts/check_site_content.rb`, and `iteration.md`.
+- Commands: `make check`; `ruby -c scripts/check_site_content.rb`; task-scoped `git diff --check`; local 390 x 844 browser inspection; semantic-heading, touch-target, fixed-overlay, and horizontal-overflow measurements.
+- Outputs: Added a page-level option that visually hides the homepage title with the existing screen-reader-only utility; kept the `Zilang Chen` H1 in the document outline; and gave all three Explore buttons a 44 px minimum height. The initial CSS regression assertion was updated after it proved too dependent on Sass's grouped-selector output.
+- Validation: Jekyll built successfully and `Site content checks passed.`; the homepage H1 measured 1 x 1 px in the screen-reader-only position, all Explore buttons measured 44 px high, no visible overlay covered the page, and the 390 px viewport had no horizontal overflow.
+- Risks / follow-ups: The hidden-title option is opt-in and currently used only by the homepage, so other archive layouts retain their visible H1. Existing unrelated dirty files remain unstaged and unchanged.
+- Commit: This entry is included in the mobile homepage-polish commit.

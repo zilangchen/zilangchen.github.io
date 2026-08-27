@@ -238,6 +238,9 @@
   margin-bottom: 0;
 
   a.btn {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
     color: #fff;
     background-color: $info-color;
     border-color: $info-color;

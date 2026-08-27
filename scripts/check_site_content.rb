@@ -54,6 +54,8 @@ active_navigation = {
 active_navigation.each do |html, pattern|
   assert(html.match?(pattern), "current primary navigation item is not marked active")
 end
+assert(home.include?('<h1 class="page__title sr-only">Zilang Chen</h1>'),
+       "homepage H1 is not preserved semantically while hidden from the repeated visual header")
 assert(home.include?('aria-label="Toggle navigation menu"'),
        "masthead menu button is missing an accessible name")
 assert(home.include?('aria-controls="site-nav-hidden-links" aria-expanded="false"'),
@@ -497,6 +499,8 @@ assert(main_css.include?(".home-project-grid{grid-template-columns:repeat(3, min
        "homepage wide desktop project grid is missing")
 assert(main_css.include?(".home-section-link{display:inline-flex;min-height:44px"),
        "homepage section links do not provide a sufficient touch target")
+assert(main_css.match?(/\.home-explore__links a\.btn(?:,[^{]+)?\{[^}]*display:inline-flex;[^}]*min-height:44px/),
+       "homepage Explore buttons do not provide a sufficient touch target")
 assert(main_css.include?("@media (prefers-reduced-motion: reduce){.home-project-card"),
        "homepage card motion is not disabled for reduced-motion users")
 assert(main_css.include?("background:rgba(127,127,127,0.16)"),
