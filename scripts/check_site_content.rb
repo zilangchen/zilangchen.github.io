@@ -46,27 +46,108 @@ assert(navigation_positions == navigation_positions.sort,
 active_navigation = {
   home => /masthead__menu-item--lg persist is-active.*?aria-current="page".*?>Zilang Chen<\/a>/m,
   portfolio => /masthead__menu-item is-active.*?href="[^"]*\/portfolio\/" aria-current="page">Portfolio<\/a>/m,
-  deformation_portfolio => /masthead__menu-item is-active.*?href="[^"]*\/portfolio\/" aria-current="page">Portfolio<\/a>/m,
+  deformation_portfolio => /masthead__menu-item is-active.*?href="[^"]*\/portfolio\/" aria-current="location">Portfolio<\/a>/m,
   publications => /masthead__menu-item is-active.*?href="[^"]*\/publications\/" aria-current="page">Publications<\/a>/m,
-  deformation_publication => /masthead__menu-item is-active.*?href="[^"]*\/publications\/" aria-current="page">Publications<\/a>/m,
+  deformation_publication => /masthead__menu-item is-active.*?href="[^"]*\/publications\/" aria-current="location">Publications<\/a>/m,
   cv => /masthead__menu-item is-active.*?href="[^"]*\/cv\/" aria-current="page">CV<\/a>/m
 }
 active_navigation.each do |html, pattern|
   assert(html.match?(pattern), "current primary navigation item is not marked active")
 end
+assert(home.include?('aria-label="Toggle navigation menu"'),
+       "masthead menu button is missing an accessible name")
+assert(home.include?('aria-controls="site-nav-hidden-links" aria-expanded="false"'),
+       "masthead menu button is missing disclosure state attributes")
+assert(home.include?('role="button" tabindex="0" aria-label="Toggle color theme"'),
+       "theme control is not keyboard focusable or named")
 
-assert(home.include?("Aug 2026 – Present"), "Penn education date is missing")
-assert(home.include?("+1 (267) 521-3967"), "updated phone number is missing")
-assert(home.include?("Philadelphia, PA, USA"), "updated location is missing")
-assert(home.include?("currently an MSE student"), "current MSE profile statement is missing")
-assert(home.include?("<strong>Email:</strong>"), "contact email label is missing")
-assert(home.include?("<strong>Phone number:</strong>"), "contact phone label is missing")
-assert(home.include?("<strong>Location:</strong>"), "contact location label is missing")
-assert(!home.include?("(Personal)"), "obsolete personal-email label remains on the profile")
-assert(!home.include?("Research Workshop: Computer Vision and Robot Sensors"),
-       "removed online research workshop remains on the profile")
-assert(!home.include?("Math 156 Machine Learning"),
-       "removed UCLA course detail remains on the profile")
+home_required = [
+  "About",
+  "Research Directions",
+  "Embodied Perception",
+  "Simulation and Transfer",
+  "Robot Hardware and Embedded Systems",
+  "Selected Work",
+  "Recent Publications",
+  "Explore",
+  "experimental design, sensing, data processing, modeling, and physical testing",
+  "transferring skills safely from simulation to real robots",
+  "A flexible piezoresistive array drives a 3D Gaussian model",
+  "The glove monitors grip pressure",
+  "The terminal recognizes seven spoken commands locally",
+  "Accepted to <em>IEEE/RSJ IROS 2026</em>.",
+  "Published in <em>ACM IPMLP 2025</em>."
+]
+home_required.each do |text|
+  assert(home.include?(text), "homepage identity or research section is missing: #{text}")
+end
+
+home_forbidden = [
+  '<h2 id="contact">',
+  '<h2 id="education">',
+  '<h2 id="research-experience">',
+  '<h2 id="project-experience">',
+  '<h2 id="honors--awards">',
+  "Real-Time Robotic-Arm Motion Planning from Temporal Logic",
+  "Top 10%",
+  "Top 20%",
+  "Top 30%",
+  "+1 (267) 521-3967",
+  "Proceedings of the 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition"
+]
+home_forbidden.each do |text|
+  assert(!home.include?(text), "CV-style detail remains on the redesigned homepage: #{text}")
+end
+
+home_project_titles = [
+  "Zero-Shot Deformation Reconstruction for Soft Robots",
+  "Climbing-Assisted Hand Exoskeleton",
+  "Embedded Smart Home Terminal Based on Lightweight Machine Learning"
+]
+home_project_positions = home_project_titles.map { |title| home.index(title) }
+assert(home_project_positions.all?, "one or more featured homepage projects are missing")
+assert(home_project_positions == home_project_positions.sort,
+       "featured homepage projects are not in the expected order")
+assert(home.scan('class="home-project-card"').length == 3,
+       "homepage does not contain exactly 3 featured project cards")
+assert(home.scan("<strong>My role.</strong>").length == 3,
+       "homepage project cards do not consistently separate individual roles")
+
+home_project_paths = [
+  "/portfolio/deformation-reconstruction",
+  "/portfolio/climbing-hand-exo",
+  "/portfolio/smart-home-terminal"
+]
+home_project_cards = home.scan(/<article class="home-project-card">(.*?)<\/article>/m).map(&:first)
+home_project_paths.each_with_index do |path, index|
+  card = home_project_cards[index]
+  assert(card.scan(%{href="#{path}"}).length == 2,
+         "featured homepage media and title do not share the detail link: #{path}")
+  image_tag = card[/<img\b[^>]*>/]
+  assert(image_tag&.include?('loading="lazy"') && image_tag.include?('decoding="async"'),
+         "featured homepage image is missing lazy or async loading attributes: #{path}")
+  image_src = image_tag&.match(/src="([^"]+)"/)&.captures&.first
+  assert(image_src && File.file?(File.join(ROOT, image_src.sub(%r{\A/}, ""))),
+         "featured homepage image source is missing on disk: #{path}")
+  assert(card.match?(%r{<strong>My role\.</strong>\s+\S}),
+         "featured homepage role is empty: #{path}")
+end
+
+assert(home.scan('class="home-output-card"').length == 2,
+       "homepage does not contain exactly 2 recent research outputs")
+home_output_positions = [
+  "Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling",
+  "Wine Quality Prediction with Ensemble Trees"
+].map { |title| home.index(title) }
+assert(home_output_positions.all?, "one or more homepage research outputs are missing")
+assert(home_output_positions == home_output_positions.sort,
+       "homepage research outputs are not ordered newest first")
+assert(home.include?('href="/portfolio/">View all projects'),
+       "homepage is missing the complete Portfolio entry point")
+assert(home.include?('href="/publications/">View all publications'),
+       "homepage is missing the complete Publications entry point")
+assert(home.include?('href="/cv/">CV</a>'),
+       "homepage Explore section is missing the CV entry point")
 
 cv_required = [
   "Philadelphia, PA, USA",
@@ -146,47 +227,6 @@ assert(wine_cv_position && deformation_cv_position,
        "one or more CV publication entries are missing")
 assert(wine_cv_position < deformation_cv_position,
        "first-author wine paper is not listed before the IROS paper in the CV")
-
-education_order = [
-  "University of Pennsylvania, Philadelphia",
-  "South China University of Technology, Guangzhou",
-  "International Summer Undergraduate Research Experience (ISURE)",
-  "University of California, Los Angeles, USA"
-]
-education_positions = education_order.map { |text| home.index(text) }
-assert(education_positions.all?, "one or more expected education entries are missing")
-assert(education_positions == education_positions.sort,
-       "education entries are not ordered by latest end date")
-
-research_section = home[/<h2 id="research-experience">.*?(?=<h2 id="project-experience">)/m]
-project_section = home[/<h2 id="project-experience">.*?(?=<h2 id="honors--awards">)/m]
-assert(research_section, "research experience section is missing")
-assert(project_section, "project experience section is missing")
-
-research_titles = [
-  "Real-Time Robotic-Arm Motion Planning from Temporal Logic",
-  "Zero-Shot Deformation Reconstruction for Soft Robots",
-  "Wine Quality Prediction with Ensemble Trees"
-]
-project_titles = [
-  "Climbing-Assisted Hand Exoskeleton",
-  "Embedded Smart Home Terminal Based on Lightweight Machine Learning",
-  "Remote-Controlled Multifunctional Ball Picking and Placing Robot",
-  "Bionic Water-Strider Robot"
-]
-research_titles.each do |title|
-  assert(research_section.include?(title), "research entry is missing or misclassified: #{title}")
-  assert(!project_section.include?(title), "research entry appears in project experience: #{title}")
-end
-project_titles.each do |title|
-  assert(project_section.include?(title), "project entry is missing or misclassified: #{title}")
-  assert(!research_section.include?(title), "project entry appears in research experience: #{title}")
-end
-assert(home.include?("Proceedings of the 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition"),
-       "full IPMLP proceedings title is missing from the profile citation")
-assert(home.include?("162–170"), "IPMLP publication page range is missing")
-assert(home.include?('href="https://doi.org/10.1145/3759928.3759955"'),
-       "clickable IPMLP DOI is missing")
 
 forbidden = [
   "zilangchen2026@163.com",
@@ -333,6 +373,9 @@ portfolio_detail_pages.each do |name, html|
          "#{name} detail is missing the Back to Portfolio link")
   assert(!html.include?('href="#" class="pagination--pager disabled"'),
          "#{name} detail still exposes a disabled pagination link as href=#")
+  assert(html.include?('<nav class="pagination" aria-label="Project pagination">') ||
+         !html.include?('<nav class="pagination"'),
+         "#{name} detail pagination landmark is missing an accessible name")
 end
 assert(!deformation_publication.include?('class="page__back-link"'),
        "Portfolio back navigation leaked into a publication detail")
@@ -384,7 +427,7 @@ end
 assert(!smart_home_portfolio.include?('href="#"'),
        "smart-home detail still contains a placeholder link")
 
-smart_home_synced_pages = [home, cv, smart_home_portfolio]
+smart_home_synced_pages = [cv, smart_home_portfolio]
 assert(smart_home_synced_pages.all? { |html| html.include?("Sep 2024 – Dec 2024") },
        "smart-home project period is not synchronized")
 assert(smart_home_synced_pages.all? { |html| html.include?("89.1%") },
@@ -442,6 +485,22 @@ assert(main_css.include?(".project-gallery .gallery-image--contain{object-fit:co
        "contained project-gallery styling is missing")
 assert(main_css.include?('.page__content mjx-container[display="true"]{display:block;max-width:100%;overflow-x:auto'),
        "narrow-screen display-math overflow protection is missing")
+assert(main_css.include?(".home-direction-grid,.home-project-grid,.home-output-list{display:grid"),
+       "homepage grid layout styling is missing")
+assert(main_css.include?(".home-project-card__media{position:relative;display:flex;flex:0 0 auto;min-height:0;aspect-ratio:4 / 3"),
+       "homepage featured-project media styling is missing")
+assert(main_css.include?(".home-explore{padding:1.25rem;border-left:4px solid var(--global-link-color)"),
+       "homepage Explore callout styling is missing")
+assert(main_css.include?(".home-project-grid,.home-output-list{grid-template-columns:repeat(2, minmax(0, 1fr))"),
+       "homepage medium-width project grid is missing")
+assert(main_css.include?(".home-project-grid{grid-template-columns:repeat(3, minmax(0, 1fr))"),
+       "homepage wide desktop project grid is missing")
+assert(main_css.include?(".home-section-link{display:inline-flex;min-height:44px"),
+       "homepage section links do not provide a sufficient touch target")
+assert(main_css.include?("@media (prefers-reduced-motion: reduce){.home-project-card"),
+       "homepage card motion is not disabled for reduced-motion users")
+assert(main_css.include?("background:rgba(127,127,127,0.16)"),
+       "navigation interaction background does not preserve theme contrast")
 
 cv_publications = cv.scan(/<article class="archive__item"/).length
 assert(cv_publications == 2,

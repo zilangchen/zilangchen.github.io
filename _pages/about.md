@@ -5,72 +5,93 @@ title: "Zilang Chen"
 author_profile: true
 ---
 
-## Profile
+<section class="home-section home-intro" aria-labelledby="about-heading">
+  <h2 id="about-heading">About</h2>
 
-I'm currently an MSE student in the **Mechanical Engineering and Applied Mechanics (MEAM)** program at the University of Pennsylvania. My research interests lie at the intersection of robotics, machine learning, and embedded systems, with a particular interest in simulation-driven learning and embodied intelligence. My long-term goal is to develop learning systems that enable humanoid robots to acquire generalizable skills in simulation and transfer them safely to the real world.
+  <p>I am an M.S.E. student in Mechanical Engineering and Applied Mechanics at the University of Pennsylvania, with a background in intelligent manufacturing. My work brings together robotics, machine learning, and embedded systems.</p>
 
-## Contact
+  <p>I want robots to infer their physical state from limited sensing, learn representations that transfer across platforms, and operate reliably under hardware and data constraints. My projects span tactile sensing and 3D reconstruction for soft robots, wearable mechanisms, and embedded inference. I am most drawn to work in which experimental design, sensing, data processing, modeling, and physical testing have to function as one system. These experiences shape my current interests in embodied perception, learning from limited data, and transferring skills safely from simulation to real robots.</p>
+</section>
 
-- **Email:** [zilang.chen@outlook.com](mailto:zilang.chen@outlook.com)
-- **Phone number:** [+1 (267) 521-3967](tel:+12675213967)
-- **Location:** Philadelphia, PA, USA
+<section class="home-section" aria-labelledby="research-directions-heading">
+  <h2 id="research-directions-heading">Research Directions</h2>
 
-## Education
+  <div class="home-direction-grid">
+    <article class="home-direction-card">
+      <h3>Embodied Perception</h3>
+      <p>Tactile sensing and 3D state estimation for robots whose deformation or contact state is difficult to observe directly.</p>
+    </article>
 
-**M.S.E. Mechanical Engineering and Applied Mechanics**, University of Pennsylvania, Philadelphia<br>
-Aug 2026 – Present
+    <article class="home-direction-card">
+      <h3>Simulation and Transfer</h3>
+      <p>Learning from limited physical data and using simulation or structured supervision to support transfer across objects and platforms.</p>
+    </article>
 
-**B.Eng. Intelligent Manufacturing Engineering**, South China University of Technology, Guangzhou  
-Sep 2022 – Jul 2026 • GPA 3.8/4.0 (Top 10%)
+    <article class="home-direction-card">
+      <h3>Robot Hardware and Embedded Systems</h3>
+      <p>Mechanism design, embedded sensing and control, and real-time deployment under physical and computational constraints.</p>
+    </article>
+  </div>
+</section>
 
-**International Summer Undergraduate Research Experience (ISURE)**, University of Notre Dame, USA<br>
-Jul 2025 – Sep 2025
+{% assign featured_projects = site.portfolio | where: "homepage_featured", true | sort: "homepage_order" %}
+<section class="home-section" aria-labelledby="selected-work-heading">
+  <div class="home-section-heading">
+    <h2 id="selected-work-heading">Selected Work</h2>
+    <a class="home-section-link" href="{{ '/portfolio/' | relative_url }}">View all projects <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+  </div>
 
-**Summer Session**, University of California, Los Angeles, USA  
-Jun 2024 – Aug 2024 • GPA 4.0/4.0
+  <div class="home-project-grid">
+    {% for project in featured_projects %}
+      {% assign project_title = project.title | strip_html | strip_newlines | escape %}
+      <article class="home-project-card">
+        <a class="home-project-card__media" href="{{ project.url | relative_url }}" aria-label="View project: {{ project_title }}">
+          <img src="{{ project.header.teaser | relative_url }}" alt="" loading="lazy" decoding="async">
+        </a>
+        <div class="home-project-card__body">
+          {% if project.projects.first %}<p class="home-card-label">{{ project.projects.first }}</p>{% endif %}
+          <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
+          <p>{{ project.homepage_excerpt | default: project.excerpt }}</p>
+          <p class="home-project-card__role"><strong>My role.</strong> {{ project.homepage_role }}</p>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
 
-## Research Experience
+{% assign recent_outputs = site.publications | sort: "date" | reverse %}
+<section class="home-section" aria-labelledby="recent-publications-heading">
+  <div class="home-section-heading">
+    <h2 id="recent-publications-heading">Recent Publications</h2>
+    <a class="home-section-link" href="{{ '/publications/' | relative_url }}">View all publications <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+  </div>
 
-**Real-Time Robotic-Arm Motion Planning from Temporal Logic** — SRP, SCUT (Feb 2024 – Present)<br>
-Advisor: Prof. Gang Chen<br>
-• Implementing LCRL-based planners in ROS to guarantee task fulfilment amid dynamic obstacles.
+  <div class="home-output-list">
+    {% for publication in recent_outputs limit: 2 %}
+      <article class="home-output-card">
+        <h3><a href="{{ publication.url | relative_url }}">{{ publication.title }}</a></h3>
+        <p class="home-output-card__meta">
+          {% if publication.status == 'accepted' %}
+            Accepted to <em>{{ publication.venue }}</em>.
+          {% else %}
+            Published in <em>{{ publication.venue }}</em>.
+          {% endif %}
+        </p>
+        <p class="home-output-card__links">
+          <a href="{{ publication.url | relative_url }}">Read summary</a>
+          {% if publication.paperurl %}<a href="{{ publication.paperurl }}">{{ publication.paperlabel | default: "View paper" }}</a>{% endif %}
+        </p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
 
-**Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling** — ISURE, University of Notre Dame (Jul 2025 – Sep 2025)<br>
-Advisor: Prof. Tingyu Cheng  
-• Developed a camera-free framework that maps tactile measurements from a flexible sensor array to cage-controlled 3D Gaussian deformation. The current public version reports 0.67 IoU, 0.65 SSIM, and 3.48 mm Chamfer distance on unseen soft robots without robot-specific retraining. Paper accepted to IEEE/RSJ IROS 2026.
-
-**Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study** — UCLA (Jun 2024 – Aug 2024)<br>
-Advisor: Prof. Chunyang Liao<br>
-• Investigated the relationship between wine components and quality. Built a unified, leakage-free ML pipeline to ensure strict separation of train, validation, and test data and reproducible evaluation. Published in the proceedings of ACM IPMLP 2025 ([DOI: 10.1145/3759928.3759955](https://doi.org/10.1145/3759928.3759955)).
-
-## Project Experience
-
-**Climbing-Assisted Hand Exoskeleton** — Team ADDLM, SCUT (Feb 2025 – Jun 2025)  
-Advisor: Prof. Jingcheng Lei  
-• Developed a 448 g glove with passive ratchet locking and series-elastic actuation; locks within 0.18 s and holds 16 N without slip on a 75° climbing rig.
-
-**Embedded Smart Home Terminal Based on Lightweight Machine Learning** — SCUT (Sep 2024 – Dec 2024)<br>
-Advisor: Prof. Zhicong Huang  
-• Led project planning and team coordination; collected and processed speech data; implemented MFCC feature processing and neural-network training; and contributed to ESP32 firmware, system integration, and testing. The prototype achieved 89.1% validation accuracy across seven local command classes, connected device control to OneNET over MQTT, and used the iFLYTEK Spark LLM for dialogue and weather and time queries.
-
-**Remote-Controlled Multifunctional Ball Picking and Placing Robot** — SCUT (Feb 2024 – Jul 2024)  
-Advisor: Prof. Yingjie Zhang  
-• Implemented real-time motion control, electrical system setup, and remote wireless control in designing a pick-and-place robot. Utilized kinematic analysis and Mecanum wheels to achieve robot omnidirectional movement. Validated precise grasp-transport-drop cycles with stable trajectory tracking and fast repositioning.
-
-**Bionic Water-Strider Robot** — SCUT (Sep 2022 – Jan 2023)  
-Advisor: Prof. Ye Chen  
-• Built a Chebyshev-linkage swimmer that glides on water and autonomously avoids obstacles using ultrasonic and colour sensing.
-
-## Honors & Awards
-
-- Third Prize, Shenzhen Cup Mathematical Modeling Competition (Top 20%), Aug 2024  
-- Honorable Mention, Mathematical Contest in Modeling Certificate of Achievement (MCM) (Top 20%), May 2024  
-- Second Prize, Competition of Multifunctional Robot (Top 20% in School of Intelligent Engineering), May 2024  
-- Third Prize, National College Student Robotics Competition "Angkor Bloom" (Top 30%), Aug 2023  
-- Third Prize, Huashu Cup Mathematical Modeling Competition (Top 30%), Aug 2023  
-
-## Publications
-
-Chen, Z. (2025). "Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study." *Proceedings of the 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition*, 162–170. [https://doi.org/10.1145/3759928.3759955](https://doi.org/10.1145/3759928.3759955)
-
-Shou, L.; Chen, Z.; Xu, W.; Luo, Y.; Cheng, T. (2026). "Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling." *IEEE/RSJ IROS 2026* — Accepted. [arXiv:2603.19543](https://arxiv.org/abs/2603.19543)
+<section class="home-section home-explore" aria-labelledby="explore-heading">
+  <h2 id="explore-heading">Explore</h2>
+  <p>For a complete chronology, see my CV. Technical details, figures, and demonstrations are available in the Portfolio, while publication records and paper links are collected under Publications.</p>
+  <p class="home-explore__links">
+    <a class="btn" href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
+    <a class="btn" href="{{ '/publications/' | relative_url }}">Publications</a>
+    <a class="btn" href="{{ '/cv/' | relative_url }}">CV</a>
+  </p>
+</section>

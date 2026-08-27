@@ -16,6 +16,41 @@
     await mermaid.run({querySelector:'code.language-mermaid'});
 </script>
 
+<!-- Keyboard and state support for masthead controls -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const navigationButton = document.querySelector('#site-nav > button');
+    const navigationMenu = document.getElementById('site-nav-hidden-links');
+    const themeControl = document.querySelector('#theme-toggle > [role="button"]');
+
+    function updateNavigationState() {
+        if (navigationButton && navigationMenu) {
+            navigationButton.setAttribute(
+                'aria-expanded',
+                String(!navigationMenu.classList.contains('hidden'))
+            );
+        }
+    }
+
+    if (navigationButton) {
+        navigationButton.addEventListener('click', function() {
+            window.requestAnimationFrame(updateNavigationState);
+        });
+        window.addEventListener('resize', updateNavigationState);
+        updateNavigationState();
+    }
+
+    if (themeControl) {
+        themeControl.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                themeControl.click();
+            }
+        });
+    }
+});
+</script>
+
 <!-- Simple Lightbox for Gallery Images -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
