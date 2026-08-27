@@ -1,6 +1,6 @@
 ---
 title: "Biomimetic Water Surface Robot with Automatic Obstacle Avoidance"
-excerpt: "Biomimetic water strider robot with Chebyshev-linkage propulsion and foam-float legs that skims the water surface; ultrasonic sensing enables autonomous obstacle avoidance and navigation."
+excerpt: "A team-built water-strider-inspired robot combining Chebyshev-linkage paddling, foam-float buoyancy, Arduino control, and ultrasonic obstacle avoidance."
 image: /images/portfolio/water-robot/main.png
 header:
   teaser: /images/portfolio/water-robot/main.png
@@ -10,56 +10,90 @@ date: 2023-02-27
 period: "Sep 2022 – Jan 2023"
 projects:
   - Biomimetic Design
-gallery:
-  - image_path: portfolio/water-robot/03.png
-    alt: "Sensor and electronics components used in the biomimetic water-surface robot"
-    layout: full
-  - image_path: portfolio/water-robot/04.png
-    alt: "Pool-testing sequence for obstacle avoidance and color-marker detection"
-    layout: full
-  - image_path: portfolio/water-robot/21.jpg
-    alt: "Fabrication of the water-surface robot using a hot-glue gun"
-  - image_path: portfolio/water-robot/22.png
-    alt: "Annotated internal electronics identifying the motor driver, Arduino Uno shield, and speed-reduction board"
-    layout: full
-  - image_path: portfolio/water-robot/23.jpg
-    alt: "Biomimetic water-surface robot being adjusted during a pool test"
-    fit: contain
 links:
   - label: Demo Video
     url: /images/portfolio/water-robot/video1.mp4
-  - label: Design Files (STL)
-    url: "#"
+mechanical_gallery:
+  - image_path: portfolio/water-robot/main.png
+    alt: "Completed water-strider-inspired robot floating in a pool on four foam-board supports"
+    fit: contain
+  - image_path: portfolio/water-robot/21.jpg
+    alt: "Fabrication and assembly of the water-surface robot prototype"
+    fit: contain
+control_gallery:
+  - image_path: portfolio/water-robot/03.png
+    alt: "Ultrasonic distance sensor and TCS3200 color sensor evaluated during development"
+    layout: full
+  - image_path: portfolio/water-robot/22.png
+    alt: "Annotated control hardware with Arduino Uno, expansion board, geared motors, and motor-control boards"
+    layout: full
+testing_gallery:
+  - image_path: portfolio/water-robot/04.png
+    alt: "Stage-II pool layout and obstacle dimensions used for autonomous obstacle-avoidance testing"
+    layout: full
+  - image_path: portfolio/water-robot/23.jpg
+    alt: "Final water-surface robot prototype undergoing pool testing"
+    fit: contain
 ---
 
-<h3>Project Overview</h3>
+<h2>Project Overview</h2>
 
-<p>This biomimetic robot project explores the application of biological principles from water striders—insects that can float and move on water surfaces using surface tension—to create an aquatic robot capable of surface navigation and autonomous obstacle avoidance. The project addresses the increasing importance of aquatic robot technology for search and rescue, decontamination, and other operations on ocean surfaces.</p>
+<p>This five-member team project developed a water-strider-inspired robot that could travel across a pool and respond to obstacles without remote control. The Set Sail team completed the project at SCUT from September 2022 to January 2023 under the supervision of Prof. Ye Chen.</p>
 
-<p>Developed within the Set Sail team at SCUT (Sep 2022 – Jan 2023) under the supervision of Prof. Ye Chen, this spider-shaped swimmer imitates the biomechanics of a water strider to achieve agile motion on the water surface. The robot can move forward, backward, turn right or left, and avoid obstacles automatically while moving on its own, demonstrating the effectiveness of biomimetic design principles in robotic systems.</p>
+<p>The project translated a biological motion pattern into a buildable engineering prototype. Rather than relying on surface tension for buoyancy, the robot used foam-supported legs to stay afloat and motor-driven linkages to generate propulsion.</p>
 
-<h3>Key Features</h3>
+<h3>Key Outcomes</h3>
 
 <ul>
-<li>Four rigid legs tipped with adjustable foam boards supply buoyancy; total mass 1.66 kg.</li>
-<li>Dual Chebyshev linkages convert TT geared-motor rotation into elliptic paddling, providing both thrust and heave for forward/backward motion and zero-radius turns.</li>
-<li>Ultrasonic ranging front sensor and simplified PID logic enable automatic obstacle detection and avoidance; colour sensor recognises target marker for autonomous stop.</li>
-<li>Modular 3-D-printed chassis (resin body + PLA drivetrain) plus swappable floats allow rapid iteration; electronics centred on Arduino UNO + twin L298N drivers.</li>
+  <li>Built and tested a complete <strong>1.66 kg</strong> water-surface robot prototype.</li>
+  <li>Used dual Chebyshev linkages to convert continuous motor rotation into cyclic paddling motion.</li>
+  <li>Integrated Arduino-based PWM motor control with ultrasonic distance sensing.</li>
+  <li>Demonstrated forward and backward motion, left and right turning, and autonomous obstacle avoidance in pool trials.</li>
 </ul>
 
-<h3>Performance</h3>
+<h2>Biomimetic Mechanical Design</h2>
 
-<p>Stage-II pool trials (2.61 m × 1.72 m, 0.36 m depth) demonstrated reliable straight-line travel, turning and obstacle circumnavigation. The robot cleared a 30 cm long, 10 cm wide, 21 cm tall block without contact and reached the goal area autonomously.</p>
+<p>The final structure separated flotation from propulsion. Four fixed support legs ended in adjustable foam boards that supplied buoyancy, while two active legs were driven by TT geared motors. Each Chebyshev linkage converted motor rotation into a repeated vertical and fore-aft stroke, allowing the active legs to push against the water and propel the platform.</p>
 
-<h3>Future Work</h3>
+<p>The mechanism evolved through several physical iterations. An early LEGO prototype helped the team evaluate the basic motion, and a six-leg motion scheme was tested before the final four-support-leg and two-active-leg arrangement was selected for greater stability. The completed prototype combined a resin-printed body, PLA drivetrain components, and adjustable foam floats.</p>
 
-<p>We plan to boost propulsion efficiency with lighter carbon-fibre legs, refine balancing via on-board IMU feedback, and integrate a monocular vision module for high-speed target tracking.</p>
+{% include gallery id="mechanical_gallery" caption="The completed robot and its fabrication process, showing the foam-supported layout and additively manufactured structure." %}
 
-{% include gallery %}
+<h2>Electronics and Obstacle-Avoidance Logic</h2>
 
-<h3>Demo Video</h3>
+<p>An Arduino Uno coordinated the two geared motors through separate motor-control boards. PWM commands were tuned to reduce the speed difference between the left and right propulsion mechanisms. A front-facing ultrasonic sensor measured the distance to an obstacle; when the measured distance crossed the programmed threshold, the controller initiated an avoidance turn before continuing its motion.</p>
 
-<video controls width="100%" style="max-width: 800px; margin: 20px 0;">
+<p>A color sensor was also evaluated during development as a possible automatic-stop input, but it was not retained in the final system. The completed control scope therefore centered on basic motion and ultrasonic obstacle avoidance.</p>
+
+{% include gallery id="control_gallery" caption="Sensors considered during development and the final Arduino-based motor-control hardware." %}
+
+<h2>Pool Testing and Results</h2>
+
+<p>The team evaluated the robot in two pool-testing stages. The final stage used a 2.61 m × 1.72 m pool with a water depth of 0.36 m and a 30 cm × 10 cm × 21 cm obstacle. The trials demonstrated forward and backward motion, left and right turning, and autonomous obstacle avoidance.</p>
+
+<p>Testing also identified the main limitations of the prototype. Differences between the two motor speeds caused heading drift, while float geometry and weight distribution produced uneven draft between the left and right sides. The robot remained stable on the water, but its propulsion efficiency was limited. These observations provided clear directions for the next mechanical and control iteration.</p>
+
+{% include gallery id="testing_gallery" caption="The Stage-II test environment and the final prototype during pool validation." %}
+
+<h2>My Contribution</h2>
+
+<ul>
+  <li>Led the mechanical design and SolidWorks modeling, including the Chebyshev-linkage mechanism and foam-float structures.</li>
+  <li>Contributed to the Arduino control program, PWM motor control, and ultrasonic obstacle-avoidance logic.</li>
+  <li>Took primary responsibility for the 3D-printing workflow and prototype testing, with deep involvement in fabrication, assembly, and iterative integration.</li>
+</ul>
+
+<h2>Demo Video</h2>
+
+<video controls preload="metadata" playsinline poster="/images/portfolio/water-robot/23.jpg" style="display: block; width: min(100%, 360px); aspect-ratio: 9 / 16; max-height: 640px; object-fit: contain; margin: 1.25rem auto; background: #000;">
   <source src="/images/portfolio/water-robot/video1.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
+<h2>Future Directions</h2>
+
+<ul>
+  <li>Improve propulsion efficiency through further linkage and stroke optimization.</li>
+  <li>Reduce structural mass with lighter, stronger materials.</li>
+  <li>Improve straight-line tracking and even draft through tighter motor-speed matching and float rebalancing.</li>
+</ul>

@@ -526,6 +526,41 @@ assert(ball_robot_synced_pages.all? { |html| html.include?("Feb 2024 – Jul 202
 assert(ball_robot_synced_pages.all? { |html| html.include?("second overall") },
        "ball-robot competition result is not synchronized")
 
+water_robot_required = [
+  "Rather than relying on surface tension for buoyancy",
+  "under the supervision of Prof. Ye Chen",
+  "1.66 kg",
+  "not retained in the final system",
+  "Led the mechanical design and SolidWorks modeling",
+  "Contributed to the Arduino control program, PWM motor control, and ultrasonic obstacle-avoidance logic",
+  "Took primary responsibility for the 3D-printing workflow and prototype testing",
+  'preload="metadata"',
+  'poster="/images/portfolio/water-robot/23.jpg"',
+  'aspect-ratio: 9 / 16'
+]
+water_robot_required.each do |text|
+  assert(water_robot_portfolio.include?(text),
+         "corrected water-surface robot detail is missing: #{text}")
+end
+
+water_robot_forbidden = [
+  "simplified PID",
+  "zero-radius turns",
+  "recognises target marker",
+  "without contact",
+  "reached the goal area autonomously",
+  "carbon-fibre legs",
+  "monocular vision",
+  "search and rescue",
+  "decontamination",
+  "twin L298N",
+  "Design Files (STL)"
+]
+water_robot_forbidden.each do |text|
+  assert(!water_robot_portfolio.include?(text),
+         "unsupported water-surface robot claim remains: #{text}")
+end
+
 project_galleries = {
   "deformation reconstruction" => [deformation_portfolio, 5, 5],
   "hand exoskeleton" => [exo_portfolio, 2, 2],
@@ -533,7 +568,7 @@ project_galleries = {
   "wine-quality analysis" => [wine_portfolio, 7, 7],
   "ball-picking robot" => [ball_robot_portfolio, 3, 5],
   "RoboCon Angkor Bloom" => [angkor_portfolio, 2, 8],
-  "water-surface robot" => [water_robot_portfolio, 3, 4]
+  "water-surface robot" => [water_robot_portfolio, 3, 6]
 }
 
 gallery_images = []
@@ -551,8 +586,8 @@ project_galleries.each do |name, (html, expected_full, expected_contain)|
          "#{name} gallery expected #{expected_contain} contained images, found #{contain_count}")
 end
 
-assert(gallery_images.length == 49,
-       "expected 49 visible project-gallery images, found #{gallery_images.length}")
+assert(gallery_images.length == 50,
+       "expected 50 visible project-gallery images, found #{gallery_images.length}")
 gallery_images.each_with_index do |tag, index|
   alt_text = tag[/\balt="([^"]*)"/, 1]
   assert(alt_text && !alt_text.strip.empty?,
