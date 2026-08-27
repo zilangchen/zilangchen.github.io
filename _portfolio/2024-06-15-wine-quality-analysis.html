@@ -1,6 +1,6 @@
 ---
-title: "Analysis of Wine Quality Based on Multiple Machine Learning Methods"
-excerpt: "Comprehensive benchmark of five ensemble learning methods—Random Forest, Gradient Boosting, XGBoost, LightGBM, and CatBoost—for wine quality assessment using leak-free evaluation protocols."
+title: "Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study"
+excerpt: "A sole-authored study comparing five ensemble-tree methods on 6,497 Vinho Verde samples with leakage-controlled evaluation, feature-selection ablations, and compute profiling."
 image: /images/portfolio/wine-quality-analysis/1.png
 header:
   teaser: /images/portfolio/wine-quality-analysis/1.png
@@ -9,158 +9,117 @@ permalink: /portfolio/wine-quality-analysis
 date: 2024-08-14
 period: "Jun 2024 – Aug 2024"
 links:
-  - label: Paper (IPMLP 2025)
+  - label: Download Paper (IPMLP 2025)
     url: /files/Wine Quality IPMLP2025.pdf
-  - label: DOI
+  - label: View ACM Record
     url: https://doi.org/10.1145/3759928.3759955
 projects:
   - Machine Learning
   - Data Science
-gallery:
+pipeline_gallery:
   - image_path: portfolio/wine-quality-analysis/1.png
-    alt: "Leak-free machine-learning workflow for training and evaluating wine-quality classifiers"
+    alt: "Leakage-controlled workflow from the held-out train-test split through per-fold preprocessing, model selection, and final evaluation"
     layout: full
   - image_path: portfolio/wine-quality-analysis/2.png
-    alt: "Red- and white-wine class distributions after SMOTE-Tomek resampling"
+    alt: "Original and SMOTE-Tomek-resampled quality-score distributions for the red- and white-wine training data"
     layout: full
+selection_gallery:
   - image_path: portfolio/wine-quality-analysis/3.png
-    alt: "Feature-importance and feature-selection results across the evaluated ensemble models"
+    alt: "Model-specific feature importance, selection frequency, importance heatmap, and full-versus-selected weighted-F1 comparisons"
     layout: full
+results_gallery:
   - image_path: portfolio/wine-quality-analysis/4.png
-    alt: "Model-performance comparison across ensemble methods and feature-set sizes"
-    layout: full
-  - image_path: portfolio/wine-quality-analysis/5.png
-    alt: "Confusion matrices for the full-feature CatBoost red- and white-wine classifiers"
-    layout: full
-  - image_path: portfolio/wine-quality-analysis/6.png
-    alt: "CatBoost hyperparameter-tuning curves for the wine-quality experiments"
+    alt: "Weighted-F1 comparison across five ensemble-tree methods, two wine datasets, and full or selected feature sets"
     layout: full
   - image_path: portfolio/wine-quality-analysis/7.png
-    alt: "Training-time comparison among the five ensemble-learning methods"
+    alt: "Mean full-feature optimization time for Random Forest, CatBoost, XGBoost, LightGBM, and Gradient Boosting"
+    layout: full
+error_gallery:
+  - image_path: portfolio/wine-quality-analysis/5.png
+    alt: "CatBoost red-wine confusion matrices using all eleven features and the model-selected five-feature subset"
+    layout: full
+  - image_path: portfolio/wine-quality-analysis/6.png
+    alt: "CatBoost red-wine Optuna optimization histories using all eleven features and the selected five-feature subset"
     layout: full
 ---
 
-<h3>Highlights</h3>
+<h2>Project Overview</h2>
+
+<p>This project began as a UCLA Summer Sessions course project under the supervision of Prof. Chunyang Liao and was later independently expanded into a sole-authored conference paper. I designed and executed the complete research workflow, from data preparation and experimental design to analysis, visualization, and manuscript writing.</p>
+
+<p>The study compares five ensemble-tree methods—Random Forest, Gradient Boosting, XGBoost, LightGBM, and CatBoost—on the public Vinho Verde wine-quality datasets. The aim was to build a controlled offline benchmark that evaluates predictive performance, compact feature subsets, and computational cost under one consistent protocol.</p>
+
+<h3>Key Outcomes</h3>
 
 <ul>
-<li>Comprehensive benchmark of five state-of-the-art ensemble learners on canonical Vinho Verde datasets (1,599 red wine and 4,898 white wine instances).</li>
-<li>Rigorous data leakage prevention protocol with a stratified held-out test set, training-set cross-validation, and per-fold preprocessing.</li>
-<li>Achieved weighted F1-scores of 0.693 ± 0.028 (red) and 0.664 ± 0.016 (white) using Gradient Boosting.</li>
-<li>Measured the accuracy trade-off when compressing each model from 11 variables to its five most important features.</li>
-<li>Systematic comparison of computational efficiency across ensemble methods, providing practical deployment recommendations.</li>
-<li>Published in the ACM IPMLP 2025 proceedings, pages 162–170 (DOI: 10.1145/3759928.3759955).</li>
+  <li>Benchmarked five ensemble-tree methods on <strong>6,497 samples</strong>: 1,599 red wines and 4,898 white wines, each described by 11 physicochemical features.</li>
+  <li>Built a leakage-controlled evaluation pipeline with an untouched 20% test set and fold-local preprocessing within the training data.</li>
+  <li>Obtained the highest weighted F1 with Gradient Boosting: <strong>0.693 ± 0.028</strong> for red wine and <strong>0.664 ± 0.016</strong> for white wine.</li>
+  <li>Measured the weighted-F1 trade-off when each model-and-dataset combination was reduced from 11 inputs to its own five highest-ranked features.</li>
+  <li>Expanded the work into a sole-authored paper published at IPMLP 2025, with the proceedings published by ACM.</li>
 </ul>
 
-{% include gallery %}
+<h2>Leakage-Controlled Evaluation Pipeline</h2>
 
-<h3>Project Overview</h3>
+<p>The combined dataset contains 11 continuous physicochemical measurements and an ordinal quality label. Observed ratings span <strong>3–8 for red wine and 3–9 for white wine</strong>, with most samples concentrated in the middle classes.</p>
 
-<p>This project addresses the critical challenge of accurate and reproducible wine quality assessment, which has traditionally relied on subjective, labor-intensive tasting panels. Wine quality assessment is essential for production control, yet current methods lack objectivity and scalability. This work presents the first comprehensive, leakage-free benchmark of multiple machine learning methods for wine quality prediction.</p>
+<p>Each dataset was divided using an 80:20 stratified train-test split. Model selection was then performed only within the training partition using five-fold <code>StratifiedGroupKFold</code>. Standardization, SMOTE-Tomek resampling, and inverse-frequency weighting were fitted independently inside each training fold. This design was intended to prevent preprocessing and model-selection information from leaking out of the held-out evaluation protocol.</p>
 
-<p>Under the supervision of Prof. Chunyang Liao at UCLA during the summer session (Jun 2024 – Aug 2024), I developed a unified machine learning pipeline that systematically evaluates five state-of-the-art ensemble learning algorithms on the canonical Vinho Verde wine quality datasets. The project emphasizes methodological rigor, ensuring no data leakage and providing reproducible benchmarks for future research.</p>
+{% include gallery id="pipeline_gallery" caption="The evaluation workflow and the class distributions before and after training-fold resampling." %}
 
-<h3>Technical Approach</h3>
+<h2>Model Search and Feature Selection</h2>
 
-<h4>Rigorous Data Pipeline</h4>
+<p>Optuna's Tree-structured Parzen Estimator tuned each model with a fixed search budget: 200 trials for Random Forest, 120 for Gradient Boosting, 200 for XGBoost, 200 for LightGBM, and 150 for CatBoost. <strong>Weighted F1 was the sole hyperparameter-optimization objective.</strong> Macro F1, macro ROC-AUC, Matthews correlation coefficient, and Brier score were retained as complementary evaluation measures.</p>
 
-<p>Our methodology addresses common pitfalls in machine learning benchmarks through a comprehensive leakage-prevention protocol:</p>
+<p>After full-feature tuning, each model ranked features using its native tree-based importance measure. Every model-and-dataset combination was then refitted using its own five highest-ranked features, subject to a 5% minimum importance threshold. The resulting subsets therefore vary by algorithm and dataset; they are predictive rankings within this benchmark rather than a universal or causal list of wine-quality determinants.</p>
+
+{% include gallery id="selection_gallery" caption="Model- and dataset-specific feature rankings and the measured effect of retraining with compact feature subsets." %}
+
+<h2>Results</h2>
+
+<p>Gradient Boosting produced the highest held-out weighted F1 on both datasets: <strong>0.693 ± 0.028</strong> for red wine and <strong>0.664 ± 0.016</strong> for white wine. When the five model-specific features replaced all 11 inputs, the median weighted F1 decreased by 2.6 percentage points for red wine and 3.0 percentage points for white wine. The ablation therefore quantifies the performance cost of reducing the number of measured variables.</p>
+
+<p>Compute profiling exposed a much larger difference in optimization cost. During the full-feature phase, mean study times were <strong>46.3 minutes</strong> for Random Forest, 58.9 minutes for CatBoost, 92.3 minutes for XGBoost, 122.5 minutes for LightGBM, and 746.2 minutes for Gradient Boosting. Within this experimental setup, Random Forest provided the strongest compute-performance compromise, whereas Gradient Boosting defined the best weighted-F1 result at substantially higher search cost.</p>
+
+{% include gallery id="results_gallery" caption="Held-out predictive performance and full-feature optimization time across the five evaluated methods." %}
+
+<h2>Error Analysis</h2>
+
+<p>The CatBoost red-wine experiment illustrates two recurring error patterns. Its weighted F1 decreased from 0.6406 with all 11 features to 0.5895 with the selected subset. In both confusion matrices, predictions were concentrated around the common quality scores 5 and 6, while the rarer edge classes remained more difficult to identify.</p>
+
+<p>The accompanying Optuna histories show that the reduced-feature search converged to a lower validation ceiling rather than simply requiring more trials. Together, these results reinforce that the compact subsets should be treated as an efficiency-oriented ablation, not as a lossless replacement for the full measurements.</p>
+
+{% include gallery id="error_gallery" caption="CatBoost red-wine confusion matrices and optimization histories for the full and selected feature sets." %}
+
+<h2>My Contribution</h2>
 
 <ul>
-<li><strong>Stratified Splitting</strong>: 80:20 train-test split with quality-score stratification to maintain class distribution across sets.</li>
-<li><strong>Training-set Cross-Validation</strong>: Five-fold <code>StratifiedGroupKFold</code> within the training set for hyperparameter tuning while preserving an untouched held-out test set.</li>
-<li><strong>Per-Fold Preprocessing</strong>: Independent standardisation (μ=0, σ=1) applied to each fold to prevent data leakage—scaling parameters are computed only on training data within each fold.</li>
-<li><strong>Class Imbalance Handling</strong>: SMOTE-Tomek resampling combined with inverse-frequency cost weighting to address the 3-9 quality score distribution skew in both red and white wine datasets.</li>
+  <li>Independently designed and implemented the complete machine-learning and evaluation pipeline.</li>
+  <li>Conducted data preprocessing, model tuning, feature-selection ablations, compute profiling, result analysis, and figure preparation.</li>
+  <li>Expanded the UCLA course project into a sole-authored paper and independently wrote the manuscript under the supervision of Prof. Chunyang Liao.</li>
 </ul>
 
-<h4>Hyperparameter Optimization</h4>
+<h2>Scope and Limitations</h2>
 
 <ul>
-<li><strong>Search Strategy</strong>: Optuna Tree-structured Parzen Estimator with 120-200 trials per model for efficient hyperparameter exploration.</li>
-<li><strong>Optimization Objective</strong>: Weighted F1 is the sole optimization objective used during hyperparameter search.</li>
-<li><strong>Feature Selection</strong>: Two-stage approach using each model's native tree-based importance measure followed by retraining on the five highest-ranked features, subject to a 5% minimum importance threshold.</li>
+  <li>The evaluation uses one public dataset family from the Vinho Verde region of Portugal; performance across other regions, vintages, or laboratory protocols was not established.</li>
+  <li>This work is an offline comparative benchmark, not a deployed production or real-time quality-control system.</li>
+  <li>The project does not provide a public code repository. The paper documents the evaluation pipeline, search spaces, software versions, and random seeds needed to interpret and reproduce the reported protocol.</li>
+  <li>Feature-importance rankings are specific to the evaluated models and datasets and should not be interpreted as causal scientific conclusions.</li>
 </ul>
 
-<h4>Evaluation Framework</h4>
+<h2>Publication</h2>
+
+<p><strong>Zilang Chen.</strong> “Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study.” Published at <em>IPMLP 2025</em>; proceedings published by ACM, pp. 162–170.</p>
+
+<p><a href="/files/Wine Quality IPMLP2025.pdf">Download the paper</a> or <a href="https://doi.org/10.1145/3759928.3759955">view the ACM record</a>.</p>
+
+<h2>Project Information</h2>
 
 <ul>
-<li><strong>Metrics</strong>: Weighted F1 as the primary metric, supplemented by macro F1, macro ROC-AUC, Matthews correlation coefficient, and Brier score.</li>
-<li><strong>Validation</strong>: Results reported on the untouched test set after five-fold model selection within the training data.</li>
-<li><strong>Computational Profiling</strong>: Runtime analysis on an AMD EPYC 9K84 with 128 logical cores, 512 GB RAM, and one NVIDIA H20 GPU.</li>
+  <li><strong>Duration</strong>: June 2024 – August 2024</li>
+  <li><strong>Origin</strong>: UCLA Summer Sessions course project, later expanded into independent research</li>
+  <li><strong>Supervisor</strong>: Prof. Chunyang Liao, UCLA</li>
+  <li><strong>Tools</strong>: Python 3.10, scikit-learn 1.4, XGBoost 2.x, LightGBM 4.x, CatBoost 1.2, Optuna 3.5, Pandas, and NumPy</li>
+  <li><strong>Compute Environment</strong>: AMD EPYC 9K84, 128 logical cores, 512 GB RAM, and one NVIDIA H20 GPU</li>
 </ul>
-
-<h3>Key Results & Findings</h3>
-
-<h4>Performance Hierarchy</h4>
-
-<p>Gradient Boosting achieves the highest predictive accuracy across both datasets:</p>
-<ul>
-<li><strong>Red Wine</strong>: Weighted F1 0.693 ± 0.028</li>
-<li><strong>White Wine</strong>: Weighted F1 0.664 ± 0.016</li>
-</ul>
-
-<p>Random Forest and XGBoost follow within three percentage points, demonstrating the competitive landscape among modern ensemble methods.</p>
-
-<h4>Feature Importance Analysis</h4>
-
-<p>Native tree-based importance rankings identify compact five-feature subsets for each model and dataset. Frequently retained variables include:</p>
-<ol>
-<li><strong>Alcohol content</strong></li>
-<li><strong>Volatile acidity</strong></li>
-<li><strong>Sulphates</strong></li>
-<li><strong>Free sulfur dioxide</strong></li>
-<li><strong>Chlorides and fixed acidity</strong></li>
-</ol>
-
-<p>Reducing each model-and-dataset combination from 11 variables to its five highest-ranked features decreases median weighted F1 by 2.6 percentage points for red wine and 3.0 percentage points for white wine. This quantifies the modest accuracy cost of using fewer measurements.</p>
-
-<h4>Computational Efficiency</h4>
-
-<p>Runtime profiling reveals a steep efficiency gradient across ensemble methods:</p>
-<ul>
-<li><strong>Gradient Boosting</strong>: Approximately 12 hours per five-fold optimization study.</li>
-<li><strong>XGBoost and LightGBM</strong>: Approximately 2–3 hours with GPU acceleration.</li>
-<li><strong>CatBoost</strong>: Approximately 1 hour.</li>
-<li><strong>Random Forest</strong>: Approximately 49–50 minutes on CPU.</li>
-</ul>
-
-<h3>Practical Recommendations</h3>
-
-<p>Based on systematic accuracy-efficiency trade-off analysis:</p>
-
-<ol>
-<li><strong>Production Deployment</strong>: Random Forest offers the optimal cost-effectiveness for real-time quality control systems, achieving near-peak accuracy with minimal computational overhead.</li>
-<li><strong>GPU-Accelerated Environments</strong>: XGBoost provides a balanced alternative when faster retraining is important.</li>
-<li><strong>Offline Benchmarking</strong>: Gradient Boosting serves as the accuracy ceiling for comparison with future methods, establishing a reproducible baseline.</li>
-<li><strong>Feature Engineering</strong>: Evaluate compact feature subsets when reduced measurement cost is worth a modest loss in predictive performance.</li>
-</ol>
-
-<h3>Research Impact & Reproducibility</h3>
-
-<p>This work establishes a unified, leakage-free baseline for comparing ensemble learners on imbalanced multi-class wine-quality data. The documented preprocessing pipeline, hyperparameter configurations, and evaluation metrics support reproducible follow-up studies.</p>
-
-<p><strong>Reproducibility</strong>: The paper reports releasing preprocessing scripts, hyperparameter grids, and feature-selection protocols as repeatable baselines.</p>
-
-<h3>Publication Status</h3>
-
-<p>Published in the proceedings of <strong>ACM IPMLP 2025</strong> (The 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition), pages 162–170.</p>
-
-<p><strong>Citation</strong>: Chen, Z. (2025). "Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study." In <em>Proceedings of the 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition (IPMLP 2025)</em>, 162–170. DOI: <a href="https://doi.org/10.1145/3759928.3759955">10.1145/3759928.3759955</a>.</p>
-
-<h3>Project Information</h3>
-
-<ul>
-<li><strong>Duration</strong>: June 2024 – August 2024</li>
-<li><strong>Project Type</strong>: Machine Learning Course Project, UCLA Summer Session</li>
-<li><strong>Supervisor</strong>: Prof. Chunyang Liao, UCLA</li>
-<li><strong>Location</strong>: Los Angeles, CA, USA</li>
-<li><strong>Technologies</strong>: Python, Scikit-learn, XGBoost, LightGBM, CatBoost, Optuna, Pandas, NumPy</li>
-</ul>
-
-<h3>Key Contributions</h3>
-
-<ol>
-<li><strong>Methodological Rigor</strong>: Established a unified leakage-control protocol for wine-quality prediction, addressing common benchmarking pitfalls.</li>
-<li><strong>Comprehensive Comparison</strong>: Systematic evaluation of five ensemble methods with detailed performance and efficiency analysis.</li>
-<li><strong>Practical Insights</strong>: Identified key quality predictors and provided deployment recommendations based on accuracy-efficiency trade-offs.</li>
-<li><strong>Reproducibility</strong>: Fully documented pipeline enables reproducible research and facilitates future benchmarking efforts.</li>
-</ol>

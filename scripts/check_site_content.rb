@@ -303,12 +303,38 @@ assert(deformation_publication.include?("Recommended citation:"),
        "IROS detail page no longer exposes its recommended citation")
 assert(cv.include?("Proceedings of the 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition"),
        "wine citation data was removed from the CV")
-assert(![home, publications, wine_publication].join("\n").include?("ACM IPMLP 2025"),
+assert(![home, publications, wine_publication, wine_portfolio].join("\n").include?("ACM IPMLP 2025"),
        "superseded IPMLP venue wording remains on a primary publication surface")
-assert(wine_portfolio.include?("each model-and-dataset combination"),
-       "wine project page does not describe feature selection precisely")
-assert(wine_portfolio.include?('href="https://doi.org/10.1145/3759928.3759955"'),
-       "wine project page DOI is not clickable")
+wine_portfolio_required = [
+  "began as a UCLA Summer Sessions course project",
+  "independently expanded into a sole-authored conference paper",
+  "Observed ratings span <strong>3–8 for red wine and 3–9 for white wine</strong>",
+  "each model-and-dataset combination",
+  "46.3 minutes",
+  "Independently designed and implemented the complete machine-learning and evaluation pipeline",
+  "not a deployed production or real-time quality-control system",
+  "does not provide a public code repository",
+  "proceedings published by ACM",
+  'href="https://doi.org/10.1145/3759928.3759955"'
+]
+wine_portfolio_required.each do |text|
+  assert(wine_portfolio.include?(text),
+         "corrected wine-quality detail is missing: #{text}")
+end
+
+wine_portfolio_forbidden = [
+  "ACM IPMLP 2025",
+  "state-of-the-art",
+  "first comprehensive",
+  "ensuring no data leakage",
+  "real-time quality control systems",
+  "The paper reports releasing",
+  "Fully documented pipeline enables"
+]
+wine_portfolio_forbidden.each do |text|
+  assert(!wine_portfolio.include?(text),
+         "unsupported wine-quality claim remains: #{text}")
+end
 
 publication_title_positions = [arxiv_title, "Wine Quality Prediction with Ensemble Trees"].map do |title|
   publications.index(title)
@@ -323,7 +349,7 @@ portfolio_titles = [
   "Zero-Shot Deformation Reconstruction for Soft Robots",
   "Climbing-Assisted Hand Exoskeleton",
   "Embedded Smart Home Terminal Based on Lightweight Machine Learning",
-  "Analysis of Wine Quality Based on Multiple Machine Learning Methods",
+  "Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study",
   "Remote-Controlled Multifunctional Ball-Collecting Robot",
   "ROBOCON 2023 “Casting Flowers over Angkor Wat”",
   "Biomimetic Water Surface Robot with Automatic Obstacle Avoidance"
