@@ -1,6 +1,8 @@
 # Ignore the contents of the _site directory and other cache directories
 _site/
 .sass-cache/
+.DS_Store
+/Materials/
 
 # Ignore the directory for local files during development
 local/

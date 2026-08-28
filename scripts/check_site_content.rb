@@ -5,6 +5,7 @@ require "cgi"
 require "date"
 require "open3"
 require "tempfile"
+require "uri"
 
 ROOT = File.expand_path("..", __dir__)
 
@@ -32,6 +33,117 @@ wine_portfolio = read_built("portfolio/wine-quality-analysis.html")
 ball_robot_portfolio = read_built("portfolio/ball-picking-robot.html")
 angkor_portfolio = read_built("portfolio/angkor-bloom.html")
 water_robot_portfolio = read_built("portfolio/water-surface-robot.html")
+not_found = read_built("404.html")
+sitemap = read_built("sitemap.xml")
+
+forbidden_built_paths = [
+  "AGENTS.md",
+  "AGENTS/index.html",
+  "CONTRIBUTING.md",
+  "Materials",
+  "archive-layout-with-content",
+  "categories",
+  "collection-archive",
+  "cv-json",
+  "development_record.md",
+  "development_record/index.html",
+  "feed.xml",
+  "iteration.md",
+  "iteration/index.html",
+  "markdown",
+  "markdown_generator",
+  "md",
+  "md.html",
+  "nmp",
+  "nmp.html",
+  "non-menu-page",
+  "objective.md",
+  "objective/index.html",
+  "page-archive",
+  "posts",
+  "resume-json",
+  "resume-json.html",
+  "scripts",
+  "sitemap/index.html",
+  "tags",
+  "talkmap",
+  "talkmap.html",
+  "talks",
+  "teaching",
+  "images/portfolio/temporal-logic-motion",
+  "terms",
+  "wordpress",
+  "year-archive"
+]
+forbidden_built_paths.each do |relative_path|
+  assert(!File.exist?(File.join(ROOT, "_site", relative_path)),
+         "nonpublic route or source leaked into the built site: #{relative_path}")
+end
+
+public_files_dir = File.join(ROOT, "_site", "files")
+public_files = Dir.children(public_files_dir).sort
+assert(public_files == ["Wine Quality IPMLP2025.pdf"],
+       "public file allowlist changed: #{public_files.join(', ')}")
+
+expected_sitemap_paths = [
+  "/",
+  "/cv/",
+  "/files/Wine%20Quality%20IPMLP2025.pdf",
+  "/portfolio/",
+  "/portfolio/angkor-bloom",
+  "/portfolio/ball-picking-robot",
+  "/portfolio/climbing-hand-exo",
+  "/portfolio/deformation-reconstruction",
+  "/portfolio/smart-home-terminal",
+  "/portfolio/water-surface-robot",
+  "/portfolio/wine-quality-analysis",
+  "/publication/2025-06-15-wine-quality-ensemble",
+  "/publication/2026-05-31-deformation-reconstruction",
+  "/publications/"
+].sort
+sitemap_urls = sitemap.scan(%r{<loc>([^<]+)</loc>}).flatten.sort
+assert(sitemap_urls == sitemap_urls.uniq,
+       "XML sitemap contains duplicate URLs")
+sitemap_paths = sitemap_urls.map { |url| URI.parse(url).path }.sort
+assert(sitemap_paths == expected_sitemap_paths,
+       "XML sitemap does not match the approved public path allowlist")
+
+tracked_materials_output, tracked_materials_status = Open3.capture2(
+  "git", "-C", ROOT, "ls-files", "--", "Materials"
+)
+assert(tracked_materials_status.success?,
+       "could not inspect tracked Materials files")
+tracked_materials = tracked_materials_output.lines.map(&:strip)
+assert(tracked_materials.empty?,
+       "Materials remains tracked in the current Git tree")
+tracked_ds_store_output, tracked_ds_store_status = Open3.capture2(
+  "git", "-C", ROOT, "ls-files", "--", "*DS_Store"
+)
+assert(tracked_ds_store_status.success?,
+       "could not inspect tracked .DS_Store files")
+tracked_ds_store = tracked_ds_store_output.lines.map(&:strip)
+assert(tracked_ds_store.empty?,
+       "one or more .DS_Store files remain tracked")
+
+site_files = Dir.glob(File.join(ROOT, "_site", "**", "*"), File::FNM_DOTMATCH).select do |path|
+  File.file?(path)
+end
+site_bytes = site_files.sum { |path| File.size(path) }
+assert(site_bytes < 160 * 1024 * 1024,
+       "built site exceeds the 160 MiB public-surface budget: #{site_bytes} bytes")
+
+assert(not_found.include?("is no longer public"),
+       "404 page does not explain that a former public route may have been withdrawn")
+["Home", "Portfolio", "Publications", "CV"].each do |label|
+  assert(not_found.include?(">#{label}</a>"),
+         "404 page is missing the #{label} recovery link")
+end
+
+primary_public_pages = [home, portfolio, cv, publications]
+assert(primary_public_pages.none? { |html| html.include?("/feed.xml") },
+       "Feed discovery remains on a primary public page")
+assert(primary_public_pages.none? { |html| html.include?('href="/sitemap/"') },
+       "HTML Sitemap remains linked from a primary public page")
 
 profile_pages = [home, cv, publications]
 assert(profile_pages.all? { |html| html.include?("University of Pennsylvania") },
