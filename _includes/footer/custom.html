@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const navigationButton = document.querySelector('#site-nav > button');
     const navigationMenu = document.getElementById('site-nav-hidden-links');
     const themeControl = document.querySelector('#theme-toggle > [role="button"]');
+    const authorMenuButton = document.querySelector('.author__urls-wrapper > button');
+    const authorMenu = document.getElementById('author-profile-links');
 
     function updateNavigationState() {
         if (navigationButton && navigationMenu) {
@@ -43,6 +45,35 @@ document.addEventListener('DOMContentLoaded', function() {
             if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
                 themeControl.click();
+            }
+        });
+    }
+
+    if (authorMenuButton && authorMenu) {
+        function setAuthorMenuState(isOpen) {
+            authorMenu.classList.toggle('is-open', isOpen);
+            authorMenuButton.classList.toggle('open', isOpen);
+            authorMenuButton.setAttribute('aria-expanded', String(isOpen));
+        }
+
+        setAuthorMenuState(false);
+        authorMenuButton.addEventListener('click', function(event) {
+            /* Own this interaction before the theme's legacy jQuery handler. */
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            setAuthorMenuState(!authorMenu.classList.contains('is-open'));
+        }, true);
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.author__urls-wrapper')) {
+                setAuthorMenuState(false);
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && authorMenu.classList.contains('is-open')) {
+                setAuthorMenuState(false);
+                authorMenuButton.focus();
             }
         });
     }

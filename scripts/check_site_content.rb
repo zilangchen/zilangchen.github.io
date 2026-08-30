@@ -352,13 +352,27 @@ forbidden = [
   "zilangchen2026@163.com",
   "+86 136-6002-1792",
   "ICRA 2026",
-  "Under Review",
-  "Google Scholar"
+  "Under Review"
 ]
 all_checked = [home, portfolio, cv, publications].join("\n")
 forbidden.each do |text|
   assert(!all_checked.include?(text), "stale public text remains: #{text}")
 end
+scholar_url = "https://scholar.google.com/citations?user=zOJdQf0AAAAJ&hl=en"
+[home, portfolio, cv, publications].each do |html|
+  assert(html.include?(%{href="#{scholar_url}"}),
+         "public page is missing the confirmed Google Scholar profile link")
+end
+assert(home.include?('Google Scholar'),
+       "homepage author profile is missing the Google Scholar label")
+assert(home.include?(%{"sameAs" : ["#{scholar_url}","https://github.com/zilangchen"]}),
+       "homepage structured data is missing the Scholar and GitHub identity links")
+assert(!home.include?('"sameAs" : null'),
+       "homepage structured data still emits a null sameAs value")
+assert(home.include?('aria-controls="author-profile-links" aria-expanded="false"'),
+       "author profile toggle is missing accessible menu state")
+assert(home.include?('id="author-profile-links"'),
+       "author profile links are missing the toggle target")
 assert(all_checked.include?("IEEE/RSJ IROS 2026"), "accepted IROS venue is missing")
 assert(publications.include?("Accepted to <i>IEEE/RSJ IROS 2026</i>"),
        "publication listing does not use accepted-status wording")
