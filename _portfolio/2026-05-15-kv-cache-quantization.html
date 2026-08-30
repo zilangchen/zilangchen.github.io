@@ -1,0 +1,122 @@
+---
+title: "KV Cache Quantization for Efficient Large Language Model Inference"
+excerpt: "A sole-authored undergraduate thesis on behavior-guided INT8/INT4 KV-cache quantization, K/V role diagnostics, and sensitivity-driven layer-budget allocation across six open-source instruction models."
+image: /images/portfolio/kv-cache-quantization/kv-error-heatmap.png
+header:
+  teaser: /images/portfolio/kv-cache-quantization/kv-error-heatmap.png
+collection: portfolio
+permalink: /portfolio/kv-cache-quantization
+date: 2026-05-15
+period: "Jan 2026 – May 2026"
+links:
+  - label: View Code and Reproduction Materials
+    url: https://github.com/zilangchen/LLM_KVCache_Quantization
+projects:
+  - Large Language Models
+  - Efficient AI
+  - Model Compression
+diagnostic_gallery:
+  - image_path: portfolio/kv-cache-quantization/kv-error-heatmap.png
+    alt: "Paired Key and Value reconstruction-error heatmaps and layer-wise error profiles for Qwen2.5-1.5B and LLaMA-3.1-8B"
+    layout: full
+system_gallery:
+  - image_path: portfolio/kv-cache-quantization/kv-cache-memory.png
+    alt: "Measured KV-cache and peak-memory scaling for FP16, INT8, KIVI-style, and symmetric INT4 cache paths across batch sizes"
+    layout: full
+  - image_path: portfolio/kv-cache-quantization/decode-throughput.png
+    alt: "Decode throughput, per-sequence throughput, and prefill throughput across batch sizes for full-precision and quantized cache paths"
+    layout: full
+---
+
+<h2>Project Overview</h2>
+
+<p>I completed this project independently as my undergraduate thesis at South China University of Technology under the supervision of Prof. Ziqian Zeng. The work studies how to reduce the memory consumed by the Key-Value (KV) cache during long-context large language model inference while preserving the behavior of the attention mechanism.</p>
+
+<p>Instead of selecting quantization parameters only by minimizing tensor reconstruction error, I treated attention behavior as the object to preserve. The framework measures changes in attention distributions, aggregated Value outputs, and downstream task behavior, then reuses the resulting sensitivity profiles for low-bit recovery and layer-wise budget allocation.</p>
+
+<h3>Key Outcomes</h3>
+
+<ul>
+  <li>Built a reproducible KV-cache quantization and evaluation pipeline covering six instruction models from the Qwen2.5, LLaMA-3.1, and Mistral families.</li>
+  <li>Established a behavior-guided INT8 reference path and evaluated its fidelity against FP16 under a controlled task protocol.</li>
+  <li>Diagnosed a sharp retrieval failure in symmetric INT4 on the evaluated Qwen models and identified low-bit Key noise as the primary trigger in those settings.</li>
+  <li>Developed and evaluated an INT4-RoleAlign path that uses different quantization axes and behavioral calibration signals for Key and Value.</li>
+  <li>Converted layer-wise behavior sensitivity into fixed-budget allocation profiles and an AutoK mechanism for proposing model-level protection budgets.</li>
+  <li>Reduced the measured KV-cache capacity by approximately <strong>73.4%</strong> on the reported INT4 path, while documenting when fused decoding did and did not provide a latency benefit.</li>
+</ul>
+
+<h2>Research Motivation</h2>
+
+<p>During autoregressive decoding, every generated token adds new Key and Value tensors to the KV cache. Its memory footprint therefore grows with sequence length, batch size, model depth, the number of KV heads, and storage precision. Lowering the cache from FP16 to INT8 or INT4 can release substantial memory, but the resulting numerical error is not equally important in every tensor, layer, model, or task.</p>
+
+<p>Key perturbations can change attention logits and reorder the attention distribution after softmax. Value perturbations act later through weighted aggregation and change the representation returned by attention. This distinction motivated a calibration framework that observes how quantization changes the computation actually consumed by the model, rather than relying on tensor error alone.</p>
+
+<h2>Behavior-Guided Calibration</h2>
+
+<p>The calibration pipeline evaluates full-precision reference configurations and candidate quantized configurations on a fixed calibration set. It records two complementary behavioral signals: the KL divergence between reference and quantized attention distributions, and the perturbation of the attention-aggregation output. Downstream task scores remain a separate audit layer rather than being folded into the calibration objective.</p>
+
+<p>After candidate parameters are evaluated, the selected scales, clipping thresholds, quantization-axis metadata, and layer-wise sensitivity readings are frozen before downstream evaluation. This separation keeps calibration decisions independent from the test results and makes the same offline artifacts reusable by the cache implementation and allocation experiments.</p>
+
+<h2>K/V Role-Aware Low-Bit Quantization</h2>
+
+<p>The INT8 path provides a conservative reference for behavior-guided calibration. INT4 creates a more demanding setting: in the evaluated Qwen models, direct symmetric INT4 caused stepwise failures in retrieval-oriented tests. K-only and V-only ablations showed that lowering Key precision was the more direct source of instability in those cases, while LLaMA-3.1-8B exhibited a different response.</p>
+
+<p>INT4-RoleAlign therefore treats the two cache roles separately. Key is quantized per channel so that feature directions involved in attention ranking retain independent endpoints. Value is quantized per token so that each time step receives its own parameters for the aggregation path. Offline percentile candidates are selected using attention-distribution KL for Key and an aggregation-output perturbation proxy for Value.</p>
+
+{% include gallery id="diagnostic_gallery" caption="Paired K/V reconstruction-error profiles illustrate that low-bit sensitivity varies across tensor roles, layers, and model architectures." %}
+
+<h2>Sensitivity-Driven Budget Allocation</h2>
+
+<p>The per-layer calibration readings are summarized into behavior-sensitivity profiles. Under a fixed budget, a behavior-guided allocator protects the most sensitive layers with a higher-precision path and compares that choice with uniform quantization and position-based heuristics.</p>
+
+<p>AutoK extends this idea by selecting the smallest number of protected layers that reaches a specified fraction of cumulative sensitivity. It is a model-level candidate generator, not a universally optimal policy. The experiments instead identify model-dependent regimes: early-layer protection for Qwen2.5-3B, a clustered middle-layer regime for LLaMA-3.1-8B, a strong AutoK example on Mistral-7B, and several closely performing configurations on Qwen2.5-14B.</p>
+
+<h2>System Implementation and Evaluation</h2>
+
+<p>I implemented custom FP16, INT8, symmetric INT4, mixed-precision, and role-aware cache paths within a controlled generation loop. The system includes quantization and dequantization routines, packed low-bit storage, calibration-artifact loading, GQA head mapping, and Triton decode kernels. The evaluation pipeline measures perplexity, Needle-in-a-Haystack retrieval, RULER, LongBench-style task scores, selected official LongBench tasks, cache memory, peak memory, prefill throughput, and decode latency.</p>
+
+<p>The reported INT4 path reduced KV-cache capacity by approximately 73.4% in the evaluated model configurations. Runtime results were more conditional. The crossover between fused and reference decoding moved with the number of KV heads, sequence length, and backend implementation. The thesis therefore reports these measurements as system-specific deployment evidence rather than a universal speedup claim.</p>
+
+{% include gallery id="system_gallery" caption="Measured memory and throughput behavior for the evaluated cache paths. Runtime results are tied to the reported NVIDIA H20, batch, sequence-length, and backend settings." %}
+
+<h2>My Contribution</h2>
+
+<ul>
+  <li>Independently formulated and carried out the undergraduate thesis under the supervision of Prof. Ziqian Zeng.</li>
+  <li>Designed the behavior-guided calibration protocol and the shared sensitivity-profile representation.</li>
+  <li>Implemented the custom generation loop, KV-cache formats, quantization paths, calibration tools, and Triton decode integration.</li>
+  <li>Developed and evaluated the K/V role-aware low-bit path, layer-wise budget allocation experiments, and AutoK candidate-selection mechanism.</li>
+  <li>Built the reproducible experiment, aggregation, statistical-analysis, profiling, and visualization pipeline.</li>
+  <li>Ran the cross-model evaluations, interpreted the results, prepared the figures and tables, and wrote the thesis.</li>
+</ul>
+
+<h2>Scope and Limitations</h2>
+
+<ul>
+  <li>The official LongBench comparison was limited to Qwen2.5-1.5B, three tasks, at most 50 samples per task, and one seed; it is an audit of direction rather than a general real-world guarantee.</li>
+  <li>The allocation experiments compare methods within similar INT4 budget bands rather than establishing a strict matched-budget winner against every baseline.</li>
+  <li>The evaluated models are decoder-only architectures dominated by grouped-query attention. MHA, MQA, mixture-of-experts, sliding-window attention, and other architectures require separate validation.</li>
+  <li>Latency and memory results were measured on an NVIDIA H20 with a fixed software stack, batch and decoding protocol. Other hardware and serving systems may move the crossover points.</li>
+  <li>AutoK is an offline, model-level budget proposer. Prompt-adaptive routing and production serving integration remain future work.</li>
+</ul>
+
+<h2>Future Directions</h2>
+
+<ul>
+  <li>Evaluate role-aware allocation under strictly matched memory budgets.</li>
+  <li>Study prompt-conditioned policy selection after the static sensitivity profiles are better established.</li>
+  <li>Extend the evaluation to additional attention architectures, hardware platforms, and serving workloads.</li>
+  <li>Separate quantization-format effects, calibration effects, and architectural effects through more controlled ablations.</li>
+</ul>
+
+<h2>Project Information</h2>
+
+<ul>
+  <li><strong>Duration</strong>: January 2026 – May 2026</li>
+  <li><strong>Type</strong>: Sole-authored undergraduate thesis</li>
+  <li><strong>Institution</strong>: South China University of Technology</li>
+  <li><strong>Supervisor</strong>: Prof. Ziqian Zeng</li>
+  <li><strong>Models</strong>: Qwen2.5-1.5B, Qwen2.5-3B, Qwen2.5-7B, Qwen2.5-14B, LLaMA-3.1-8B, and Mistral-7B</li>
+  <li><strong>Tools</strong>: Python, PyTorch, Hugging Face Transformers, Triton, FlashInfer, NumPy, Pandas, and Matplotlib</li>
+  <li><strong>Repository</strong>: <a href="https://github.com/zilangchen/LLM_KVCache_Quantization">GitHub code and reproduction materials</a></li>
+</ul>

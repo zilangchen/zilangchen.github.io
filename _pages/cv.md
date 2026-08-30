@@ -28,6 +28,13 @@ Jun 2024 – Aug 2024 • GPA 4.0/4.0 • Math 156 Machine Learning
 
 ## Research Experience
 
+**KV Cache Quantization for Efficient Large Language Model Inference** — Undergraduate Thesis, SCUT (Jan 2026 – May 2026)<br>
+Advisor: Prof. Ziqian Zeng<br>
+
+- Independently developed a behavior-guided KV-cache quantization framework that uses attention-distribution KL, aggregation-output perturbation, and downstream task audits to connect calibration, low-bit recovery, and layer-wise budget allocation.
+- Implemented custom INT8/INT4 cache paths, K/V role-aware quantization, a controlled generation loop, Triton decode integration, and a reproducible evaluation pipeline covering six instruction models from the Qwen2.5, LLaMA-3.1, and Mistral families.
+- Diagnosed Key-side low-bit instability in the evaluated Qwen settings, evaluated INT4-RoleAlign and sensitivity-driven AutoK allocation, and measured approximately 73.4% KV-cache capacity compression on the reported INT4 path. [Project details](/portfolio/kv-cache-quantization) · [GitHub](https://github.com/zilangchen/LLM_KVCache_Quantization)
+
 **Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling** — ISURE, University of Notre Dame (Jul 2025 – Sep 2025)<br>
 Advisor: Prof. Tingyu Cheng  
 

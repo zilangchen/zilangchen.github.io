@@ -27,6 +27,7 @@ publications = read_built("publications/index.html")
 deformation_publication = read_built("publication/2026-05-31-deformation-reconstruction.html")
 wine_publication = read_built("publication/2025-06-15-wine-quality-ensemble.html")
 deformation_portfolio = read_built("portfolio/deformation-reconstruction.html")
+kv_cache_portfolio = read_built("portfolio/kv-cache-quantization.html")
 exo_portfolio = read_built("portfolio/climbing-hand-exo.html")
 smart_home_portfolio = read_built("portfolio/smart-home-terminal.html")
 wine_portfolio = read_built("portfolio/wine-quality-analysis.html")
@@ -94,6 +95,7 @@ expected_sitemap_paths = [
   "/portfolio/ball-picking-robot",
   "/portfolio/climbing-hand-exo",
   "/portfolio/deformation-reconstruction",
+  "/portfolio/kv-cache-quantization",
   "/portfolio/smart-home-terminal",
   "/portfolio/water-surface-robot",
   "/portfolio/wine-quality-analysis",
@@ -159,6 +161,7 @@ active_navigation = {
   home => /masthead__menu-item--lg persist is-active.*?aria-current="page".*?>Zilang Chen<\/a>/m,
   portfolio => /masthead__menu-item is-active.*?href="[^"]*\/portfolio\/" aria-current="page">Portfolio<\/a>/m,
   deformation_portfolio => /masthead__menu-item is-active.*?href="[^"]*\/portfolio\/" aria-current="location">Portfolio<\/a>/m,
+  kv_cache_portfolio => /masthead__menu-item is-active.*?href="[^"]*\/portfolio\/" aria-current="location">Portfolio<\/a>/m,
   publications => /masthead__menu-item is-active.*?href="[^"]*\/publications\/" aria-current="page">Publications<\/a>/m,
   deformation_publication => /masthead__menu-item is-active.*?href="[^"]*\/publications\/" aria-current="location">Publications<\/a>/m,
   cv => /masthead__menu-item is-active.*?href="[^"]*\/cv\/" aria-current="page">CV<\/a>/m
@@ -311,6 +314,7 @@ end
 cv_research_section = cv[/<h2 id="research-experience">.*?(?=<h2 id="publications">)/m]
 assert(cv_research_section, "CV Research Experience section could not be extracted")
 cv_research_projects = [
+  "KV Cache Quantization for Efficient Large Language Model Inference",
   "Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling",
   "Embedded Smart Home Terminal Based on Lightweight Machine Learning",
   "A Unified, Leak-Free Comparative Study of Wine Quality",
@@ -486,7 +490,7 @@ portfolio_periods = [
   "Dec 2022 – Jul 2023",
   "Sep 2022 – Jan 2023"
 ]
-assert(portfolio.scan("Project period:").length == 7,
+assert(portfolio.scan("Project period:").length == 8,
        "portfolio cards do not consistently label project periods")
 portfolio_periods.each do |period|
   assert(portfolio.include?(period), "portfolio period is missing: #{period}")
@@ -525,8 +529,8 @@ assert(deformation_portfolio.include?('href="https://arxiv.org/abs/2603.19543"')
 portfolio_teaser_links = portfolio.scan(
   /<a class="archive__item-teaser-link" href="([^"]+)" aria-label="View project: ([^"]+)">/
 )
-assert(portfolio_teaser_links.length == 7,
-       "expected 7 Portfolio teaser links to project details, found #{portfolio_teaser_links.length}")
+assert(portfolio_teaser_links.length == 8,
+       "expected 8 Portfolio teaser links to project details, found #{portfolio_teaser_links.length}")
 portfolio_teaser_links.each do |href, label|
   assert(href.include?("/portfolio/") && !href.match?(/\.(?:jpe?g|png|gif|webp)\z/i),
          "Portfolio teaser does not link to a project detail: #{href}")
@@ -536,6 +540,7 @@ assert(!portfolio.include?('data-lightbox="portfolio-main"'),
        "Portfolio listing still opens cover images in a lightbox")
 
 portfolio_detail_pages = {
+  "KV-cache quantization" => kv_cache_portfolio,
   "deformation reconstruction" => deformation_portfolio,
   "hand exoskeleton" => exo_portfolio,
   "smart-home terminal" => smart_home_portfolio,
@@ -557,6 +562,36 @@ assert(!deformation_publication.include?('class="page__back-link"'),
        "Portfolio back navigation leaked into a publication detail")
 assert(deformation_portfolio.include?('data-lightbox="gallery"'),
        "project-detail Gallery lightbox behavior is missing")
+
+kv_cache_required = [
+  "KV Cache Quantization for Efficient Large Language Model Inference",
+  "Jan 2026 – May 2026",
+  "Prof. Ziqian Zeng",
+  "six instruction models",
+  "INT4-RoleAlign",
+  "AutoK",
+  "73.4%",
+  "My Contribution",
+  'href="https://github.com/zilangchen/LLM_KVCache_Quantization"'
+]
+kv_cache_required.each do |text|
+  assert(kv_cache_portfolio.include?(text),
+         "KV-cache project detail is missing confirmed content: #{text}")
+end
+kv_cache_forbidden = [
+  "EMNLP 2026",
+  "submitted to EMNLP",
+  "accepted to EMNLP",
+  "published at EMNLP",
+  "provides a universal speedup"
+]
+kv_cache_forbidden.each do |text|
+  assert(!kv_cache_portfolio.include?(text),
+         "unsupported KV-cache claim remains: #{text}")
+end
+assert(portfolio.index("KV Cache Quantization for Efficient Large Language Model Inference") <
+       portfolio.index("Zero-Shot Deformation Reconstruction for Soft Robots"),
+       "KV-cache project is not sorted first in Portfolio")
 
 smart_home_required = [
   "89.1% validation accuracy",
@@ -702,6 +737,7 @@ water_robot_forbidden.each do |text|
 end
 
 project_galleries = {
+  "KV-cache quantization" => [kv_cache_portfolio, 3, 3],
   "deformation reconstruction" => [deformation_portfolio, 5, 5],
   "hand exoskeleton" => [exo_portfolio, 2, 2],
   "smart-home terminal" => [smart_home_portfolio, 3, 8],
@@ -726,8 +762,8 @@ project_galleries.each do |name, (html, expected_full, expected_contain)|
          "#{name} gallery expected #{expected_contain} contained images, found #{contain_count}")
 end
 
-assert(gallery_images.length == 50,
-       "expected 50 visible project-gallery images, found #{gallery_images.length}")
+assert(gallery_images.length == 53,
+       "expected 53 visible project-gallery images, found #{gallery_images.length}")
 gallery_images.each_with_index do |tag, index|
   alt_text = tag[/\balt="([^"]*)"/, 1]
   assert(alt_text && !alt_text.strip.empty?,
