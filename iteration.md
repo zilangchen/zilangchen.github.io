@@ -253,3 +253,12 @@
 - Validation: Ruby syntax passed; Jekyll 3.9.5 built successfully; `Site content checks passed.`; and `_site/index.html` contains the exact `google-site-verification` Meta Tag requested by Search Console.
 - Risks / follow-ups: The verification token must remain publicly deployed to retain ownership verification. Search Console verification, sitemap submission, and the homepage indexing request still require the deployed tag and explicit browser-side confirmation. The pre-existing unrelated `format_images.py` modification remains unstaged and unchanged.
 - Commit: This entry is included in the Google Search Console verification commit.
+
+### 2026-08-30 16:03 | Complete Search Console onboarding
+- Goal: Complete the external Search Console workflow after deploying the verification tag, submit the public sitemap, and refresh Google's copy of the homepage.
+- Changed files: `iteration.md` only; external state changed in Google Search Console for the verified URL-prefix property.
+- Commands: Search Console HTML Meta Tag verification; authoritative homepage URL inspection; sitemap submission; homepage re-indexing request; public sitemap HTTP-header and XML validation.
+- Outputs: Verified ownership of `https://zilangchen.github.io/` by HTML Meta Tag; confirmed the homepage was already indexed and eligible for Google Search; submitted `/sitemap.xml`; and added the homepage to Google's priority recrawl queue after the Scholar and identity-structured-data update.
+- Validation: Search Console displayed `已完成所有权验证` and `网址已收录到 Google`; the indexing request displayed `已请求编入索引`. The public sitemap returns HTTP 200 with `application/xml`, parses as valid XML, and contains fifteen approved public URLs.
+- Risks / follow-ups: Search Console accepted the sitemap submission but its first processing result still reports `无法抓取` and zero discovered URLs. Direct public checks found no HTTP, MIME type, XML syntax, protocol, or availability defect, so this remains an asynchronous Search Console processing issue rather than a confirmed website defect. Recheck the sitemap report after Google's initial processing window; do not repeatedly resubmit it in the meantime. The pre-existing unrelated `format_images.py` modification remains unstaged and unchanged.
+- Commit: This entry is included in the Search Console onboarding record commit.
