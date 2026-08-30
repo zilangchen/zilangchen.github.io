@@ -1,0 +1,42 @@
+---
+layout: null
+permalink: /sitemap.xml
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% assign public_collections = site.collections | where_exp: "collection", "collection.output != false" %}
+  {% for collection in public_collections %}
+    {% assign public_documents = collection.docs | where_exp: "document", "document.sitemap != false" %}
+    {% for document in public_documents %}
+      <url>
+        <loc>{{ document.url | replace: "/index.html", "/" | absolute_url | xml_escape }}</loc>
+        {% unless document.collection == "portfolio" %}
+          {% if document.last_modified_at or document.date %}
+            <lastmod>{{ document.last_modified_at | default: document.date | date_to_xmlschema }}</lastmod>
+          {% endif %}
+        {% endunless %}
+      </url>
+    {% endfor %}
+  {% endfor %}
+
+  {% assign public_pages = site.html_pages | where_exp: "document", "document.sitemap != false" | where_exp: "document", "document.url != '/404.html'" %}
+  {% for document in public_pages %}
+    <url>
+      <loc>{{ document.url | replace: "/index.html", "/" | absolute_url | xml_escape }}</loc>
+      {% if document.last_modified_at %}
+        <lastmod>{{ document.last_modified_at | date_to_xmlschema }}</lastmod>
+      {% endif %}
+    </url>
+  {% endfor %}
+
+  {% for file in site.static_files %}
+    {% assign extension = file.extname | downcase %}
+    {% if file.sitemap != false and extension == ".pdf" %}
+      <url>
+        <loc>{{ file.path | replace: "/index.html", "/" | absolute_url | xml_escape }}</loc>
+        <lastmod>{{ file.modified_time | date_to_xmlschema }}</lastmod>
+      </url>
+    {% endif %}
+  {% endfor %}
+</urlset>

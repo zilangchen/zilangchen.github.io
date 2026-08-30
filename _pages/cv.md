@@ -11,38 +11,38 @@ redirect_from:
 
 ## Contact
 
-- zilang.chen@outlook.com (Personal)  
-- +1 (267) 521-3967
-- Philadelphia, PA, USA
+- **Email:** zilang.chen@outlook.com
+- **Phone number:** +1 (267) 521-3967
+- **Location:** Philadelphia, PA, USA
 
 ## Education
 
-**M.S.E. Mechanical Engineering and Applied Mechanics**, University of Pennsylvania, Philadelphia<br>
+**M.S.E. in Mechanical Engineering and Applied Mechanics**, University of Pennsylvania, Philadelphia<br>
 Aug 2026 – Present
 
 **B.Eng. Intelligent Manufacturing Engineering**, South China University of Technology, Guangzhou  
 Sep 2022 – Jul 2026 • GPA 3.8/4.0
 
 **Visiting Student, UCLA Summer Sessions**, University of California, Los Angeles, USA<br>
-Jun 2024 – Aug 2024 • GPA 4.0/4.0 • Math 156 Machine Learning
+Jun 2024 – Aug 2024 • GPA 4.0/4.0
 
 ## Research Experience
 
 **KV Cache Quantization for Efficient Large Language Model Inference** — Undergraduate Thesis, SCUT (Jan 2026 – May 2026)<br>
 Advisor: Prof. Ziqian Zeng<br>
 
-- Independently developed a behavior-guided KV-cache quantization framework that uses attention-distribution KL, aggregation-output perturbation, and downstream task audits to connect calibration, low-bit recovery, and layer-wise budget allocation.
-- Implemented custom INT8/INT4 cache paths, K/V role-aware quantization, a controlled generation loop, Triton decode integration, and a reproducible evaluation pipeline covering six instruction models from the Qwen2.5, LLaMA-3.1, and Mistral families.
-- Diagnosed Key-side low-bit instability in the evaluated Qwen settings, evaluated INT4-RoleAlign and sensitivity-driven AutoK allocation, and measured approximately 73.4% KV-cache capacity compression on the reported INT4 path. [Project details](/portfolio/kv-cache-quantization) · [GitHub](https://github.com/zilangchen/LLM_KVCache_Quantization)
+- Designed a KV-cache quantization and allocation framework for long-context LLM inference, using attention-distribution KL and perturbations in attention-weighted Value outputs to guide parameter calibration, low-bit recovery, and layer-wise precision allocation.
+- Implemented offline K/V calibration, INT4-RoleAlign, AutoK sensitivity-based layer protection, and fused Triton kernels. Integrated FP16, INT8, symmetric INT4, mixed-precision, and KIVI-style paths into a unified evaluation pipeline.
+- Evaluated six instruction models from the Qwen2.5, LLaMA-3.1, and Mistral families. Diagnosed 4-bit Key quantization as the primary task-level retrieval failure trigger in the evaluated Qwen settings. The role-aware INT4 path achieved 100% pass rates on both Needle tests for each of the three models with complete KIVI-style/RoleAlign comparisons, reduced measured KV-cache storage by approximately 73.4% relative to FP16 across four representative configurations, and lowered Qwen2.5-14B TPOT by approximately 40% at 32K relative to the reference INT4 path using fused Triton decoding on a single NVIDIA H20 with batch size 1. [Project details](/portfolio/kv-cache-quantization) · [GitHub](https://github.com/zilangchen/LLM_KVCache_Quantization)
 
-**Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling** — ISURE, University of Notre Dame (Jul 2025 – Sep 2025)<br>
+**Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling** — ISURE Summer Research Program, University of Notre Dame (Jul 2025 – Sep 2025)<br>
 Advisor: Prof. Tingyu Cheng  
 
 - Co-developed a deformation reconstruction system that operates in real time by integrating a flexible 10 × 10 piezoresistive tactile sensor array with supervision derived from 4DGS and cage-based 3D Gaussian modeling, enabling inference without camera input. Designed, fabricated, and tested a capacitive sensor prototype made from the silicone elastomer Ecoflex to explore sensing of shear forces.
 - Iterated the 10 × 10 piezoresistive sensor matrix and integrated the team's GAT cage deformer with the separate inverse distance weighting step that propagates cage motion to 3D Gaussian primitives. Applied multiview rendering of key poses and RIFE temporal interpolation to strengthen the 4DGS supervision while reducing manual data capture. Co-designed and executed the acquisition protocol using a mechanical fixture, collected and performed quality control on all structured light scans and sensor measurements, implemented per-channel R/R0 normalization, supported pipeline orchestration, and conducted the evaluations.
 - The system achieved approximately 30 FPS in the coarse Gaussian setting and 5 FPS at high resolution on an RTX 3070 Ti, with a 3.48 mm mean full-body Chamfer distance, 0.67 IoU, 0.65 SSIM, and mean angular errors of 4.7° for bending and 4.9° for twisting. It demonstrated camera-free zero-shot reconstruction on two unseen soft robots without robot-specific retraining. The work was accepted to IEEE/RSJ IROS 2026; current public version: [arXiv:2603.19543](https://arxiv.org/abs/2603.19543).
 
-**Embedded Smart Home Terminal Based on Lightweight Machine Learning** — SCUT (Sep 2024 – Dec 2024)<br>
+**Embedded Smart Home Terminal Based on Lightweight Machine Learning** — SCUT (Sep 2024 – Jan 2025)<br>
 Advisor: Prof. Zhicong Huang  
 
 - Led project planning and team coordination for an embedded smart-home terminal.
@@ -84,4 +84,3 @@ Advisor: Prof. Yingjie Zhang
 - Honorable Mention in the Mathematical Contest in Modeling (MCM), May 2024
 - Second Prize in the Competition of Multifunctional Robot, May 2024
 - ROBOCON Third Prize in the National College Student Robotics Competition, Aug 2023
-- Third Prize in the Huashu Cup Mathematical Modeling Competition, Aug 2023

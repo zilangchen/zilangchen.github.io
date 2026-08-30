@@ -110,6 +110,27 @@ sitemap_paths = sitemap_urls.map { |url| URI.parse(url).path }.sort
 assert(sitemap_paths == expected_sitemap_paths,
        "XML sitemap does not match the approved public path allowlist")
 
+portfolio_sitemap_paths = expected_sitemap_paths.select { |path| path.start_with?("/portfolio/") && path != "/portfolio/" }
+portfolio_sitemap_paths.each do |path|
+  public_url = "https://zilangchen.github.io#{path}"
+  sitemap_entry = sitemap[%r{<url>\s*<loc>#{Regexp.escape(public_url)}</loc>.*?</url>}m]
+  assert(sitemap_entry, "Portfolio URL is missing from the XML sitemap: #{path}")
+  assert(!sitemap_entry.include?("<lastmod>"),
+         "internal Portfolio sort date leaked into the XML sitemap: #{path}")
+end
+
+publication_sitemap_lastmods = {
+  "/publication/2025-06-15-wine-quality-ensemble" => "2025-07-12T00:00:00+00:00",
+  "/publication/2026-05-31-deformation-reconstruction" => "2026-06-16T00:00:00+00:00"
+}
+publication_sitemap_lastmods.each do |path, expected_lastmod|
+  public_url = "https://zilangchen.github.io#{path}"
+  sitemap_entry = sitemap[%r{<url>\s*<loc>#{Regexp.escape(public_url)}</loc>.*?</url>}m]
+  assert(sitemap_entry, "Publication URL is missing from the XML sitemap: #{path}")
+  assert(sitemap_entry.include?("<lastmod>#{expected_lastmod}</lastmod>"),
+         "Publication last-modified date changed in the XML sitemap: #{path}")
+end
+
 tracked_materials_output, tracked_materials_status = Open3.capture2(
   "git", "-C", ROOT, "ls-files", "--", "Materials"
 )
@@ -190,8 +211,9 @@ home_required = [
   "I am now interested in robot learning and algorithms",
   "I hope to study vision-language-action models",
   "connecting algorithmic decisions with real sensing and hardware constraints",
+  "A behavior-guided KV-cache quantization framework calibrates role-aware INT4 formats",
+  "I independently designed and implemented the calibration, quantized cache, allocation, Triton decoding, and evaluation pipeline",
   "A flexible piezoresistive array drives a 3D Gaussian model",
-  "The glove monitors grip pressure",
   "A remote-controlled Mecanum-wheel robot used collision-based ball collection",
   "solely operated the robot in competition",
   "Accepted to <em>IEEE/RSJ IROS 2026</em>.",
@@ -219,8 +241,8 @@ home_forbidden.each do |text|
 end
 
 home_project_titles = [
+  "KV Cache Quantization for Efficient Large Language Model Inference",
   "Zero-Shot Deformation Reconstruction for Soft Robots",
-  "Climbing-Assisted Hand Exoskeleton",
   "Remote-Controlled Multifunctional Ball-Collecting Robot"
 ]
 home_project_positions = home_project_titles.map { |title| home.index(title) }
@@ -233,8 +255,8 @@ assert(home.scan("<strong>My role.</strong>").length == 3,
        "homepage project cards do not consistently separate individual roles")
 
 home_project_paths = [
+  "/portfolio/kv-cache-quantization",
   "/portfolio/deformation-reconstruction",
-  "/portfolio/climbing-hand-exo",
   "/portfolio/ball-picking-robot"
 ]
 home_project_cards = home.scan(/<article class="home-project-card">(.*?)<\/article>/m).map(&:first)
@@ -269,10 +291,18 @@ assert(home.include?('href="/cv/">CV</a>'),
        "homepage Explore section is missing the CV entry point")
 
 cv_required = [
-  "Philadelphia, PA, USA",
-  "(Personal)",
+  "Email:</strong> zilang.chen@outlook.com",
+  "Phone number:</strong> +1 (267) 521-3967",
+  "Location:</strong> Philadelphia, PA, USA",
+  "M.S.E. in Mechanical Engineering and Applied Mechanics",
   "Visiting Student, UCLA Summer Sessions",
-  "Math 156 Machine Learning",
+  "ISURE Summer Research Program, University of Notre Dame",
+  "Sep 2024 – Jan 2025",
+  "100% pass rates on both Needle tests",
+  "primary task-level retrieval failure trigger",
+  "complete KIVI-style/RoleAlign comparisons",
+  "73.4% relative to FP16",
+  "40% at 32K relative to the reference INT4 path",
   "Ecoflex",
   "R/R0 normalization",
   "Co-designed and executed the acquisition protocol",
@@ -292,6 +322,11 @@ cv_required.each do |text|
 end
 
 cv_forbidden = [
+  "(Personal)",
+  "Math 156 Machine Learning",
+  "Huashu Cup Mathematical Modeling Competition",
+  "dominant retrieval failure trigger",
+  "ISURE, University of Notre Dame",
   "Research Workshop: Computer Vision and Robot Sensors",
   "Real-Time Robotic Arm Motion Control Algorithm Based on Temporal Logic",
   "International Summer Undergraduate Research Experience (ISURE)",
@@ -499,9 +534,10 @@ temporal_output = File.join(ROOT, "_site", "portfolio", "temporal-logic-motion-p
 assert(!File.exist?(temporal_output), "hidden temporal-logic detail page was generated")
 
 portfolio_periods = [
+  "Jan 2026 – May 2026",
   "Jul 2025 – Sep 2025",
   "Feb 2025 – Jun 2025",
-  "Sep 2024 – Dec 2024",
+  "Sep 2024 – Jan 2025",
   "Jun 2024 – Aug 2024",
   "Feb 2024 – Jul 2024",
   "Dec 2022 – Jul 2023",
@@ -574,6 +610,8 @@ portfolio_detail_pages.each do |name, html|
   assert(html.include?('<nav class="pagination" aria-label="Project pagination">') ||
          !html.include?('<nav class="pagination"'),
          "#{name} detail pagination landmark is missing an accessible name")
+  assert(!html.include?('property="article:published_time"'),
+         "#{name} detail exposes its internal sort date as an article publication date")
 end
 assert(!deformation_publication.include?('class="page__back-link"'),
        "Portfolio back navigation leaked into a publication detail")
@@ -586,6 +624,15 @@ kv_cache_required = [
   "Prof. Ziqian Zeng",
   "six instruction models",
   "INT4-RoleAlign",
+  "Needle-single-retrieval",
+  "MK-NIAH-2",
+  "complete KIVI-style/RoleAlign comparisons under the reported five-seed protocol",
+  "190.23 ms to 113.16 ms",
+  "43.13 ms FP16 latency baseline",
+  "64 generated tokens",
+  "10 runs",
+  "not total model memory or end-to-end peak GPU memory",
+  "This is a within-INT4 backend comparison",
   "AutoK",
   "73.4%",
   "behavior-guided-framework.png",
@@ -604,7 +651,8 @@ kv_cache_forbidden = [
   "submitted to EMNLP",
   "accepted to EMNLP",
   "published at EMNLP",
-  "provides a universal speedup"
+  "provides a universal speedup",
+  "TPOT by approximately 40% relative to FP16"
 ]
 kv_cache_forbidden.each do |text|
   assert(!kv_cache_portfolio.include?(text),
@@ -632,7 +680,7 @@ smart_home_required = [
   "MAX98357 I2S audio amplifier",
   "My Contribution",
   "Led project planning, task coordination, and team-wide integration",
-  "Sep 2024 – Dec 2024",
+  "Sep 2024 – Jan 2025",
   'preload="metadata"',
   'poster="/images/portfolio/smart-home/main.jpg"'
 ]
@@ -664,9 +712,11 @@ smart_home_forbidden.each do |text|
 end
 assert(!smart_home_portfolio.include?('href="#"'),
        "smart-home detail still contains a placeholder link")
+assert(!smart_home_portfolio.include?("2025-01-31"),
+       "smart-home internal sort date is visible in the public detail page")
 
 smart_home_synced_pages = [cv, smart_home_portfolio]
-assert(smart_home_synced_pages.all? { |html| html.include?("Sep 2024 – Dec 2024") },
+assert(smart_home_synced_pages.all? { |html| html.include?("Sep 2024 – Jan 2025") },
        "smart-home project period is not synchronized")
 assert(smart_home_synced_pages.all? { |html| html.include?("89.1%") },
        "smart-home validation accuracy is not synchronized")

@@ -8,6 +8,10 @@ collection: portfolio
 permalink: /portfolio/kv-cache-quantization
 date: 2026-05-15
 period: "Jan 2026 – May 2026"
+homepage_featured: true
+homepage_order: 1
+homepage_excerpt: "A behavior-guided KV-cache quantization framework calibrates role-aware INT4 formats, allocates precision by layer sensitivity, and evaluates long-context tradeoffs across six instruction models."
+homepage_role: "I independently designed and implemented the calibration, quantized cache, allocation, Triton decoding, and evaluation pipeline, then ran the experiments and wrote the thesis."
 links:
   - label: View Code and Reproduction Materials
     url: https://github.com/zilangchen/LLM_KVCache_Quantization
@@ -49,10 +53,11 @@ system_gallery:
 <ul>
   <li>Built a reproducible KV-cache quantization and evaluation pipeline covering six instruction models from the Qwen2.5, LLaMA-3.1, and Mistral families.</li>
   <li>Established a behavior-guided INT8 reference path and evaluated its fidelity against FP16 under a controlled task protocol.</li>
-  <li>Diagnosed a sharp retrieval failure in symmetric INT4 on the evaluated Qwen models and identified low-bit Key noise as the primary trigger in those settings.</li>
-  <li>Developed and evaluated an INT4-RoleAlign path that uses different quantization axes and behavioral calibration signals for Key and Value.</li>
+  <li>Symmetric INT4 caused retrieval collapse on Qwen2.5-1.5B and Qwen2.5-7B under the controlled Needle protocol, while the role-aware per-channel-Key and per-token-Value format restored a usable low-bit retrieval path.</li>
+  <li>INT4-RoleAlign achieved <strong>100% pass rates</strong> on both Needle-single-retrieval and MK-NIAH-2 for each of the three models with complete KIVI-style/RoleAlign comparisons under the reported five-seed protocol: Qwen2.5-1.5B, Qwen2.5-7B, and LLaMA-3.1-8B.</li>
+  <li>Across Qwen2.5-1.5B, Qwen2.5-7B, LLaMA-3.1-8B, and Qwen2.5-14B, the reported INT4 cache layout reduced measured KV-cache storage by approximately <strong>73.4%</strong> relative to FP16.</li>
+  <li>For Qwen2.5-14B at 32K context, fused Triton INT4 decoding reduced TPOT from 190.23 ms to 113.16 ms, approximately <strong>40%</strong>, relative to the reference INT4 path on a single NVIDIA H20 with batch size 1.</li>
   <li>Converted layer-wise behavior sensitivity into fixed-budget allocation profiles and an AutoK mechanism for proposing model-level protection budgets.</li>
-  <li>Reduced the measured KV-cache capacity by approximately <strong>73.4%</strong> on the reported INT4 path, while documenting when fused decoding did and did not provide a latency benefit.</li>
 </ul>
 
 <h2>Research Motivation</h2>
@@ -75,6 +80,8 @@ system_gallery:
 
 <p>INT4-RoleAlign therefore treats the two cache roles separately. Key is quantized per channel so that feature directions involved in attention ranking retain independent endpoints. Value is quantized per token so that each time step receives its own parameters for the aggregation path. Offline percentile candidates are selected using attention-distribution KL for Key and an aggregation-output perturbation proxy for Value.</p>
 
+<p>Across the three complete KIVI-style and RoleAlign comparisons, the RoleAlign perplexity difference relative to KIVI-style remained within 0.15, and both paths achieved 100% pass rates on the two Needle retrieval tests. Qwen2.5-14B also reached 100% on both tests under RoleAlign, although a paired KIVI-style result was not available for that model. The evidence therefore supports low-bit retrieval recovery and a reusable offline calibration interface, rather than a universal task-quality advantage over KIVI-style.</p>
+
 {% include gallery id="rolealign_gallery" caption="INT4-RoleAlign quantizes Key per channel to preserve attention ranking and Value per token to preserve content aggregation." %}
 
 {% include gallery id="diagnostic_gallery" caption="Paired K/V reconstruction-error profiles illustrate that low-bit sensitivity varies across tensor roles, layers, and model architectures." %}
@@ -89,7 +96,7 @@ system_gallery:
 
 <p>I implemented custom FP16, INT8, symmetric INT4, mixed-precision, and role-aware cache paths within a controlled generation loop. The system includes quantization and dequantization routines, packed low-bit storage, calibration-artifact loading, GQA head mapping, and Triton decode kernels. The evaluation pipeline measures perplexity, Needle-in-a-Haystack retrieval, RULER, LongBench-style task scores, selected official LongBench tasks, cache memory, peak memory, prefill throughput, and decode latency.</p>
 
-<p>The reported INT4 path reduced KV-cache capacity by approximately 73.4% in the evaluated model configurations. Runtime results were more conditional. The crossover between fused and reference decoding moved with the number of KV heads, sequence length, and backend implementation. The thesis therefore reports these measurements as system-specific deployment evidence rather than a universal speedup claim.</p>
+<p>The reported INT4 cache layout reduced measured KV-cache storage by approximately 73.4% relative to FP16 across four representative model configurations. Runtime gains were more conditional. For Qwen2.5-14B at 32K context, fused Triton INT4 decoding reduced TPOT from 190.23 ms to 113.16 ms, approximately 40%, relative to the reference INT4 path on a single NVIDIA H20 with batch size 1, 64 generated tokens, and 10 runs. The crossover depended on the number of KV heads, context length, and backend implementation, so this result is reported as a system-specific within-INT4 improvement rather than a universal speedup.</p>
 
 {% include gallery id="system_gallery" caption="Measured memory and throughput behavior for the evaluated cache paths. Runtime results are tied to the reported NVIDIA H20, batch, sequence-length, and backend settings." %}
 
@@ -108,9 +115,12 @@ system_gallery:
 
 <ul>
   <li>The official LongBench comparison was limited to Qwen2.5-1.5B, three tasks, at most 50 samples per task, and one seed; it is an audit of direction rather than a general real-world guarantee.</li>
+  <li>The 100% Needle figures are exact-match pass rates on two controlled retrieval tests; they do not establish general long-context question-answering performance.</li>
+  <li>“Three models with complete KIVI-style/RoleAlign comparisons” refers to models with results for both paths. Qwen2.5-14B had RoleAlign coverage but no paired KIVI-style result.</li>
+  <li>The 73.4% figure measures KV-cache storage reduction across four representative configurations, not total model memory or end-to-end peak GPU memory.</li>
+  <li>The approximately 40% TPOT reduction was measured against the reference INT4 path for Qwen2.5-14B at 32K on a single NVIDIA H20, with batch size 1, 64 generated tokens, 10 runs, greedy decoding, and the reported backend. This is a within-INT4 backend comparison: in the same table, fused INT4 at 113.16 ms remained slower than the 43.13 ms FP16 latency baseline. Other hardware and serving systems may move the crossover point.</li>
   <li>The allocation experiments compare methods within similar INT4 budget bands rather than establishing a strict matched-budget winner against every baseline.</li>
   <li>The evaluated models are decoder-only architectures dominated by grouped-query attention. MHA, MQA, mixture-of-experts, sliding-window attention, and other architectures require separate validation.</li>
-  <li>Latency and memory results were measured on an NVIDIA H20 with a fixed software stack, batch and decoding protocol. Other hardware and serving systems may move the crossover points.</li>
   <li>AutoK is an offline, model-level budget proposer. Prompt-adaptive routing and production serving integration remain future work.</li>
 </ul>
 
