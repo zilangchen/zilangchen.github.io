@@ -244,3 +244,12 @@
 - Validation: Jekyll 3.9.5 built successfully and `Site content checks passed.`; Ruby syntax and task-scoped diff checks passed. On desktop, Google Scholar is visible in the author sidebar with the confirmed URL. At 390 px, the `Follow` button changes from `aria-expanded=false` to `true`, reveals Email, Google Scholar, and GitHub, and closes on the second click. Both layouts were visually inspected after the final build, and the generated homepage emits a non-null Person `sameAs` array.
 - Risks / follow-ups: Search visibility is not immediate or guaranteed. Google currently returns no indexed results for `site:zilangchen.github.io`, and searches for `Zilang Chen` are affected by correction to `Ziliang Chen` and same-name ambiguity. Google Search Console verification, sitemap submission, URL inspection, and updating the public GitHub profile remain recommended external follow-ups. The pre-existing unrelated `format_images.py` modification remains unstaged and unchanged.
 - Commit: This entry is included in the Google Scholar identity-link commit.
+
+### 2026-08-30 15:49 | Add Google Search Console verification
+- Goal: Verify the public website as a URL-prefix property in Google Search Console so indexing status, sitemap submission, and URL inspection can be managed from the owner's Google account.
+- Changed files: `_config.yml`, `scripts/check_site_content.rb`, and `iteration.md`.
+- Commands: Search Console URL-prefix setup; HTML Meta Tag inspection; `ruby -c scripts/check_site_content.rb`; `make check`; task-scoped `git diff --check`; generated-homepage verification-tag inspection.
+- Outputs: Added the Google-provided site-verification token through the existing Jekyll SEO configuration and added a regression assertion for the generated homepage Meta Tag.
+- Validation: Ruby syntax passed; Jekyll 3.9.5 built successfully; `Site content checks passed.`; and `_site/index.html` contains the exact `google-site-verification` Meta Tag requested by Search Console.
+- Risks / follow-ups: The verification token must remain publicly deployed to retain ownership verification. Search Console verification, sitemap submission, and the homepage indexing request still require the deployed tag and explicit browser-side confirmation. The pre-existing unrelated `format_images.py` modification remains unstaged and unchanged.
+- Commit: This entry is included in the Google Search Console verification commit.

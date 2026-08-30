@@ -373,6 +373,9 @@ assert(home.include?('aria-controls="author-profile-links" aria-expanded="false"
        "author profile toggle is missing accessible menu state")
 assert(home.include?('id="author-profile-links"'),
        "author profile links are missing the toggle target")
+google_verification = "-niFTE1mqY_p-wCFZrDotBuV9nIQ8DHRMZOmRXUss_s"
+assert(home.include?(%{<meta name="google-site-verification" content="#{google_verification}"}),
+       "homepage is missing the Google Search Console verification tag")
 assert(all_checked.include?("IEEE/RSJ IROS 2026"), "accepted IROS venue is missing")
 assert(publications.include?("Accepted to <i>IEEE/RSJ IROS 2026</i>"),
        "publication listing does not use accepted-status wording")
