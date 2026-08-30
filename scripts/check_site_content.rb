@@ -571,6 +571,10 @@ kv_cache_required = [
   "INT4-RoleAlign",
   "AutoK",
   "73.4%",
+  "behavior-guided-framework.png",
+  "int4-rolealign-axes.png",
+  "Behavior-guided KV-cache quantization framework connecting offline calibration and sensitivity-based budget allocation to read-only online inference",
+  "INT4-RoleAlign diagram showing per-channel Key quantization for attention ranking and per-token Value quantization for content aggregation",
   "My Contribution",
   'href="https://github.com/zilangchen/LLM_KVCache_Quantization"'
 ]
@@ -589,6 +593,12 @@ kv_cache_forbidden.each do |text|
   assert(!kv_cache_portfolio.include?(text),
          "unsupported KV-cache claim remains: #{text}")
 end
+assert(kv_cache_portfolio.index("behavior-guided-framework.png") <
+       kv_cache_portfolio.index("K/V Role-Aware Low-Bit Quantization"),
+       "behavior-guided framework is not placed before the role-aware quantization section")
+assert(kv_cache_portfolio.index("int4-rolealign-axes.png") <
+       kv_cache_portfolio.index("kv-error-heatmap.png"),
+       "INT4-RoleAlign axes figure is not placed before the diagnostic results")
 assert(portfolio.index("KV Cache Quantization for Efficient Large Language Model Inference") <
        portfolio.index("Zero-Shot Deformation Reconstruction for Soft Robots"),
        "KV-cache project is not sorted first in Portfolio")
@@ -737,7 +747,7 @@ water_robot_forbidden.each do |text|
 end
 
 project_galleries = {
-  "KV-cache quantization" => [kv_cache_portfolio, 3, 3],
+  "KV-cache quantization" => [kv_cache_portfolio, 5, 5],
   "deformation reconstruction" => [deformation_portfolio, 5, 5],
   "hand exoskeleton" => [exo_portfolio, 2, 2],
   "smart-home terminal" => [smart_home_portfolio, 3, 8],
@@ -762,8 +772,8 @@ project_galleries.each do |name, (html, expected_full, expected_contain)|
          "#{name} gallery expected #{expected_contain} contained images, found #{contain_count}")
 end
 
-assert(gallery_images.length == 53,
-       "expected 53 visible project-gallery images, found #{gallery_images.length}")
+assert(gallery_images.length == 55,
+       "expected 55 visible project-gallery images, found #{gallery_images.length}")
 gallery_images.each_with_index do |tag, index|
   alt_text = tag[/\balt="([^"]*)"/, 1]
   assert(alt_text && !alt_text.strip.empty?,

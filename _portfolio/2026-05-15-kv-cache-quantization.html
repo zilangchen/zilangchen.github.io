@@ -15,6 +15,16 @@ projects:
   - Large Language Models
   - Efficient AI
   - Model Compression
+framework_gallery:
+  - image_path: portfolio/kv-cache-quantization/behavior-guided-framework.png
+    alt: "Behavior-guided KV-cache quantization framework connecting offline calibration and sensitivity-based budget allocation to read-only online inference"
+    title: "Behavior-guided KV-cache quantization framework"
+    layout: full
+rolealign_gallery:
+  - image_path: portfolio/kv-cache-quantization/int4-rolealign-axes.png
+    alt: "INT4-RoleAlign diagram showing per-channel Key quantization for attention ranking and per-token Value quantization for content aggregation"
+    title: "INT4-RoleAlign quantization axes"
+    layout: full
 diagnostic_gallery:
   - image_path: portfolio/kv-cache-quantization/kv-error-heatmap.png
     alt: "Paired Key and Value reconstruction-error heatmaps and layer-wise error profiles for Qwen2.5-1.5B and LLaMA-3.1-8B"
@@ -57,11 +67,15 @@ system_gallery:
 
 <p>After candidate parameters are evaluated, the selected scales, clipping thresholds, quantization-axis metadata, and layer-wise sensitivity readings are frozen before downstream evaluation. This separation keeps calibration decisions independent from the test results and makes the same offline artifacts reusable by the cache implementation and allocation experiments.</p>
 
+{% include gallery id="framework_gallery" caption="Behavior-guided calibration is completed offline; the resulting quantization artifacts and sensitivity profile remain fixed during online inference." %}
+
 <h2>K/V Role-Aware Low-Bit Quantization</h2>
 
 <p>The INT8 path provides a conservative reference for behavior-guided calibration. INT4 creates a more demanding setting: in the evaluated Qwen models, direct symmetric INT4 caused stepwise failures in retrieval-oriented tests. K-only and V-only ablations showed that lowering Key precision was the more direct source of instability in those cases, while LLaMA-3.1-8B exhibited a different response.</p>
 
 <p>INT4-RoleAlign therefore treats the two cache roles separately. Key is quantized per channel so that feature directions involved in attention ranking retain independent endpoints. Value is quantized per token so that each time step receives its own parameters for the aggregation path. Offline percentile candidates are selected using attention-distribution KL for Key and an aggregation-output perturbation proxy for Value.</p>
+
+{% include gallery id="rolealign_gallery" caption="INT4-RoleAlign quantizes Key per channel to preserve attention ranking and Value per token to preserve content aggregation." %}
 
 {% include gallery id="diagnostic_gallery" caption="Paired K/V reconstruction-error profiles illustrate that low-bit sensitivity varies across tensor roles, layers, and model architectures." %}
 
