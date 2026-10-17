@@ -50,11 +50,31 @@
       clearButton.hidden = !placeIds;
       yearButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.year === year)));
     }
+    function updateMinimumZoom() {
+      const size = map.getSize();
+      // A single, non-wrapping world must cover both dimensions of the frame.
+      const worldSize = map.getPixelWorldBounds(0).getSize();
+      const coverZoom = Math.log2(Math.max(size.x / worldSize.x, size.y / worldSize.y));
+      const snap = map.options.zoomSnap;
+      const minZoom = Math.max(0, Math.ceil(coverZoom / snap) * snap);
+      if (minZoom === map.getMinZoom()) return;
+      const needsZoom = map.getZoom() < minZoom;
+      const rebuildClusters = () => {
+        group.clearLayers();
+        group.addLayers(yearPhotos().filter(photo => photo.point && !unlocated).map(photo => markers.get(photo.id)));
+      };
+      // Wait for any zoom transition before replacing its cluster grid.
+      if (group && needsZoom) group.once('animationend', rebuildClusters);
+      map.setMinZoom(minZoom);
+      if (group && !needsZoom) rebuildClusters();
+    }
     function fitCurrentLocations() {
       if (!map) return;
       const points = yearPhotos().filter(photo => photo.point).map(photo => [photo.point.latitude, photo.point.longitude]);
-      if (points.length) map.fitBounds(points, {padding: [48, 48], maxZoom: 5, animate: false});
-      else map.setView([24, 20], 2, {animate: false});
+      if (points.length) {
+        const bounds = L.latLngBounds(points);
+        map.fitBounds(bounds, {paddingTopLeft: [32, 64], paddingBottomRight: [32, 32], maxZoom: 5, animate: false});
+      } else map.setView([24, 0], map.getMinZoom(), {animate: false});
     }
     function refreshMap() {
       if (!group) return;
@@ -85,8 +105,10 @@
     }
     const L = window.L;
     map = L.map('photo-map', {scrollWheelZoom: false, minZoom: 0, maxZoom: 18, zoomSnap: 0.25,
-      maxBounds: [[-85.05, -180], [85.05, 180]], maxBoundsViscosity: 0.8,
+      maxBounds: [[-85.05112878, -180], [85.05112878, 180]], maxBoundsViscosity: 1,
       zoomAnimation: !reducedMotion, fadeAnimation: !reducedMotion, markerZoomAnimation: !reducedMotion});
+    updateMinimumZoom();
+    map.on('resize', updateMinimumZoom);
     map.attributionControl.setPrefix('<a href="https://leafletjs.com/">Leaflet</a>');
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19, noWrap: true, bounds: [[-85.05112878, -180], [85.05112878, 180]], attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -413,3 +413,17 @@
 - Preflight: Existing Git push authentication verified by dry-run; remote master matches the starting local commit 1aba139. Production make check passed all five suites. Release file/hash manifest and rollback base retained privately in Robotics/website_review_2026-10-17/deployment/.
 - Release: Commit and ordinary fast-forward push to the existing master Pages source; no force push or deployment configuration changes. GitHub build outcome and live route/media verification will be recorded in the deployment receipt after publishing.
 - Packaging correction: normalized upstream Leaflet CSS/license line endings and trailing whitespace after the staged whitespace gate flagged CRLF; retained upstream hashes and normalization notes alongside deployed-file hashes. No CSS tokens or license wording changed.
+
+
+### 2026-10-17 14:04 EDT | Fill the photography map frame
+- Request: Remove default blank side gutters from Around the world while preserving its interactive map and existing design. Local preview correction.
+- Changes: Responsive 1.8:1 desktop frame (360px on mobile), minimum zoom calculated from actual map dimensions, strict world bounds, and responsive cluster-grid rebuilding after zoom transitions. A one-expression local markercluster fix floors fractional minimum zoom consistently with its integer cluster-root construction; upstream and patched hashes retained in map-assets.json.
+- Validation: Production make check passed all five suites. Both changed JavaScript files passed node --check; scoped git diff --check passed. Browser verified default desktop (1652px) and mobile (390px) tile coverage without overflow, year filters including a single GPS marker and a year without GPS, zoom/reset, and resize back to desktop without lost clusters.
+- Evidence/state: Before-source backups, final patch, DOM coverage results and preview screenshots in Robotics/website_review_2026-10-17/map-fill/. Local config restored after checks. Unrelated format_images.py changes and unused retired files preserved; no commit, push or new deployment.
+
+
+### 2026-10-17 14:08 EDT | Publish the approved map frame correction
+- Authorization: The owner reviewed the local map correction and explicitly requested publishing it.
+- Scope: Only map sizing, minimum zoom, cluster compatibility and its dependency provenance. The accompanying external audit is being reviewed separately; coordinates, portraits, wording, type sizes and unrelated files are unchanged.
+- Validation: Production make check passed all five suites; map dependency hashes match; prior desktop/mobile, resize, filter and zoom evidence remains in the map-fill review folder. Scoped whitespace and JavaScript syntax checks passed.
+- Release: Publish the five reviewed files by ordinary fast-forward push from ffce265. GitHub Pages outcome and live-file verification will be saved in the private map-release receipt. Unrelated format_images.py edits, retired Galaxy files and caches remain local.

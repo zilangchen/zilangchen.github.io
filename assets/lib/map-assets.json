@@ -21,7 +21,9 @@
   {
     "file": "leaflet-markercluster/leaflet.markercluster.js",
     "url": "https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js",
-    "sha256": "1e4e1d22972a3926f48598e0caf14e3fe7049835d428a344fed4f9e3665b3508"
+    "sha256": "7ec7086dff36d2b26b72ae6e9b892108f645b872d618177a094594a4e4afefcc",
+    "upstream_sha256": "1e4e1d22972a3926f48598e0caf14e3fe7049835d428a344fed4f9e3665b3508",
+    "local_patch": "Floor fractional minZoom in _recursivelyAddChildrenToMap, matching the integer root level created by _generateInitialClusters. Prevents unclustered markers at the root from disappearing."
   },
   {
     "file": "leaflet-markercluster/MarkerCluster.css",
