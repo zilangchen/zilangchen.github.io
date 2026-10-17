@@ -1,682 +1,546 @@
 [
   {
     "id": "0178650698e8109d",
-    "latitude": -33.85991666666666,
-    "longitude": 151.20440416666668
+    "place_id": "geonames-2147714"
   },
   {
     "id": "03502515047bbc45",
-    "latitude": 5.956291666666667,
-    "longitude": 116.0412
+    "place_id": "geonames-1733432"
   },
   {
     "id": "03fcf0520ad5afcd",
-    "latitude": 48.86024028333333,
-    "longitude": 2.3264091666666666
+    "place_id": "geonames-2988507"
   },
   {
     "id": "040fb56c9fa08ddc",
-    "latitude": 23.104441666666666,
-    "longitude": 113.37216945
+    "place_id": "geonames-1809858"
   },
   {
     "id": "0727315953770bc3",
-    "latitude": 64.70233833333333,
-    "longitude": -20.974108333333334
+    "place_id": "geonames-3418076"
   },
   {
     "id": "0825021351590645",
-    "latitude": 40.68706666666667,
-    "longitude": -74.04164133333333
+    "place_id": "geonames-5128581"
   },
   {
     "id": "0a92ea310d58d1a4",
-    "latitude": 68.50664555,
-    "longitude": 16.923099716666666
+    "place_id": "geonames-3144987"
   },
   {
     "id": "0f2e587b9f8c8a99",
-    "latitude": 69.42310028333333,
-    "longitude": 17.503848616666666
+    "place_id": "geonames-3157549"
   },
   {
     "id": "0f9a7b019673c34c",
-    "latitude": 41.704658333333334,
-    "longitude": -86.23178
+    "place_id": "geonames-4926563"
   },
   {
     "id": "10819c1a2f01c4fe",
-    "latitude": 23.10442945,
-    "longitude": 113.37215721666666
+    "place_id": "geonames-1809858"
   },
   {
     "id": "10a0f8a5b0506a63",
-    "latitude": 41.704655,
-    "longitude": -86.23183333333333
+    "place_id": "geonames-4926563"
   },
   {
     "id": "11ab6432787d661c",
-    "latitude": 41.40345555,
-    "longitude": 2.17458195
+    "place_id": "geonames-3128760"
   },
   {
     "id": "12421ff1b79097ca",
-    "latitude": -7.907095283333334,
-    "longitude": 112.94883361666666
+    "place_id": "geonames-1623011"
   },
   {
     "id": "12f24401b76a2bf2",
-    "latitude": -44.677475,
-    "longitude": 169.09783883333333
+    "place_id": "geonames-2184707"
   },
   {
     "id": "1341d2154333b4f4",
-    "latitude": 4.599447783333334,
-    "longitude": 118.8646825
+    "place_id": "geonames-1733697"
   },
   {
     "id": "135727cbaafd292f",
-    "latitude": -20.230438333333332,
-    "longitude": 149.0309445
+    "place_id": "geonames-6354936"
   },
   {
     "id": "17a34622d9fc413a",
-    "latitude": 67.9301,
-    "longitude": 13.082081383333334
+    "place_id": "geonames-7626400"
   },
   {
     "id": "1b68e0c471661d86",
-    "latitude": 64.14408555,
-    "longitude": -21.92120445
+    "place_id": "geonames-3413829"
   },
   {
     "id": "1c1119de84f8f124",
-    "latitude": 55.689537783333336,
-    "longitude": 12.598517783333333
+    "place_id": "geonames-2618425"
   },
   {
     "id": "2199ac53a4d56046",
-    "latitude": 48.85941,
-    "longitude": 2.3391572166666665
+    "place_id": "geonames-2988507"
   },
   {
     "id": "256e975554deffd2",
-    "latitude": 69.67970416666667,
-    "longitude": 18.905163333333334
+    "place_id": "geonames-3133895"
   },
   {
     "id": "2b92d24181f7bb2c",
-    "latitude": 48.84760333333333,
-    "longitude": 2.25722055
+    "place_id": "geonames-2988507"
   },
   {
     "id": "2be6487120b3e29a",
-    "latitude": 64.701675,
-    "longitude": -20.974033333333335
+    "place_id": "geonames-3418076"
   },
   {
     "id": "2ec8185320d798a9",
-    "latitude": -44.18653666666667,
-    "longitude": 170.13151666666667
+    "place_id": "geonames-6209526"
   },
   {
     "id": "3078a61c65b9f463",
-    "latitude": -20.24582,
-    "longitude": 149.02050833333334
+    "place_id": "geonames-6354936"
   },
   {
     "id": "321027633c683f56",
-    "latitude": 39.951436666666666,
-    "longitude": -75.15523616666667
+    "place_id": "geonames-4560349"
   },
   {
     "id": "32ce7f2b818c30b2",
-    "latitude": 5.955126666666667,
-    "longitude": 116.04036971666666
+    "place_id": "geonames-1733432"
   },
   {
     "id": "34d35d608d173686",
-    "latitude": 64.142325,
-    "longitude": -21.927511666666668
+    "place_id": "geonames-3413829"
   },
   {
     "id": "393f435bd159f859",
-    "latitude": 4.60092055,
-    "longitude": 118.86445471666667
+    "place_id": "geonames-1733697"
   },
   {
     "id": "3a8bfe2f948eeca7",
-    "latitude": 55.67975333333333,
-    "longitude": 12.591491666666666
+    "place_id": "geonames-2618425"
   },
   {
     "id": "3d999dd8c7a41e10",
-    "latitude": 41.88580666666667,
-    "longitude": -87.62756
+    "place_id": "geonames-4887398"
   },
   {
     "id": "403cb5c2a2b0d340",
-    "latitude": 5.956655,
-    "longitude": 116.04153333333333
+    "place_id": "geonames-1733432"
   },
   {
     "id": "410f440b65b1a370",
-    "latitude": 18.80485805,
-    "longitude": 98.98470361666666
+    "place_id": "geonames-1153671"
   },
   {
     "id": "45ea72861e74b927",
-    "latitude": 64.14779166666666,
-    "longitude": -21.923541666666665
+    "place_id": "geonames-3413829"
   },
   {
     "id": "468f60d532bebbae",
-    "latitude": -45.03382778333334,
-    "longitude": 168.68063333333333
+    "place_id": "geonames-6204696"
   },
   {
     "id": "47440249f6ca217c",
-    "latitude": 48.85913,
-    "longitude": 2.326825
+    "place_id": "geonames-2988507"
   },
   {
     "id": "4bb8196a207c3c48",
-    "latitude": 68.23323805,
-    "longitude": 14.567326383333333
+    "place_id": "geonames-3135020"
   },
   {
     "id": "4f966989d6b2ab06",
-    "latitude": 23.10442805,
-    "longitude": 113.37219888333334
+    "place_id": "geonames-1809858"
   },
   {
     "id": "50b3250baab253a9",
-    "latitude": 64.14408833333333,
-    "longitude": -21.921086666666667
+    "place_id": "geonames-3413829"
   },
   {
     "id": "5115f44e2eebc28c",
-    "latitude": 1.258195,
-    "longitude": 103.81917
+    "place_id": "geonames-1880252"
   },
   {
     "id": "5762827cc739e956",
-    "latitude": 30.562895,
-    "longitude": 114.36055111666667
+    "place_id": "geonames-1791247"
   },
   {
     "id": "5910a3f58e4907a0",
-    "latitude": -45.030013833333335,
-    "longitude": 168.68622
+    "place_id": "geonames-6204696"
   },
   {
     "id": "5b6fcdf5c605f336",
-    "latitude": -34.280278333333335,
-    "longitude": 150.95116333333334
+    "place_id": "geonames-2171507"
   },
   {
     "id": "5dbf7212ed268bb8",
-    "latitude": -33.85991666666666,
-    "longitude": 151.20440333333335
+    "place_id": "geonames-2147714"
   },
   {
     "id": "5f990c7968309800",
-    "latitude": 64.90415528333334,
-    "longitude": -22.85289471666667
+    "place_id": "geonames-3412888"
   },
   {
     "id": "5fcb35cdbcc5e240",
-    "latitude": 55.71657028333333,
-    "longitude": 12.533313883333333
+    "place_id": "geonames-2618425"
   },
   {
     "id": "6204721acb3082a9",
-    "latitude": -36.82640833333333,
-    "longitude": 174.798905
+    "place_id": "geonames-2193733"
   },
   {
     "id": "6304381f77c941e4",
-    "latitude": 69.55038111666667,
-    "longitude": 19.032885283333332
+    "place_id": "geonames-3133895"
   },
   {
     "id": "64cc13496f7fb80a",
-    "latitude": 64.257225,
-    "longitude": -21.126513883333335
+    "place_id": "geonames-3413829"
   },
   {
     "id": "6694dd57a22fec0a",
-    "latitude": 41.38249666666667,
-    "longitude": 2.1722866666666665
+    "place_id": "geonames-3128760"
   },
   {
     "id": "6820d82e6b9da135",
-    "latitude": 52.35843333333333,
-    "longitude": 4.880675
+    "place_id": "geonames-2759794"
   },
   {
     "id": "696648a863db78ee",
-    "latitude": 69.63558833333333,
-    "longitude": 18.995586666666668
+    "place_id": "geonames-3133895"
   },
   {
     "id": "6a97af9344499bc9",
-    "latitude": 18.80485805,
-    "longitude": 98.98470361666666
+    "place_id": "geonames-1153671"
   },
   {
     "id": "6bd59d766d36d376",
-    "latitude": 64.25721666666666,
-    "longitude": -21.126508333333334
+    "place_id": "geonames-3413829"
   },
   {
     "id": "73bf7412f871e619",
-    "latitude": 48.871671666666664,
-    "longitude": 2.3324133333333332
+    "place_id": "geonames-2988507"
   },
   {
     "id": "75838bda0612cbcc",
-    "latitude": -33.85968833333333,
-    "longitude": 151.22160333333332
+    "place_id": "geonames-2147714"
   },
   {
     "id": "75c1db796348220b",
-    "latitude": 27.128763833333334,
-    "longitude": 100.24723833333333
+    "place_id": "geonames-1813253"
   },
   {
     "id": "7610358d23fbc835",
-    "latitude": 64.25676166666666,
-    "longitude": -21.126925
+    "place_id": "geonames-3413829"
   },
   {
     "id": "7767c87306a6a2e3",
-    "latitude": 64.25661388333333,
-    "longitude": -21.126166666666666
+    "place_id": "geonames-3413829"
   },
   {
     "id": "7926f3f8ee073ba2",
-    "latitude": 1.2901866666666666,
-    "longitude": 103.84781666666666
+    "place_id": "geonames-1880252"
   },
   {
     "id": "7ba035c34e20194a",
-    "latitude": 69.22217416666666,
-    "longitude": 19.516691666666667
+    "place_id": "geonames-3133895"
   },
   {
     "id": "7c65ab38ca27f520",
-    "latitude": 52.36020778333334,
-    "longitude": 4.8855038833333335
+    "place_id": "geonames-2759794"
   },
   {
     "id": "7d56e95d003e8edf",
-    "latitude": -44.00338611666667,
-    "longitude": 170.474245
+    "place_id": "geonames-6209526"
   },
   {
     "id": "7fe6de3798a552e6",
-    "latitude": 68.1485,
-    "longitude": 13.46923805
+    "place_id": "geonames-7626400"
   },
   {
     "id": "818195a2facbbb15",
-    "latitude": 25.712905283333335,
-    "longitude": 100.19673666666667
+    "place_id": "geonames-1814093"
   },
   {
     "id": "827a6ab1a1aaf64e",
-    "latitude": 64.25934721666667,
-    "longitude": -21.122488883333332
+    "place_id": "geonames-3413829"
   },
   {
     "id": "84947732232050ce",
-    "latitude": -33.84313278333333,
-    "longitude": 151.24054916666665
+    "place_id": "geonames-2147714"
   },
   {
     "id": "86a4fd0a8e97b1e9",
-    "latitude": 47.49879445,
-    "longitude": 19.070309716666667
+    "place_id": "geonames-3054643"
   },
   {
     "id": "86ec3b426c281b31",
-    "latitude": 69.84697333333334,
-    "longitude": 19.709955
+    "place_id": "geonames-3133895"
   },
   {
     "id": "8748bc4e16678685",
-    "latitude": 69.94854,
-    "longitude": 20.112468616666668
+    "place_id": "geonames-3133895"
   },
   {
     "id": "87971a89b9613498",
-    "latitude": 64.14408833333333,
-    "longitude": -21.921086666666667
+    "place_id": "geonames-3413829"
   },
   {
     "id": "8afc47286767f5c0",
-    "latitude": 52.47375138333334,
-    "longitude": 4.81887445
+    "place_id": "geonames-2744118"
   },
   {
     "id": "8d693cfd4553be45",
-    "latitude": 69.635375,
-    "longitude": 18.995788333333333
+    "place_id": "geonames-3133895"
   },
   {
     "id": "908ba7df2dd593e7",
-    "latitude": 64.25936111666667,
-    "longitude": -21.122475
+    "place_id": "geonames-3413829"
   },
   {
     "id": "91dee4619c794dda",
-    "latitude": 69.63541333333333,
-    "longitude": 18.995913333333334
+    "place_id": "geonames-3133895"
   },
   {
     "id": "92c924c5114e0d8d",
-    "latitude": -33.85991666666666,
-    "longitude": 151.20440416666668
+    "place_id": "geonames-2147714"
   },
   {
     "id": "99c7252182ec61ea",
-    "latitude": 23.1042375,
-    "longitude": 113.37214888333334
+    "place_id": "geonames-1809858"
   },
   {
     "id": "9a7f912b502db849",
-    "latitude": 68.31931805,
-    "longitude": 14.701586116666666
+    "place_id": "geonames-3135020"
   },
   {
     "id": "9a82c7fe59aec795",
-    "latitude": 43.58105945,
-    "longitude": 7.127588333333334
+    "place_id": "geonames-3037456"
   },
   {
     "id": "9c3e03d47d290300",
-    "latitude": 25.712905283333335,
-    "longitude": 100.19673666666667
+    "place_id": "geonames-1814093"
   },
   {
     "id": "9e83abf416fd2aab",
-    "latitude": -44.60536166666667,
-    "longitude": 169.30127
+    "place_id": "geonames-2184707"
   },
   {
     "id": "a12c53d23a68bcc2",
-    "latitude": 23.1044175,
-    "longitude": 113.37217916666667
+    "place_id": "geonames-1809858"
   },
   {
     "id": "a7e341dd7b6fd0db",
-    "latitude": 34.11835195,
-    "longitude": -118.30003388333333
+    "place_id": "geonames-5368361"
   },
   {
     "id": "a95fdb1817c1aff3",
-    "latitude": 41.40345833333333,
-    "longitude": 2.1745866666666664
+    "place_id": "geonames-3128760"
   },
   {
     "id": "a9702f4a246b3089",
-    "latitude": 41.025975833333334,
-    "longitude": 28.97409555
+    "place_id": "geonames-745044"
   },
   {
     "id": "a99a24ebb1566b63",
-    "latitude": 41.70538666666667,
-    "longitude": -86.23448
+    "place_id": "geonames-4926563"
   },
   {
     "id": "ab5dfc6d9a822b06",
-    "latitude": 4.599378616666667,
-    "longitude": 118.8636825
+    "place_id": "geonames-1733697"
   },
   {
     "id": "ad4f15de08b6829e",
-    "latitude": 67.93009971666666,
-    "longitude": 13.082081383333334
+    "place_id": "geonames-7626400"
   },
   {
     "id": "ad748d25e32d4cfa",
-    "latitude": -45.030052833333336,
-    "longitude": 168.68609666666666
+    "place_id": "geonames-6204696"
   },
   {
     "id": "ad7dad1fa304d729",
-    "latitude": 41.72733,
-    "longitude": -86.29055
+    "place_id": "geonames-4926563"
   },
   {
     "id": "ae3f98c069e4144c",
-    "latitude": 69.6504975,
-    "longitude": 18.960437783333333
+    "place_id": "geonames-3133895"
   },
   {
     "id": "b0b47587840f330d",
-    "latitude": 39.965316666666666,
-    "longitude": -75.18046388333333
+    "place_id": "geonames-4560349"
   },
   {
     "id": "b17ca97ce2de0422",
-    "latitude": 38.71083333333333,
-    "longitude": -9.145775
+    "place_id": "geonames-2267057"
   },
   {
     "id": "b232c0834d0028bb",
-    "latitude": 55.716385,
-    "longitude": 12.533873616666666
+    "place_id": "geonames-2618425"
   },
   {
     "id": "b30a0117420817c5",
-    "latitude": 47.507329166666665,
-    "longitude": 19.039462783333335
+    "place_id": "geonames-3054643"
   },
   {
     "id": "b41362cdd8771283",
-    "latitude": 64.85782638333333,
-    "longitude": -22.367301383333334
+    "place_id": "geonames-3412888"
   },
   {
     "id": "b413a7570dc023eb",
-    "latitude": -8.751005283333333,
-    "longitude": 115.47411138333334
+    "place_id": "geonames-1628903"
   },
   {
     "id": "b8b05a82f8a09e9d",
-    "latitude": 41.025338833333336,
-    "longitude": 28.97423
+    "place_id": "geonames-745044"
   },
   {
     "id": "b9e10c1e15073589",
-    "latitude": 69.48830945,
-    "longitude": 17.331938333333333
+    "place_id": "geonames-3157549"
   },
   {
     "id": "bb7644a5a5a3bce3",
-    "latitude": -20.2461,
-    "longitude": 149.02009416666667
+    "place_id": "geonames-6354936"
   },
   {
     "id": "bf682160efc2968a",
-    "latitude": 68.09852888333333,
-    "longitude": 13.245335833333334
+    "place_id": "geonames-7626400"
   },
   {
     "id": "c0235e15e43707a1",
-    "latitude": 1.2536583333333333,
-    "longitude": 103.817055
+    "place_id": "geonames-1880252"
   },
   {
     "id": "c196108e9c2858d8",
-    "latitude": 38.891421666666666,
-    "longitude": -77.01938616666666
+    "place_id": "geonames-4140963"
   },
   {
     "id": "c3b257975eef3665",
-    "latitude": 1.2585549999999999,
-    "longitude": 103.820305
+    "place_id": "geonames-1880252"
   },
   {
     "id": "c3ca32ce913cc4c2",
-    "latitude": 34.11835283333333,
-    "longitude": -118.30003666666667
+    "place_id": "geonames-5368361"
   },
   {
     "id": "c42a52213ecd19af",
-    "latitude": 48.85542361666667,
-    "longitude": 2.3449533333333332
+    "place_id": "geonames-2988507"
   },
   {
     "id": "c5e822a4f57579bc",
-    "latitude": -44.00155,
-    "longitude": 170.47235
+    "place_id": "geonames-6209526"
   },
   {
     "id": "c60308d0d34c9e4d",
-    "latitude": -19.773858333333333,
-    "longitude": 149.24301666666668
+    "place_id": "geonames-6354936"
   },
   {
     "id": "cadb5e9ae38f1a18",
-    "latitude": 23.104241383333335,
-    "longitude": 113.37213416666667
+    "place_id": "geonames-1809858"
   },
   {
     "id": "ccd38f821f0ba83f",
-    "latitude": 63.939238333333336,
-    "longitude": -16.439788333333333
+    "place_id": "geonames-2630299"
   },
   {
     "id": "ce681ec8def3b397",
-    "latitude": 47.4872025,
-    "longitude": 19.04596805
+    "place_id": "geonames-3054643"
   },
   {
     "id": "ceeff424040a168f",
-    "latitude": 64.85782638333333,
-    "longitude": -22.367301383333334
+    "place_id": "geonames-3412888"
   },
   {
     "id": "cf58953ee2e694eb",
-    "latitude": -45.03,
-    "longitude": 168.68623333333332
+    "place_id": "geonames-6204696"
   },
   {
     "id": "d0f45c1059951057",
-    "latitude": 64.14408833333333,
-    "longitude": -21.921086666666667
+    "place_id": "geonames-3413829"
   },
   {
     "id": "d26f60a36fffa3c8",
-    "latitude": 64.25557778333334,
-    "longitude": -21.128611116666665
+    "place_id": "geonames-3413829"
   },
   {
     "id": "d3ed2b64b83a0b09",
-    "latitude": 23.10430555,
-    "longitude": 113.37215361666667
+    "place_id": "geonames-1809858"
   },
   {
     "id": "d7f93b005289a39f",
-    "latitude": 63.40342833333333,
-    "longitude": -19.043616666666665
+    "place_id": "geonames-3415720"
   },
   {
     "id": "d8adf5f4840887e2",
-    "latitude": 52.35866945,
-    "longitude": 4.881113883333334
+    "place_id": "geonames-2759794"
   },
   {
     "id": "dbc63fd4f48066d9",
-    "latitude": 41.007897783333334,
-    "longitude": 28.978471383333332
+    "place_id": "geonames-745044"
   },
   {
     "id": "ddcda54f673db80b",
-    "latitude": 5.955123616666667,
-    "longitude": 116.04037278333334
+    "place_id": "geonames-1733432"
   },
   {
     "id": "deb04f35e5901dcf",
-    "latitude": 4.599493883333333,
-    "longitude": 118.86468611666666
+    "place_id": "geonames-1733697"
   },
   {
     "id": "e04fffef01d0596c",
-    "latitude": 41.40358333333333,
-    "longitude": 2.1745116666666666
+    "place_id": "geonames-3128760"
   },
   {
     "id": "e142cfdfe17e890b",
-    "latitude": -44.00313611666667,
-    "longitude": 170.473725
+    "place_id": "geonames-6209526"
   },
   {
     "id": "e4b5c0bb5a066a46",
-    "latitude": 68.4570025,
-    "longitude": 15.517618883333334
+    "place_id": "geonames-3135020"
   },
   {
     "id": "e6f37ee9062ee4ca",
-    "latitude": 67.91567666666667,
-    "longitude": 13.080721383333334
+    "place_id": "geonames-7626400"
   },
   {
     "id": "e9176a6f611de66b",
-    "latitude": 34.12615028333333,
-    "longitude": -118.305515
+    "place_id": "geonames-5368361"
   },
   {
     "id": "ec752f1542c59175",
-    "latitude": 68.45690138333333,
-    "longitude": 15.51751555
+    "place_id": "geonames-3135020"
   },
   {
     "id": "ec8301d7e7a270c3",
-    "latitude": 55.68496666666667,
-    "longitude": 12.589795
+    "place_id": "geonames-2618425"
   },
   {
     "id": "f017857521c479bc",
-    "latitude": 5.955132783333333,
-    "longitude": 116.04037221666667
+    "place_id": "geonames-1733432"
   },
   {
     "id": "f2306cffcce8a165",
-    "latitude": 41.70173333333334,
-    "longitude": -86.23889166666666
+    "place_id": "geonames-4926563"
   },
   {
     "id": "f3c099c0eeeb8c96",
-    "latitude": 41.705355,
-    "longitude": -86.23554166666666
+    "place_id": "geonames-4926563"
   },
   {
     "id": "f6c997ff263910fe",
-    "latitude": -8.605086666666667,
-    "longitude": 119.772095
+    "place_id": "geonames-1638868"
   },
   {
     "id": "f8640b9c2d2edee8",
-    "latitude": -45.03006116666667,
-    "longitude": 168.68622
+    "place_id": "geonames-6204696"
   },
   {
     "id": "f9ebd17124228e40",
-    "latitude": 41.403501383333335,
-    "longitude": 2.1745602833333333
+    "place_id": "geonames-3128760"
   },
   {
     "id": "fa9be77daa370789",
-    "latitude": 47.48720221666667,
-    "longitude": 19.045968333333334
+    "place_id": "geonames-3054643"
   },
   {
     "id": "fb0abd4a3d70ccc5",
-    "latitude": 69.67969805,
-    "longitude": 18.905168333333332
+    "place_id": "geonames-3133895"
   }
 ]

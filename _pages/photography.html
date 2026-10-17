@@ -1,7 +1,7 @@
 ---
 layout: research
 title: "Photography"
-description: "Places and moments — a photographic journal by Zilang Chen."
+description: "Photographs by Zilang Chen."
 permalink: /photography/
 author_profile: false
 photo_map: true
@@ -10,7 +10,6 @@ photo_map: true
   <header class="photo-hero">
     <p class="research-eyebrow">Photography · Zilang Chen</p>
     <h1>Places &amp; moments.</h1>
-    <p>A photographic journal, near and far.</p>
   </header>
   {% assign albums = site.data.photography.albums %}
   <nav class="photo-filters" aria-label="Filter photographs by year" hidden>
@@ -19,8 +18,8 @@ photo_map: true
   </nav>
   <section class="photo-map-section" aria-labelledby="photo-map-heading" hidden>
     <div class="photo-map-heading"><h2 id="photo-map-heading">Around the world</h2><a href="#photo-collection">Browse photographs <span aria-hidden="true">↓</span></a></div>
-    <div id="photo-map" role="region" aria-label="Photograph locations. Use plus and minus to zoom, or drag to explore."></div>
-    <div class="photo-map-bottom"><p>Zoom into a place. Select a photograph to see it closer.</p><button type="button" data-map-reset>Show all locations</button></div>
+    <div id="photo-map" role="region" aria-label="Approximate city and area locations. Use plus and minus to zoom, or drag to explore."></div>
+    <div class="photo-map-bottom"><p>Approximate city / area locations. Select a photograph to view it.</p><button type="button" data-map-reset>Show all locations</button></div>
     <p class="photo-map-notice" role="status" hidden></p>
   </section>
   <section id="photo-collection" aria-labelledby="photo-collection-title">
@@ -40,4 +39,5 @@ photo_map: true
     </div>
   </section>
   <script type="application/json" id="photo-location-data">{{ site.data.photo_locations | jsonify }}</script>
+  <script type="application/json" id="photo-place-data">{{ site.data.photo_places.places | jsonify }}</script>
 </div>

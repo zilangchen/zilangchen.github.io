@@ -16,16 +16,26 @@ python3 scripts/import_photography.py --source "/path/to/Photos of the year" --c
 
 The importer creates 1600 px sRGB WebP display copies and 240 px map thumbnails, stripping EXIF/ICC/XMP. It retains stable IDs and uses source hashes, normalized pixels and rendered bytes to avoid exact duplicates. Visually verified alternate exports can use `duplicate_of`. Similar but distinct frames must not be discarded automatically. Previous imported photos remain if originals are offloaded. Errors fail before applying gallery changes. Source hashes, exact names and provenance stay in private reports outside the repository.
 
-## Refresh positions
+## Refresh city-level positions
 
-The owner explicitly approved placing these photographs at their embedded GPS positions. Public `_data/photo_locations.json` includes only stable photo IDs and latitude/longitude; photographs with missing or invalid GPS stay in the same gallery under **Without location**. Do not infer coordinates from visual content or filenames.
+The owner requested city-level privacy. `_data/photo_locations.json` contains only a stable photo ID and a reviewed `place_id`. `_data/photo_places.json` contains public city/area representative points, rounded to two decimals. Photos assigned to the same city share that point; it is not a capture location. The map stops at city-scale zoom and labels positions as approximate.
+
+City representatives come from the GeoNames cities1000 directory (https://download.geonames.org/export/dump/), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Each catalog entry links its public source. The map visibly attributes GeoNames. Rural travel photographs use a reviewed nearby city/area; do not treat a nearest-city lookup as proof of administrative membership.
 
 ```sh
 swift scripts/photo_metadata.swift "/path/to/Photos of the year" "/private/path/original-metadata.json"
 python3 scripts/import_photo_locations.py --audit "/private/path/original-metadata.json"
 ```
 
-Keep the raw audit outside the repository: it contains source filenames and precise capture times. The location join rejects duplicate identities, invalid coordinates, read errors and incomplete source coverage instead of erasing known locations. Review unavailable originals before refreshing. Public image files remain free of embedded metadata; the separately approved map coordinates are intentionally readable by visitors.
+Existing city assignments are retained. A new GPS-bearing photo without an assignment fails the import before any output is written. Review the city/area, add a representative to the city catalog if necessary, then provide private JSON mapping the photo ID to its `place_id`:
+
+```sh
+python3 scripts/import_photo_locations.py --audit "/private/path/original-metadata.json" --assignments "/private/path/reviewed-city-assignments.json"
+```
+
+The raw audit stays outside the public repository. Exact GPS is used only for local validation and city review, never copied to the output or browser. Missing GPS remains **Without location**. Duplicate identities, invalid GPS, source errors, incomplete coverage, unknown cities and fine-grained city coordinates fail instead of silently changing data. Public image derivatives remain free of embedded metadata. Never use per-photo rounding or a street-level point as a substitute for a shared city representative.
+
+Earlier public commits contained original coordinates. Updating the current files does not remove public Git history or previously downloaded copies; any history rewrite requires separate authorization.
 
 ## Map and gallery behavior
 

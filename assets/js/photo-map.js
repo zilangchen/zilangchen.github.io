@@ -6,7 +6,12 @@
     if (!root) return;
     const data = JSON.parse(document.getElementById('photo-location-data').textContent);
     const cards = Array.from(root.querySelectorAll('[data-photo-id]'));
-    const locations = new Map(data.map(point => [point.id, point]));
+    const places = new Map(JSON.parse(document.getElementById('photo-place-data').textContent).map(place => [place.id, place]));
+    const locations = new Map(data.map(point => {
+      const place = places.get(point.place_id);
+      if (!place) throw new Error('Unknown city/area in photo map');
+      return [point.id, place];
+    }));
     const photos = cards.map(card => ({card, id: card.dataset.photoId, year: card.dataset.year,
       link: card.querySelector('a'), image: card.querySelector('img'), point: locations.get(card.dataset.photoId)}));
     const yearButtons = Array.from(root.querySelectorAll('.photo-filters button'));
@@ -104,12 +109,13 @@
       return;
     }
     const L = window.L;
-    map = L.map('photo-map', {scrollWheelZoom: false, minZoom: 0, maxZoom: 18, zoomSnap: 0.25,
+    map = L.map('photo-map', {scrollWheelZoom: false, minZoom: 0, maxZoom: 10, zoomSnap: 0.25,
       maxBounds: [[-85.05112878, -180], [85.05112878, 180]], maxBoundsViscosity: 1,
       zoomAnimation: !reducedMotion, fadeAnimation: !reducedMotion, markerZoomAnimation: !reducedMotion});
     updateMinimumZoom();
     map.on('resize', updateMinimumZoom);
     map.attributionControl.setPrefix('<a href="https://leafletjs.com/">Leaflet</a>');
+    map.attributionControl.addAttribution('City locations: <a href="https://www.geonames.org/">GeoNames</a>');
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19, noWrap: true, bounds: [[-85.05112878, -180], [85.05112878, 180]], attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -143,7 +149,7 @@
       const open = document.createElement('button'); open.type = 'button'; open.setAttribute('aria-label', `View photograph: ${photo.image.alt}`);
       const image = document.createElement('img'); image.src = photo.image.dataset.thumbnail; image.alt = photo.image.alt;
       open.appendChild(image);
-      const label = document.createElement('span'); label.textContent = 'View photograph ↗'; open.appendChild(label); popup.appendChild(open);
+      const label = document.createElement('span'); label.textContent = `${photo.point.name} · View photograph ↗`; open.appendChild(label); popup.appendChild(open);
       open.addEventListener('click', () => {
         // A marker can remain visible outside a selected cluster; keep the viewer sequence coherent.
         if (photo.card.hidden) { placeIds = null; unlocated = false; renderGallery(); }

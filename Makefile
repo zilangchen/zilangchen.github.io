@@ -17,6 +17,7 @@ build:
 
 check: build
 	ruby scripts/check_site_content.rb
+	PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s scripts -p test_photo_locations.py
 
 serve:
 	$(JEKYLL) serve --config _config.yml,_config.local.yml -H 127.0.0.1 --port 4000

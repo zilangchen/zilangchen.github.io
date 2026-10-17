@@ -957,7 +957,7 @@ assert(kv_cache_portfolio.include?('Model weights stay unchanged'), "calibration
 assert(kv_cache_portfolio.include?('Original technical framework'), "original scientific framework must remain available")
 puts "Design polish and contact checks passed."
 
-# One continuous collection and GPS map replace the old annual/Galaxy views.
+# One continuous collection with city-level locations replaces annual/Galaxy views.
 photo_items = photo_albums.flat_map { |album| album.fetch('photos') }
 assert(!photo_items.empty?, "photography collection must contain actual photos")
 ids = photo_items.map { |item| item.fetch('id') }
@@ -968,13 +968,28 @@ assert(photography.include?('id="photo-map"') && photography.include?('data-phot
 assert(!photography.include?('photo-galaxy.js') && !photography.include?('Pause motion') && !photography.include?('class="album-cover"'), "retired Galaxy/annual entry UI remains")
 assert(photography.include?('visiblePhotoLinks()'), "lightbox must navigate only the selected photographs")
 locations = JSON.parse(File.read(File.join(ROOT, '_data/photo_locations.json')))
-assert(locations.map { |row| row.fetch('id') }.uniq.length == locations.length, "duplicate coordinate IDs")
-locations.each do |row|
-  assert(row.keys.sort == %w[id latitude longitude], "private metadata leaked into map data")
-  assert(ids.include?(row.fetch('id')), "map point has no displayed photograph")
-  lat, lon = row.values_at('latitude', 'longitude')
-  assert(lat.is_a?(Numeric) && lon.is_a?(Numeric) && lat.finite? && lon.finite? && lat.abs <= 90 && lon.abs <= 180 && [lat, lon] != [0, 0], "invalid GPS position")
+catalog = JSON.parse(File.read(File.join(ROOT, '_data/photo_places.json')))
+assert(catalog.fetch('accuracy') == 'city_or_area', "map accuracy must remain city/area level")
+places = catalog.fetch('places')
+assert(places.map { |place| place.fetch('id') }.uniq.length == places.length, "duplicate city IDs")
+place_ids = places.map { |place| place.fetch('id') }
+places.each do |place|
+  assert(place.keys.sort == %w[country id latitude longitude name source], "unexpected city metadata")
+  lat, lon = place.values_at('latitude', 'longitude')
+  assert(lat.is_a?(Numeric) && lon.is_a?(Numeric) && lat.finite? && lon.finite? && lat.abs <= 90 && lon.abs <= 180 && [lat, lon] != [0, 0], "invalid city representative")
+  assert(lat.round(2) == lat && lon.round(2) == lon, "city representatives must not contain fine coordinates")
+  assert(!place.fetch('name').empty? && place.fetch('source').start_with?('https://www.geonames.org/'), "city representative needs a public source")
 end
+assert(locations.map { |row| row.fetch('id') }.uniq.length == locations.length, "duplicate location IDs")
+locations.each do |row|
+  assert(row.keys.sort == %w[id place_id], "photo-specific GPS must never be published")
+  assert(ids.include?(row.fetch('id')) && place_ids.include?(row.fetch('place_id')), "unknown photograph or city")
+end
+embedded_locations = photography[/<script type="application\/json" id="photo-location-data">(.*?)<\/script>/m, 1]
+embedded_places = photography[/<script type="application\/json" id="photo-place-data">(.*?)<\/script>/m, 1]
+assert(embedded_locations && JSON.parse(embedded_locations) == locations, "rendered map must use city assignments only")
+assert(embedded_places && JSON.parse(embedded_places) == places, "rendered cities differ from reviewed catalog")
+assert(!photography.include?('A photographic journal, near and far.'), "removed photography tagline reappeared")
 photo_albums.each_with_index do |album, index|
   html = photo_album_html[index]
   assert(html.include?("/photography/?year=#{album.fetch('year')}"), "legacy annual URL must preserve the year on the single page")
@@ -992,4 +1007,4 @@ end
   assert(File.file?(File.join(ROOT, '_site', asset)), "missing local map dependency: #{asset}")
 end
 assert(photography.include?('/assets/js/photo-map.js') && !home.include?('/assets/js/photo-map.js') && !cv.include?('/assets/lib/leaflet/'), "map dependencies must be scoped to Photography")
-puts "Single-page photography checks passed (#{photo_items.length} photographs, #{locations.length} GPS locations)."
+puts "Single-page photography checks passed (#{photo_items.length} photographs, #{locations.length} city/area assignments)."
