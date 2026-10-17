@@ -24,6 +24,8 @@
             {% if page.url == link.url %}
               {% assign nav_active = true %}
               {% assign nav_exact = true %}
+            {% elsif page.album_year and link.url == '/photography/' %}
+              {% assign nav_active = true %}
             {% elsif link.active_collection and page.collection == link.active_collection %}
               {% assign nav_active = true %}
             {% endif %}

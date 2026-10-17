@@ -13,13 +13,19 @@ paperlabel: 'View ACM Record'
 pdfurl: '/files/Wine Quality IPMLP2025.pdf'
 pdflabel: 'Download PDF'
 citation: 'Chen, Z. (2025). &quot;Wine Quality Prediction with Ensemble Trees: A Unified, Leak-Free Comparative Study.&quot; In <i>Proceedings of the 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition (IPMLP 2025)</i>, 162–170. https://doi.org/10.1145/3759928.3759955.'
+layout: "publication"
+author_profile: false
+authors: "Zilang Chen"
+project_url: "/portfolio/wine-quality-analysis"
 ---
 
 ## Summary
 
+
 This paper presents a unified, leakage-free comparison of five ensemble learners—Random Forest, Gradient Boosting, XGBoost, LightGBM, and CatBoost—on the canonical Vinho Verde red- and white-wine datasets. The evaluation covers 1,599 red-wine and 4,898 white-wine samples, each described by 11 physicochemical attributes.
 
-## Methodology
+<details class="research-details" markdown="1">
+<summary>Methodology</summary>
 
 ### Leakage-Controlled Evaluation
 
@@ -39,7 +45,10 @@ This paper presents a unified, leakage-free comparison of five ensemble learners
 - **Auxiliary metrics**: Macro F1, macro ROC-AUC, Matthews correlation coefficient, and Brier score.
 - **Compute environment**: AMD EPYC 9K84 with 128 logical cores, 512 GB RAM, and one NVIDIA H20 GPU.
 
+</details>
+
 ## Results
+
 
 ### Predictive Performance
 
@@ -56,20 +65,19 @@ Compressing the input from 11 variables to five reduced median weighted F1 by 2.
 
 ### Computational Efficiency
 
-- **Gradient Boosting**: Approximately 12 hours for a five-fold optimization study.
-- **XGBoost and LightGBM**: Approximately 2–3 hours with GPU acceleration.
-- **CatBoost**: Approximately 1 hour.
-- **Random Forest**: Approximately 49–50 minutes on CPU.
-
-These results position Gradient Boosting as the accuracy ceiling and Random Forest as the most economical default for regular retraining. XGBoost offers a balanced GPU-accelerated alternative.
+The full-feature mean optimization times plotted in Figure 7 were **46.3 minutes** for Random Forest, **58.9 minutes** for CatBoost, **92.3 minutes** for XGBoost, **122.5 minutes** for LightGBM, and **746.2 minutes** for Gradient Boosting. These are search-study times in the reported compute environment, not single-prediction latency. The paper's prose rounds or summarizes these values differently; the project page follows the plotted full-feature results.
 
 ## Reproducibility
 
-The paper documents the preprocessing protocol, hyperparameter search spaces, feature-selection procedure, software environment, and fixed random seeds. It reports releasing preprocessing scripts, hyperparameter grids, and feature-selection protocols as repeatable baselines.
 
-## Publication Details
+The paper documents the preprocessing protocol, hyperparameter search spaces, feature-selection procedure, software environment, and fixed random seeds. A public code repository is not currently linked with this project; the paper's statement about released baselines should not be read as a verified download link.
+
+<details class="research-details" markdown="1">
+<summary>Publication Details</summary>
 
 - **Conference**: The 2nd International Conference on Image Processing, Machine Learning, and Pattern Recognition (IPMLP 2025), Kunming, China.
 - **Proceedings pages**: 162–170.
 - **Conference date**: July 12–13, 2025.
 - **DOI**: [10.1145/3759928.3759955](https://doi.org/10.1145/3759928.3759955).
+
+</details>

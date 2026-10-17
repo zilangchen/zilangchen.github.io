@@ -1,32 +1,12 @@
 ---
-layout: archive
+description: "Research publications by Zilang Chen in tactile sensing, soft-robot reconstruction, and machine learning, with papers and project results."
+layout: research
 title: "Publications"
 permalink: /publications/
-author_profile: true
+author_profile: false
 ---
-
-{% include base_path %}
+<div class="research-project publication-index"><header class="index-header"><p class="research-eyebrow">Papers &amp; project records</p><h1>Publications</h1><p>Research in tactile sensing, geometric reconstruction, and machine learning.</p><p class="index-affiliation">Zilang Chen · University of Pennsylvania</p><div class="research-links"><a href="https://scholar.google.com/citations?user=zOJdQf0AAAAJ&amp;hl=en">Google Scholar ↗</a><a href="/cv/">Curriculum Vitae →</a></div></header>
 {% assign sorted_publications = site.publications | sort: "date" | reverse %}
-
-<!-- New style rendering if publication categories are defined -->
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% assign title_shown = false %}
-    {% for post in sorted_publications %}
-      {% if post.category != category[0] %}
-        {% continue %}
-      {% endif %}
-      {% unless title_shown %}
-        <h2>{{ category[1].title }}</h2><hr />
-        {% assign title_shown = true %}
-      {% endunless %}
-      {% include archive-single.html %}
-    {% endfor %}
-  {% endfor %}
-{% else %}
-  {% for post in sorted_publications %}
-    {% include archive-single.html %}
-  {% endfor %}
-{% endif %}
-
-
+{% for post in sorted_publications %}
+<article class="publication-row"><div class="publication-year">{{ post.date | date: "%Y" }}</div><div><h2><a href="{{ post.url }}">{{ post.title }}</a></h2><p class="publication-authors">{{ post.authors }}</p><p class="publication-venue">{% include research-publication-status.html pub=post %}</p><p>{{ post.excerpt }}</p><div class="research-links"><a href="{{ post.project_url }}">Project &amp; results →</a><a href="{{ post.paperurl }}">{{ post.paperlabel }}</a><a href="{{ post.pdfurl | relative_url }}">{{ post.pdflabel }}</a><a href="{{ post.url }}">Details &amp; citation</a></div></div></article>
+{% endfor %}</div>

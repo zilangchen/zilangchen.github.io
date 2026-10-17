@@ -1,22 +1,38 @@
 <!-- start custom footer snippets -->
 
-<!-- Support for MatJax -->
-<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+{% if page.mathjax %}
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
-
-<!-- Support for Plotly -->
-<script defer src='https://cdnjs.cloudflare.com/ajax/libs/plotly.js/3.0.1/plotly.min.js'></script>
-
-<!-- Support for Mermaid -->
+{% endif %}
+{% if page.plotly %}
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/3.0.1/plotly.min.js"></script>
+{% endif %}
+{% if page.mermaid %}
 <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({startOnLoad:true, theme:'default'});
-    await mermaid.run({querySelector:'code.language-mermaid'});
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+mermaid.initialize({startOnLoad:true, theme:'default'});
+await mermaid.run({querySelector:'code.language-mermaid'});
 </script>
+{% endif %}
 
 <!-- Keyboard and state support for masthead controls -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Own section navigation before the theme's legacy jQuery scroll handler.
+    document.addEventListener('click', function (event) {
+        const link = event.target.closest('a[href^="#"]');
+        if (!link || !link.hash || event.ctrlKey || event.metaKey || event.shiftKey) return;
+        const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+        if (!target) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        const enteringSection = target.closest('.reveal-pending');
+        if (enteringSection) enteringSection.classList.remove('reveal-pending');
+        target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+        if (location.hash !== link.hash) history.pushState(null, '', link.hash);
+        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+    }, true);
+
     const navigationButton = document.querySelector('#site-nav > button');
     const navigationMenu = document.getElementById('site-nav-hidden-links');
     const themeControl = document.querySelector('#theme-toggle > [role="button"]');
@@ -80,54 +96,83 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- Simple Lightbox for Gallery Images -->
+<!-- Full-resolution project figures, with keyboard focus managed by a native dialog. -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    /* Create lightbox overlay */
-    const lightboxOverlay = document.createElement('div');
-    lightboxOverlay.className = 'lightbox-overlay';
-    lightboxOverlay.innerHTML = `
-        <div class="lightbox-content">
-            <img src="" alt="">
-        </div>
-        <span class="lightbox-close">&times;</span>
-    `;
-    document.body.appendChild(lightboxOverlay);
-    
-    const lightboxImg = lightboxOverlay.querySelector('img');
-    const closeBtn = lightboxOverlay.querySelector('.lightbox-close');
-    
-    /* Add click behavior to project-detail Gallery images */
-    document.querySelectorAll('a[data-lightbox="gallery"]').forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            lightboxImg.src = this.href;
-            lightboxImg.alt = this.querySelector('img').alt;
-            lightboxOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('a[data-lightbox="gallery"]');
+    if (!links.length) return;
+    const dialog = document.createElement('dialog');
+    dialog.className = 'figure-dialog';
+    dialog.setAttribute('aria-label', 'Expanded image');
+    dialog.innerHTML = '<button type="button" aria-label="Close expanded figure">×</button><button type="button" class="figure-dialog__zoom" aria-pressed="false">Original size</button><div class="figure-dialog__viewport"><img alt=""></div><p></p>';
+    document.body.appendChild(dialog);
+    const image = dialog.querySelector('img');
+    const caption = dialog.querySelector('p');
+    let opener;
+    let focusReturn;
+    const photoLinks = Array.from(links).filter(link => link.closest('[data-photo-album]'));
+    let photoIndex = -1;
+    function visiblePhotoLinks() { return photoLinks.filter(link => !link.closest('[data-photo-id]')?.hidden); }
+    if (photoLinks.length) {
+        const navigation = document.createElement('div');
+        navigation.className = 'figure-dialog__photo-nav';
+        navigation.innerHTML = '<button type="button" aria-label="Previous photograph">←</button><span aria-live="polite"></span><button type="button" aria-label="Next photograph">→</button>';
+        dialog.appendChild(navigation);
+        function changePhoto(step) {
+            const visible = visiblePhotoLinks();
+            if (!visible.length) return;
+            photoIndex = (visible.indexOf(opener) + step + visible.length) % visible.length;
+            showImage(visible[photoIndex]);
+        }
+        navigation.querySelector('[aria-label="Previous photograph"]').addEventListener('click', () => changePhoto(-1));
+        navigation.querySelector('[aria-label="Next photograph"]').addEventListener('click', () => changePhoto(1));
+        dialog.addEventListener('keydown', function (event) {
+            if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+                event.preventDefault();
+                changePhoto(event.key === 'ArrowRight' ? 1 : -1);
+            }
+        });
+    }
+    function showImage(link) {
+        opener = link;
+        dialog.classList.toggle('is-photo', photoLinks.includes(link));
+        image.src = link.href;
+        image.alt = link.querySelector('img').alt;
+        caption.textContent = image.alt;
+        dialog.classList.remove('is-zoomed');
+        dialog.querySelector('.figure-dialog__zoom').textContent = 'Original size';
+        dialog.querySelector('.figure-dialog__zoom').setAttribute('aria-pressed', 'false');
+        if (photoLinks.length) {
+            const visible = visiblePhotoLinks();
+            photoIndex = visible.indexOf(link);
+            dialog.querySelector('.figure-dialog__photo-nav span').textContent = (photoIndex + 1) + ' / ' + visible.length;
+        }
+    }
+    links.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            focusReturn = event.isTrusted ? link : document.activeElement;
+            showImage(link);
+            dialog.showModal();
         });
     });
-    
-    /* Close lightbox */
-    function closeLightbox() {
-        lightboxOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    
-    closeBtn.addEventListener('click', closeLightbox);
-    lightboxOverlay.addEventListener('click', function(e) {
-        if (e.target === lightboxOverlay) {
-            closeLightbox();
-        }
+    dialog.querySelector('button').addEventListener('click', function () { dialog.close(); });
+    dialog.querySelector('.figure-dialog__zoom').addEventListener('click', function () {
+        const zoomed = dialog.classList.toggle('is-zoomed');
+        this.setAttribute('aria-pressed', String(zoomed));
+        this.textContent = zoomed ? 'Fit to window' : 'Original size';
     });
-    
-    /* Close with Escape key */
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
-            closeLightbox();
-        }
+    dialog.addEventListener('click', function (event) { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', function () {
+        if (focusReturn && focusReturn.isConnected) focusReturn.focus({preventScroll: true});
+        else if (opener) opener.focus();
     });
 });
 </script>
-
+<script defer src="{{ '/assets/js/research-motion.js' | relative_url }}"></script>
+{% if page.photo_map %}
+<script defer src="{{ '/assets/lib/leaflet/leaflet.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/lib/leaflet-markercluster/leaflet.markercluster.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/photo-map.js' | relative_url }}"></script>
+{% endif %}
 <!-- end custom footer snippets -->

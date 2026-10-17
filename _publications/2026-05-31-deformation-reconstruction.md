@@ -12,15 +12,21 @@ paperlabel: 'View arXiv'
 pdfurl: 'https://arxiv.org/pdf/2603.19543'
 pdflabel: 'Download arXiv PDF'
 citation: 'Shou, L.; Chen, Z.; Xu, W.; Luo, Y.; Cheng, T. (2026). &quot;Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling.&quot; <i>2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</i> — Accepted.'
+layout: "publication"
+author_profile: false
+authors: "Linrui Shou · Zilang Chen · Wenjia Xu · Yiyue Luo · Tingyu Cheng"
+project_url: "/portfolio/deformation-reconstruction"
 ---
 
 ## Summary
+
 
 This work presents a camera-free, zero-shot deformation reconstruction framework for soft robots. A flexible piezoresistive sensor array provides local tactile measurements, a graph attention network predicts low-dimensional cage-control displacements, and cage-based interpolation propagates those displacements to dense 3D Gaussian primitives for globally coherent reconstruction and photorealistic rendering.
 
 Here, **zero-shot** means that the system can be deployed on previously unseen soft robots without collecting object-specific deformation data or retraining the model. It still requires a static geometric proxy of each undeformed object, such as an STL model, to initialize its canonical Gaussian representation.
 
-## System Overview
+<details class="research-details" markdown="1">
+<summary>System Overview</summary>
 
 ### Flexible Tactile Sensing
 
@@ -34,7 +40,10 @@ Here, **zero-shot** means that the system can be deployed on previously unseen s
 - **Structure-aware propagation**: Inverse-distance-weighted interpolation transfers cage motion to dense Gaussian primitives while encouraging spatial continuity.
 - **Real-time visualization**: The deformed Gaussian representation produces photorealistic RGB views for monitoring and interpretation.
 
+</details>
+
 ## Evaluation
+
 
 The current public arXiv version evaluates zero-shot deployment on two previously unseen pneumatic soft robots undergoing bending and twisting. Their undeformed geometries are initialized from fabrication STL files, with no robot-specific retraining, geometry-specific fine-tuning, or additional adaptation.
 
@@ -45,11 +54,13 @@ The current public arXiv version evaluates zero-shot deployment on two previousl
 
 ## Scope and Limitations
 
+
 - Each new object requires an offline geometric initialization step to construct its canonical Gaussian representation.
 - Reconstruction quality can decrease under extreme deformation, abrupt curvature transitions, imperfect sensor attachment, or strongly nonlinear material behavior.
 - The current system prioritizes low-latency, structured geometric propagation rather than explicit material simulation.
 
-## Publication Status
+<details class="research-details" markdown="1">
+<summary>Publication Status</summary>
 
 Accepted to the **2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2026)** on **June 16, 2026**.
 
@@ -59,6 +70,11 @@ The linked arXiv manuscript is the current public version and may differ slightl
 
 **Affiliations in the current arXiv version**: University of Notre Dame; University of Washington
 
-## Acknowledgments
+</details>
+
+<details class="research-details" markdown="1">
+<summary>Acknowledgments</summary>
 
 This work was conducted during the ISURE Summer Research Program at the University of Notre Dame (Jul 2025 – Sep 2025) under the supervision of Prof. Tingyu Cheng.
+
+</details>

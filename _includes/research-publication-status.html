@@ -1,0 +1,1 @@
+{% if include.pub.status == 'accepted' %}Accepted to <i>{{ include.pub.venue }}</i> — {{ include.pub.date | date: "%B %-d, %Y" }}{% else %}<i>{{ include.pub.venue }}</i> · {{ include.pub.venue_note }} · {{ include.pub.date | date: "%B %-d, %Y" }}{% endif %}

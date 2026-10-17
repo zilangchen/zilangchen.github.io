@@ -1,0 +1,6 @@
+<section class="photography-teaser" aria-labelledby="photography-title">
+  <div><p class="research-eyebrow">Outside the lab</p><h2 id="photography-title">Places &amp; moments.</h2><p>A photographic journal, near and far.</p><a href="{{ '/photography/' | relative_url }}">Explore photography <span aria-hidden="true">&nbsp;↗</span></a></div>
+  {% assign featured_album = site.data.photography.albums.first %}
+  {% assign featured_photo = featured_album.photos.first %}
+  {% if featured_photo %}<a href="{{ '/photography/' | relative_url }}" aria-label="View photography"><img src="{{ featured_photo.url | relative_url }}" alt="{{ featured_photo.alt | escape }}" width="{{ featured_photo.width }}" height="{{ featured_photo.height }}" loading="lazy" decoding="async" style="object-position:{{ featured_photo.position | default: 'center' }}"></a>{% else %}<div class="photo-teaser-empty" aria-hidden="true"><i class="fa-solid fa-camera"></i></div>{% endif %}
+</section>

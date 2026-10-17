@@ -1,0 +1,8 @@
+<details class="contact-email">
+  <summary><i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Email</span><i class="fa-solid fa-chevron-down contact-arrow" aria-hidden="true"></i></summary>
+  <div class="contact-email__details">
+    <span class="contact-email__address">{{ site.author.email | escape }}</span>
+    <button type="button" class="email-copy" data-copy-email="{{ site.author.email | escape }}" hidden><i class="fa-solid fa-copy" aria-hidden="true"></i> Copy email</button>
+    <span class="contact-email__status" role="status" aria-live="polite"></span>
+  </div>
+</details>

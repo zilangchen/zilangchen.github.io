@@ -44,32 +44,49 @@ prototype_gallery:
   - image_path: portfolio/ball-robot/16.jpg
     alt: "Project team with the completed ball-collecting robot"
     layout: full
+layout: "research"
+author_profile: false
+index_image: "/images/portfolio/web/index-ball.webp"
+index_alt: "Ball-collecting competition robot"
+index_summary: "A remote-controlled Mecanum platform for collection, transport, and release; second in the course competition."
+index_role: "Most STM32 control code, PID/PWM tuning, integration, team leadership, and competition operation."
+preview_video: "/images/portfolio/ball-robot/web/demo.mp4"
+preview_poster: "/images/portfolio/ball-robot/web/poster.jpg"
+preview_alt: "Remote-controlled collection and transport"
 ---
 
-<h2>Project Overview</h2>
+<article class="research-project engineering-project"><header class="project-hero"><p class="research-eyebrow">Mobile robotics · SCUT</p><h1>Remote-Controlled<br class="desktop-break"> Ball-Collecting Robot</h1><p class="project-deck">Collect, carry, and release balls with a compact Mecanum-wheel platform.</p><p class="project-meta">Project period: {{ page.period }}<br>Design and Manufacturing I · Supervised by Prof. Yingjie Zhang</p></header>
+<section class="project-demo"><figure class="demo-media "><video controls muted preload="metadata" playsinline poster="/images/portfolio/ball-robot/web/poster.jpg" aria-label="Remote-controlled ball collection during the course competition" aria-describedby="ball-caption" loop data-autoplay><source src="/images/portfolio/ball-robot/web/demo.mp4" type="video/mp4"><a href="/images/portfolio/ball-robot/web/demo.mp4">Open video</a></video><figcaption id="ball-caption">32 s · Selected collection and transport excerpts, at normal speed; ambient sound removed. <a href="/images/portfolio/ball-robot/web/demo.mp4">Open clip</a> · <a href="/images/portfolio/ball-robot/video1.mp4">Full recording</a></figcaption></figure>
+</section>
+<section class="project-section"><h2>My Contribution</h2>
+<div class="contribution-grid"><div><span class="section-number">01</span><h3>STM32 motion control</h3><p>Wrote most of the STM32 control program. Co-tuned the PID and PWM motor-control behavior with a teammate.</p></div>
+<div><span class="section-number">02</span><h3>System integration</h3><p>Led the team, contributed to part of the SolidWorks modeling, shared electrical setup and wiring, and assisted fabrication and assembly.</p></div>
+<div><span class="section-number">03</span><h3>Competition operation</h3><p>Solely operated the robot by remote control during the competition. The team placed second overall in the final course competition.</p></div>
+</div>
 
-<p>This team project developed a compact, remotely operated robot for collecting and transporting balls ranging from ping-pong balls to basketballs. Completed for the Design and Manufacturing I course at SCUT under the supervision of Prof. Yingjie Zhang, the robot was built between February and July 2024 and placed <strong>second overall in the final course competition</strong>.</p>
-
-<p>Instead of using a gripper, the robot collected balls through a collision-based mechanism: forward motion displaced each ball from its support and guided it into an onboard hopper. Four Mecanum wheels provided omnidirectional mobility, while a servo-operated rear gate released the collected balls at the destination.</p>
-
-<h3>Key Outcomes</h3>
-
-<ul>
-  <li>Built a complete competition prototype within the required 50 cm × 50 cm × 50 cm envelope.</li>
-  <li>Implemented collision-based collection without a robotic arm or vision module.</li>
-  <li>Integrated Mecanum-wheel motion, encoder feedback, PS2 remote control, and a servo-operated release mechanism.</li>
-  <li>Placed second overall in the final course competition.</li>
-</ul>
-
-<h2>Competition Task and Collection Principle</h2>
-
+</section>
+<section class="project-section"><h2>A simple collection mechanism</h2>
+<ol class="method-flow"><li><span>01</span><strong>Position</strong><p>PS2 remote control and omnidirectional wheels.</p></li><li><span>02</span><strong>Collect</strong><p>Forward motion guides balls past their supports.</p></li><li><span>03</span><strong>Transport</strong><p>An onboard hopper holds collected balls.</p></li><li><span>04</span><strong>Release</strong><p>A servo-operated rear gate opens for gravity discharge.</p></li></ol>
 <p>The competition required each vehicle to collect balls of different diameters from supports, transport them across the arena, and release them inside a designated scoring area. The front collection geometry used the robot's forward momentum to push a ball past its support point and onto an inclined internal guide, allowing the ball to roll into the storage area without an active grasping mechanism.</p>
 
 <p>This approach reduced mechanical complexity and left the operator free to focus on positioning the vehicle. The competition video documents the working prototype maneuvering around the arena and collecting balls under remote control.</p>
 
 {% include gallery id="competition_gallery" caption="The robot during the final course competition and the onboard storage area after collection." %}
+</section>
+<section class="project-section"><h2>Control &amp; integration</h2>
+<figure class="project-figure project-figure--detail"><a href="/images/presentation/ball-control.webp" data-lightbox="gallery"><img src="/images/presentation/ball-control.webp" width="1768" height="718" alt="PS2 input, Mecanum-wheel mapping, encoder feedback and incremental PI motor control, with a separate servo path." loading="lazy" decoding="async"></a><figcaption>Wheel-speed control and auxiliary actuation, with physical integration photographs. <span class="figure-hint">Click to enlarge.</span></figcaption></figure>
+<p>The vehicle used a C50C controller built around the STM32F407VET6 microcontroller. Its interfaces connected four encoder-equipped motors, two motor-control modules, the PS2 receiver, and the digital servos. Four 24 V, 1:51 planetary-geared brushed motors drove the Mecanum wheels.</p>
 
-<h2>Mechanical Design</h2>
+<p>Analog joystick commands from the PS2 controller were converted into target wheel speeds through Mecanum-wheel kinematics. Encoder feedback supplied the measured speeds, and the control program adjusted motor PWM through a jointly tuned PID loop. Button inputs triggered the servo commands for the rear gate and auxiliary mechanisms.</p>
+
+{% include gallery id="control_gallery" caption="Electrical architecture and embedded-control flow for remote input, encoder feedback, motor PWM, and servo actuation." %}
+</section>
+<section class="project-section"><h2>Competition result &amp; scope</h2>
+<p>The complete robot fit within the required <strong>50 cm × 50 cm × 50 cm</strong> envelope.</p><p>The team completed a functional course-project prototype and placed second overall in the final competition. The documented prototype bill of materials was <strong>¥3,401.43</strong>; this figure is included as a project record rather than a primary performance result.</p>
+
+<p>The project demonstrated integrated remote control, omnidirectional mobility, collision-based collection, transport, and release. It did not include autonomous perception or navigation, and the project records do not provide independently documented measurements for maximum thrust, top speed, runtime, trajectory error, or storage capacity. Those quantities are therefore not presented as validated results.</p>
+</section>
+<section class="project-section"><h2>Mechanical Design</h2>
 
 <p>The chassis combined an aluminium-profile frame with nylon side and front panels. Nylon was selected for its lower weight and impact tolerance, while the rear release gate used an aluminium panel. An independent hinge-and-spring suspension was added at each wheel to reduce vibration from the Mecanum drivetrain and protect the electronics mounted on the lower chassis.</p>
 
@@ -77,49 +94,22 @@ prototype_gallery:
 
 {% include gallery id="mechanical_gallery" caption="SolidWorks models of the chassis, collection enclosure, suspension, and rear ball-release mechanism." %}
 
-<h2>Electronics and Motion Control</h2>
-
-<p>The vehicle used a C50C controller built around the STM32F407VET6 microcontroller. Its interfaces connected four encoder-equipped motors, two motor-control modules, the PS2 receiver, and the digital servos. Four 24 V, 1:51 planetary-geared brushed motors drove the Mecanum wheels.</p>
-
-<p>Analog joystick commands from the PS2 controller were converted into target wheel speeds through Mecanum-wheel kinematics. Encoder feedback supplied the measured speeds, and the control program adjusted motor PWM through a jointly tuned PID loop. Button inputs triggered the servo commands for the rear gate and auxiliary mechanisms.</p>
-
-{% include gallery id="control_gallery" caption="Electrical architecture and embedded-control flow for remote input, encoder feedback, motor PWM, and servo actuation." %}
-
-<h2>Prototype and Field Demonstration</h2>
+</section>
+<section class="project-section"><h2>Prototype and Field Demonstration</h2>
 
 <p>The final prototype integrated the fabricated enclosure, drivetrain, suspension, electronics, collection path, and release gate into one competition vehicle. Field testing and the final competition demonstrated remote omnidirectional motion, collision-based ball collection, onboard transport, and controlled release as a complete operating sequence.</p>
 
 {% include gallery id="prototype_gallery" caption="Fabricated chassis, completed enclosure, and the team with the final competition prototype." %}
 
-<h2>My Contribution</h2>
-
-<ul>
-  <li>Led the team and coordinated project planning, task allocation, integration, and competition preparation.</li>
-  <li>Wrote most of the STM32 control program.</li>
-  <li>Co-tuned the PID and PWM motor-control behavior with a teammate.</li>
-  <li>Contributed to part of the SolidWorks modeling.</li>
-  <li>Shared responsibility for the electrical setup and wiring.</li>
-  <li>Assisted with prototype fabrication and assembly.</li>
-  <li>Solely operated the robot by remote control during the competition.</li>
-</ul>
-
-<h2>Results and Scope</h2>
-
-<p>The team completed a functional course-project prototype and placed second overall in the final competition. The documented prototype bill of materials was <strong>¥3,401.43</strong>; this figure is included as a project record rather than a primary performance result.</p>
-
-<p>The project demonstrated integrated remote control, omnidirectional mobility, collision-based collection, transport, and release. It did not include autonomous perception or navigation, and the project records do not provide independently documented measurements for maximum thrust, top speed, runtime, trajectory error, or storage capacity. Those quantities are therefore not presented as validated results.</p>
-
-<h2>Demo Video</h2>
-
-<video controls preload="metadata" playsinline poster="/images/portfolio/ball-robot/01.png" style="display: block; width: min(100%, 800px); height: auto; aspect-ratio: 16 / 9; object-fit: contain; margin: 1.25rem auto; background: #000;">
-  <source src="/images/portfolio/ball-robot/video1.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-<h2>Future Directions</h2>
-
+</section>
+<details class="research-details"><summary>Future Directions</summary><div>
 <ul>
   <li>Reduce structural weight while preserving impact tolerance.</li>
   <li>Continue tuning motion-control parameters for smoother acceleration and positioning.</li>
   <li>Add perception and path-planning capabilities for autonomous ball detection and collection.</li>
 </ul>
+
+</div>
+</details>
+<nav class="research-links project-ending" aria-label="Related pages"><a href="/portfolio/">← All projects</a><a href="/cv/">Experience &amp; CV →</a></nav>
+</article>

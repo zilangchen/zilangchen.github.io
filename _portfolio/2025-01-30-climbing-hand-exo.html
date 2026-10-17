@@ -12,7 +12,7 @@ homepage_excerpt: "The glove monitors grip pressure, assists finger motion, and 
 homepage_role: "I led project coordination and system integration, developed the Arduino control software, helped build the pressure-sensing glove, and contributed to fabrication, assembly, and testing."
 links:
   - label: Demo Video
-    url: /images/portfolio/climb-exo/video1.MOV
+    url: /images/portfolio/climb-exo/exoskeleton-demo.mp4
 projects:
   - Wearable Robotics
   - Exoskeleton
@@ -33,25 +33,31 @@ gallery:
   - image_path: portfolio/climb-exo/alt3.png
     alt: "SolidWorks multiview drawing of the hand-exoskeleton assembly"
     layout: full
+layout: "research"
+author_profile: false
+index_image: "/images/portfolio/web/index-exo.webp"
+index_alt: "Assembled hand-exoskeleton prototype"
+index_summary: "Pressure-based contact monitoring, active finger assistance, and passive ratchet locking."
+index_role: "Arduino control, sensing-glove integration, fabrication, assembly, and team coordination."
+preview_video: "/images/portfolio/climb-exo/exoskeleton-demo.mp4"
+preview_poster: "/images/portfolio/climb-exo/exoskeleton-poster.jpg"
+preview_alt: "Hand exoskeleton on a controlled test rig"
 ---
 
-<h2>Overview</h2>
+<article class="research-project engineering-project"><header class="project-hero"><p class="research-eyebrow">Wearable robotics · SCUT</p><h1>Climbing-Assisted<br class="desktop-break"> Hand Exoskeleton</h1><p class="project-deck">Pressure sensing, active finger assistance, and passive mechanical locking.</p><p class="project-meta">Project period: {{ page.period }}<br>Team project · Control software, sensing-glove integration &amp; fabrication</p></header>
+<section class="project-demo project-demo--split"><figure class="demo-media demo-media--portrait"><video controls preload="metadata" playsinline poster="/images/portfolio/climb-exo/exoskeleton-poster.jpg" aria-label="Hand exoskeleton on the controlled climbing rig" aria-describedby="exo-caption" muted loop data-autoplay><source src="/images/portfolio/climb-exo/exoskeleton-demo.mp4" type="video/mp4"><a href="/images/portfolio/climb-exo/exoskeleton-demo.mp4">Open video</a></video><figcaption id="exo-caption">30 s · Controlled climbing-rig demonstration. Muted preview; original sound available in the controls. <a href="/images/portfolio/climb-exo/exoskeleton-demo.mp4">Open clip</a></figcaption></figure>
+<div><p class="research-eyebrow">Prototype demonstration</p><h2>From contact sensing<br>to a held grip.</h2><p>Fourteen thin-film pressure sensors monitor hand contact. An Arduino controller coordinates finger actuation with a passive ratchet that holds the locked pose.</p><p class="project-note">A research prototype evaluated on a laboratory rig.</p></div>
+</section>
+<section class="project-section"><h2>My Contribution</h2>
+<div class="contribution-grid"><div><span class="section-number">01</span><h3>Control &amp; integration</h3><p>Developed the Arduino control software and led project coordination and system integration.</p></div>
+<div><span class="section-number">02</span><h3>Pressure-sensing glove</h3><p>Supported construction of the sensing glove and integrated its contact signals into the prototype.</p></div>
+<div><span class="section-number">03</span><h3>Build &amp; test</h3><p>Contributed to fabrication, assembly, and experimental testing of the wearable mechanism.</p></div>
+</div>
 
-<p>Developed a climbing-assistance hand-exoskeleton research prototype that uses pressure-based contact-state monitoring to coordinate active finger actuation and passive ratchet locking. The system was designed to preserve free hand motion during normal climbing movements and engage the lock when the measured hand-contact state did not permit a safe release.</p>
-
-<ul>
-<li>Fourteen RP-L-110 thin-film pressure sensors provide hand-contact signals to a 100 Hz control loop.</li>
-<li>An Arduino Uno and dedicated UART servo driver control an HX08L serial bus servo.</li>
-<li>A spatial four-bar linkage provides approximately 65 mm of fingertip travel and a 2.5× mechanical advantage.</li>
-<li>The complete wearable system weighed under 1.5 kg excluding the battery, including a 448.7 g hand-mounted module.</li>
-</ul>
-
-<h2>My Contribution</h2>
-
-<p>Led project coordination and team integration, developed the Arduino control software, supported the construction of the pressure-sensing glove, and participated in prototype fabrication, assembly, and experimental testing.</p>
-
-<h2>System Design</h2>
-
+</section>
+<section class="project-section"><h2>How it works</h2>
+<figure class="project-figure project-figure--detail"><a href="/images/presentation/exoskeleton-control.webp" data-lightbox="gallery"><img src="/images/presentation/exoskeleton-control.webp" width="1768" height="718" alt="Pressure inputs, threshold decision, right-hand locking or release, and the physical servo/linkage system." loading="lazy" decoding="async"></a><figcaption>Implemented contact-threshold control and prototype hardware. <span class="figure-hint">Click to enlarge.</span></figcaption></figure>
+<ol class="method-flow"><li><span>01</span><strong>Sense contact</strong><p>14 RP-L-110 pressure sensors; 100 Hz loop.</p></li><li><span>02</span><strong>Decide the state</strong><p>Evaluate contact before permitting release.</p></li><li><span>03</span><strong>Move the fingers</strong><p>HX08L servo and spatial four-bar linkage.</p></li><li><span>04</span><strong>Hold the pose</strong><p>Cable-operated passive ratchet locking.</p></li></ol>
 <ul>
 <li><strong>Sensing and control.</strong> Pressure signals from both hands are evaluated at 100 Hz. The controller permits a hand to enter transparent mode when the measured contact state supports a safe release; otherwise, it maintains the active hand in its locked state.</li>
 <li><strong>Actuation and locking.</strong> The HX08L servo drives a spatial four-bar linkage that follows the finger's extension-to-flexion motion. A cable-operated, bidirectional ratchet provides passive mechanical locking and is designed to retain the locked pose during power loss.</li>
@@ -59,8 +65,17 @@ gallery:
 <li><strong>Mechanical integration.</strong> PLA-printed linkage components are reinforced with aluminium ratchet wheels, brass standoffs, and metal joint hardware. The hand-mounted module weighed 448.7 g, and the complete wearable system excluding the battery remained below 1.5 kg.</li>
 </ul>
 
-<h2>Evaluation</h2>
+</section>
+<section class="project-section"><h2>Prototype photographs &amp; mechanical drawings</h2>
 
+{% include gallery %}
+
+</section>
+<section class="project-section"><h2>What we measured</h2>
+<div class="result-grid"><div><strong>0.18 <small>s</small></strong><span>Lock time measured in 60 fps footage.</span></div>
+<div><strong>16 <small>N</small></strong><span>10 s static load on a 25 mm-diameter bar.</span></div>
+<div><strong>50 <small>cycles</small></strong><span>At least 90% of the extension-to-flexion range.</span></div>
+</div>
 <ul>
 <li><strong>Lock time.</strong> The mechanism reached the fully latched state in 0.18 s in 60 fps footage.</li>
 <li><strong>Repeated actuation.</strong> The fingers completed at least 90% of the full extension-to-flexion range across 50 cycles.</li>
@@ -68,19 +83,10 @@ gallery:
 <li><strong>Inclined-rig trials.</strong> Two-minute trials on a 75° climbing rig produced more than 90% successful grasp transitions. The passive ratchet remained engaged during a deliberate single-hand release test.</li>
 </ul>
 
-<h2>Prototype Scope and Limitations</h2>
+</section>
+<section class="project-section"><h2>Prototype scope</h2>
+<p>This research prototype was evaluated on a controlled climbing rig. The tests characterize its locking response, repeated actuation, static holding behavior, and grasp transitions under the reported laboratory conditions; the device has not been certified as personal protective equipment.</p><p>Future development will investigate higher-frequency embedded control, richer contact and joint-state sensing, lighter structural materials, and more extensive endurance and safety evaluation.</p>
+</section>
 
-<p>This research prototype was evaluated on a controlled climbing rig. The tests characterize its locking response, repeated actuation, static holding behavior, and grasp transitions under the reported laboratory conditions; the device has not been certified as personal protective equipment.</p>
-
-<h2>Future Directions</h2>
-
-<p>Future development will investigate higher-frequency embedded control, richer contact and joint-state sensing, lighter structural materials, and more extensive endurance and safety evaluation.</p>
-
-<h2>Demo and Gallery</h2>
-
-<video controls width="100%" style="max-width: 800px; margin: 20px 0;">
-  <source src="/images/portfolio/climb-exo/video1.MOV" type="video/quicktime">
-  Your browser does not support the video tag.
-</video>
-
-{% include gallery %}
+<nav class="research-links project-ending" aria-label="Related pages"><a href="/portfolio/">← All projects</a><a href="/cv/">Experience &amp; CV →</a></nav>
+</article>

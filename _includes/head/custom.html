@@ -15,3 +15,8 @@
 <meta name="theme-color" content="#ffffff"/>
 
 <!-- end custom head snippets -->
+
+{% if page.photo_map %}
+<link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/lib/leaflet-markercluster/MarkerCluster.css' | relative_url }}">
+{% endif %}

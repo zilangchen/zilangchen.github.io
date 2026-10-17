@@ -1,0 +1,19 @@
+<section class="kv-pipeline" id="kv-pipeline" aria-labelledby="kv-pipeline-title">
+  <header class="kv-pipeline__header">
+    <p class="research-eyebrow">The framework</p>
+    <h2 id="kv-pipeline-title">Calibrate once. Reuse at inference.</h2>
+    <p>Preserve attention behavior, then decide where precision matters most.</p>
+  </header>
+  <div class="kv-pipeline__stage-label"><span>01</span><h3>Offline preparation</h3><span class="kv-pipeline__stage-note">Model weights stay unchanged</span></div>
+  <ol class="kv-pipeline__steps" aria-label="Offline calibration and allocation">
+    <li class="kv-step"><span class="kv-step__index">Input</span><h4>Establish a reference</h4><p>A fixed calibration set, FP16 attention behavior, and candidate quantization paths.</p><span class="kv-step__foot">Same samples · controlled comparison</span></li>
+    <li class="kv-step kv-step--calibration"><span class="kv-step__index">Calibrate</span><h4>Measure behavior change</h4><dl class="kv-objectives"><div><dt>K</dt><dd>Attention-distribution KL</dd></div><div><dt>V</dt><dd>Aggregation-output perturbation</dd></div></dl><span class="kv-step__foot">Search candidates · select robust settings</span></li>
+    <li class="kv-step"><span class="kv-step__index">Freeze &amp; allocate</span><h4>Produce fixed artifacts</h4><p><b>θ*</b> · Selected quantization parameters and K/V formats.</p><p><b>S → b*</b> · Layer sensitivity informs precision allocation under a budget.</p></li>
+  </ol>
+  <div class="kv-handoff"><i class="fa-solid fa-arrow-down" aria-hidden="true"></i><strong>Fixed artifacts</strong><span>Quantization parameters θ* + layer precision b*</span></div>
+  <div class="kv-runtime">
+    <div class="kv-pipeline__stage-label"><span>02</span><h3>Online inference</h3><span class="kv-pipeline__stage-note">Reuse the chosen configuration</span></div>
+    <ol class="kv-runtime__steps" aria-label="Read-only configuration at inference"><li><i class="fa-solid fa-file-import" aria-hidden="true"></i><strong>Load θ* and b*</strong><span>Read-only configuration</span></li><li><i class="fa-solid fa-database" aria-hidden="true"></i><strong>Write quantized KV</strong><span>Pack and store the cache</span></li><li><i class="fa-solid fa-microchip" aria-hidden="true"></i><strong>Decode next tokens</strong><span>Use the quantized cache</span></li></ol>
+  </div>
+  <p class="kv-pipeline__audit"><strong>Evaluate separately</strong><span>Held-out task quality · cache storage · decoding latency</span></p>
+</section>

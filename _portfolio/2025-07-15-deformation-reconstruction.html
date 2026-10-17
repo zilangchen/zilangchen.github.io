@@ -1,4 +1,6 @@
 ---
+layout: research
+author_profile: false
 title: "Zero-Shot Deformation Reconstruction for Soft Robots"
 excerpt: "Camera-free, zero-shot reconstruction using a flexible piezoresistive sensor array and a cage-based 3D Gaussian deformation model."
 image: /images/portfolio/deformation-reconstruction/sensor_all.png
@@ -9,7 +11,7 @@ permalink: /portfolio/deformation-reconstruction
 date: 2025-09-01
 period: "Jul 2025 – Sep 2025"
 homepage_featured: true
-homepage_order: 2
+homepage_order: 1
 homepage_excerpt: "A flexible piezoresistive array drives a 3D Gaussian model that reconstructs deformation on unseen soft robots without camera input during inference."
 homepage_role: "I co-designed the acquisition protocol, collected and processed the experimental data, handled quality control, helped connect the pipeline, ran the evaluation, and prepared figures and manuscript sections."
 links:
@@ -35,25 +37,102 @@ gallery:
   - image_path: portfolio/deformation-reconstruction/motion.png
     alt: "Bending and twisting data-collection examples for the soft-robot sensor system"
     layout: full
+index_image: "/images/portfolio/web/index-recon.webp"
+index_alt: "Synchronized real soft robot and reconstructed geometry"
+index_summary: "A tactile sensor array drives camera-free deformation reconstruction on unseen soft robots."
+index_role: "Acquisition protocol, sensor data and normalization, pipeline integration, and evaluation."
+mathjax: true
+preview_video: "/images/portfolio/deformation-reconstruction/web/reconstruction-demo.mp4"
+preview_poster: "/images/portfolio/deformation-reconstruction/web/reconstruction-poster.webp"
+preview_alt: "Synchronized soft-robot reconstruction"
 ---
 
-<h2>Project Overview</h2>
+<article class="research-project">
+  <header class="project-hero">
+    <p class="research-eyebrow">Soft robotics · Tactile sensing · Deep learning</p>
+    <h1>Zero-Shot Deformation Reconstruction for Soft Robots</h1>
+    <p class="project-deck">Estimating a soft robot’s changing shape from touch,<br class="desktop-break"> when a camera cannot see it.</p>
+    <p class="project-venue">Accepted to IEEE/RSJ IROS 2026 <span>· Second author</span></p>
+    <p class="project-meta">University of Notre Dame · ISURE Summer Research Program<br><strong>Project period:</strong> Jul 2025 – Sep 2025</p>
+    <nav class="research-links" aria-label="Project resources"><a class="research-button" href="https://arxiv.org/abs/2603.19543">Read paper <span aria-hidden="true">↗</span></a><a href="#contributions">My contributions <span aria-hidden="true">↓</span></a><a href="#technical-details">Technical details <span aria-hidden="true">↓</span></a></nav>
+  </header>
 
-<p>I completed this project during the ISURE Summer Research Program at the University of Notre Dame. I worked closely with Linrui Shou and the broader research team under the supervision of Prof. Tingyu Cheng.</p>
+  <figure class="project-demo">
+    <div class="demo-labels"><span>Physical specimen</span><span>Reconstruction · front</span><span>Reconstruction · back</span></div>
+    <video controls muted playsinline preload="metadata" poster="{{ '/images/portfolio/deformation-reconstruction/web/reconstruction-poster.webp' | relative_url }}" width="1440" height="480" aria-label="Soft-robot deformation reconstruction demo" aria-describedby="reconstruction-caption" loop data-autoplay>
+      <source src="{{ '/images/portfolio/deformation-reconstruction/web/reconstruction-demo.mp4' | relative_url }}" type="video/mp4">
+      <a href="{{ '/images/portfolio/deformation-reconstruction/web/reconstruction-demo.mp4' | relative_url }}">Watch the reconstruction demo</a>.
+    </video>
+    <figcaption id="reconstruction-caption">Real motion and reconstruction from the same action sequence, synchronized in time. The model uses sensor readings and sequence position, with no camera input during inference. <span>20 s · silent</span></figcaption>
+  </figure>
 
-<p>The goal was to reconstruct deformation across the entire body of a soft robot using measurements from a small tactile sensor. The model was trained on a compliant fabric substrate and later evaluated on two pneumatic soft robots that were not included in the training data.</p>
+  <section class="project-section project-intro" aria-labelledby="problem-title">
+    <h2 id="problem-title">How do we sense shape without a clear view?</h2>
+    <div><p>Imagine a soft gripper reaching into a box. A camera outside may not see its tip, and a soft body does not have the fixed joints and links of a rigid robot. A sensor attached to the surface could help estimate how it bends and twists.</p><p>We studied the shape-estimation part of this problem: using a small flexible sensor array to drive a model of the whole object. We trained on a fabric platform and tested on two previously unseen pneumatic soft robots. The box scenario motivates the work; the experiments evaluate reconstruction, rather than closed-loop grasping.</p></div>
+  </section>
 
-<p>During deployment, a 10 × 10 resistance matrix drives a deformation cage that controls a dense 3D Gaussian representation. Each test robot is initialized from an undeformed geometry model, such as its fabrication STL file. The system does not require camera input, a new deformation dataset, or additional training for that robot.</p>
+  <section id="contributions" class="project-section" aria-labelledby="contributions-title">
+    <p class="research-eyebrow">My role</p><h2 id="contributions-title">From sensor data to a trained model</h2>
+    <div class="contribution-grid">
+      <div><span class="section-number" aria-hidden="true">01</span><h3>Acquisition &amp; experiments</h3><p>Developed sensor recording and real-time readout visualization, co-designed the acquisition protocol, and collected tactile measurements and structured-light scans.</p></div>
+      <div><span class="section-number" aria-hidden="true">02</span><h3>Data &amp; model training</h3><p>Organized the 100-channel datasets, co-developed region preprocessing, trained the deformation model, and refined the code with my collaborator.</p></div>
+      <div><span class="section-number" aria-hidden="true">03</span><h3>Evaluation &amp; communication</h3><p>Evaluated reconstruction, prepared experimental figures and demonstrations, and contributed to the manuscript as second author.</p></div>
+    </div>
+  </section>
 
-<p>This approach is intended for situations in which continuous camera observation is difficult, including environments with occlusion, poor lighting, or limited space.</p>
+<div class="project-figure-pair"><figure class="project-figure"><a href="/images/presentation/sensor-acquisition.webp" data-lightbox="gallery"><img src="/images/presentation/sensor-acquisition.webp" width="405" height="465" alt="Sensor array and recorded 100-channel readout on a laptop" loading="lazy" decoding="async"></a><figcaption>Recorded normalized sensor readings; not calibrated pressure. <span class="figure-hint">Click to enlarge.</span></figcaption></figure><figure class="project-figure"><a href="/images/presentation/geometry-acquisition.webp" data-lightbox="gallery"><img src="/images/presentation/geometry-acquisition.webp" width="839" height="392" alt="Structured-light scanning of a deformed specimen with a reconstructed surface visible on the laptop" loading="lazy" decoding="async"></a><figcaption>Capturing the geometric reference used to prepare training data. <span class="figure-hint">Click to enlarge.</span></figcaption></figure></div>
+  <section class="project-section" aria-labelledby="method-title">
+    <p class="research-eyebrow">The method</p><h2 id="method-title">Small sensor, whole-object reconstruction</h2>
+    <p class="section-lead">Instead of predicting every point independently, the network moves a control cage. Fixed geometric weights spread that motion to the object’s 3D Gaussian representation.</p>
+    <figure class="project-figure project-figure--detail"><a href="/images/presentation/reconstruction-offline.webp" data-lightbox="gallery"><img src="/images/presentation/reconstruction-offline.webp" width="1773" height="365" alt="Offline reference construction from key-pose scans through multi-view images, temporal interpolation, and 4DGS to model fitting" loading="lazy" decoding="async"></a><figcaption><strong>Offline preparation.</strong> Scans and multi-view images construct geometric references for fitting the sensor-to-cage model. <span class="figure-hint">Click to enlarge.</span></figcaption></figure><figure class="project-figure project-figure--detail"><a href="/images/presentation/reconstruction-inference.webp" data-lightbox="gallery"><img src="/images/presentation/reconstruction-inference.webp" width="1773" height="405" alt="Sensor map and sequence index feed the encoder and graph predictor, followed by cage motion, fixed binding, geometry update, and rendering" loading="lazy" decoding="async"></a><figcaption><strong>Inference.</strong> Sensor input and sequence position drive cage motion and the reconstruction. Initial geometry and alignment are prepared once per geometry. <span class="figure-hint">Click to enlarge.</span></figcaption></figure>
 
-{% include gallery %}
+<div class="cage-grid">
+      <figure><img src="{{ '/images/portfolio/deformation-reconstruction/web/initial-cage.webp' | relative_url }}" alt="Regular undeformed grid of cage control nodes" width="700" height="620" loading="lazy" decoding="async"><figcaption>Initial cage</figcaption></figure>
+      <figure><img src="{{ '/images/portfolio/deformation-reconstruction/web/deformed-cage.webp' | relative_url }}" alt="Deformed cage surrounding the bending geometry" width="700" height="620" loading="lazy" decoding="async"><figcaption>Deformed cage</figcaption></figure>
+      <figure><img src="{{ '/images/portfolio/deformation-reconstruction/web/predicted-geometry.webp' | relative_url }}" alt="Predicted bending geometry after cage-motion propagation" width="700" height="620" loading="lazy" decoding="async"><figcaption>Predicted geometry</figcaption></figure>
+    </div>
+    <p class="project-note"><strong>What “zero-shot” means here.</strong> The two test robots were not part of training. Each still needs an undeformed geometry model and sensor-region alignment; no robot-specific deformation dataset or retraining is used.</p>
+  </section>
 
-<h2>Technical Pipeline and Algorithm</h2>
+  <section class="project-section" aria-labelledby="sensor-title">
+    <div class="research-section-heading"><div><p class="research-eyebrow">System implementation</p><h2 id="sensor-title">Sensor array &amp; readout</h2></div><span>100 sensing channels</span></div>
+    <div class="sensor-grid">
+      <div><figure><a href="{{ '/images/portfolio/deformation-reconstruction/sensor_all.png' | relative_url }}"><img src="{{ '/images/portfolio/deformation-reconstruction/web/sensor-array.webp' | relative_url }}" alt="Sensor photograph and layered construction: TPU, silver fabric electrodes, and Velostat" width="1230" height="582" loading="lazy" decoding="async"></a><figcaption>A flexible piezoresistive array. Velostat is the resistance-changing material between the electrode layers.</figcaption></figure><p>I developed the acquisition and visualization tools used to inspect the array’s response, record measurements, and prepare the data for training.</p></div>
+      <figure class="readout-video"><video controls muted playsinline preload="metadata" poster="{{ '/images/portfolio/deformation-reconstruction/web/readout-poster.webp' | relative_url }}" width="608" height="544" aria-label="Recorded sensor readings" aria-describedby="readout-caption" loop data-autoplay><source src="{{ '/images/portfolio/deformation-reconstruction/web/sensor-readout.mp4' | relative_url }}" type="video/mp4"><a href="{{ '/images/portfolio/deformation-reconstruction/web/sensor-readout.mp4' | relative_url }}">Watch the sensor readout</a>.</video><figcaption id="readout-caption">Replay of measured sensor data, shown as normalized readouts. These are not calibrated pressure values. <span>16 s · silent</span></figcaption></figure>
+    </div>
+  </section>
 
-<p>The following section describes the method developed by the research team as a whole. My individual responsibilities are described separately in the <strong>My Contributions</strong> section.</p>
+  <section class="project-section" aria-labelledby="training-title">
+    <p class="research-eyebrow">Learning from paired data</p><h2 id="training-title">Supervised deformation learning</h2>
+<figure class="project-figure project-figure--detail"><a href="/images/presentation/model-training.webp" data-lightbox="gallery"><img src="/images/presentation/model-training.webp" width="1790" height="720" alt="Trainable CNN, graph attention, graph convolution and MLP layers with fixed geometric binding and point-displacement MSE" loading="lazy" decoding="async"></a><figcaption><strong>Model training.</strong> Solid blue arrows show forward computation; purple arrows show backpropagation through fixed geometric weights. This figure documents the point-displacement-supervised implementation. <span class="figure-hint">Click to enlarge.</span></figcaption></figure>
+    <div class="training-grid"><div><h3>Preparing geometric references</h3><p>Structured-light scans capture bending and twisting poses. Multi-view rendering, interpolated frames, and 4D Gaussian Splatting provide corresponding geometric motion for supervision. This preparation happens before deployment.</p></div><div><h3>Training the sensor-to-shape model</h3><p>In the implementation I worked with, the network predicts cage displacement. Fixed weights map it to point displacement; mean-squared error against the reference point motion trains the network by backpropagation.</p></div></div>
+    <details class="research-details"><summary>How this training implementation differs from the paper</summary><div><p>The paper describes a separate supervision route: fitting per-frame cage labels by least squares, then training with cage regression and temporal smoothness. The implementation described above instead supervises point displacement after the fixed geometric mapping.</p><p>These are different training objectives. The results below are the paper’s reported system results; they are not attributed to a new run of the point-loss implementation.</p></div></details>
+  </section>
 
-<h3>Creating the Training Supervision</h3>
+  <section class="project-section" aria-labelledby="results-title">
+    <p class="research-eyebrow">Reported in the paper</p><h2 id="results-title">Reconstruction on unseen soft robots</h2>
+    <div class="result-grid">
+      <div><strong>4.7°</strong><span>Mean bending angle error</span></div>
+      <div><strong>4.9°</strong><span>Mean twisting angle error</span></div>
+      <div><strong>3.48 <small>± 0.96 mm</small></strong><span>Mean Chamfer distance</span></div>
+    </div>
+    <figure class="result-figure"><a href="{{ '/images/portfolio/deformation-reconstruction/huge_4.png' | relative_url }}"><img src="{{ '/images/portfolio/deformation-reconstruction/web/angle-comparison.webp' | relative_url }}" alt="Measured bending angles in the physical robot compared with reconstructed angles in three selected states" width="999" height="751" loading="lazy" decoding="async"></a><figcaption>Three selected bending states: physical robot (top) and reconstructed shape (bottom). Open the figure to inspect the individual angle annotations.</figcaption></figure>
+    <p class="project-note">Evaluation covers two soft robots under bending and twisting. The paper also reports IoU of 0.67 ± 0.20, SSIM of 0.65 ± 0.18, and approximately 30 FPS in the coarse setting / 5 FPS at high resolution on an RTX 3070 Ti.</p>
+  </section>
+
+  <section class="project-section" aria-labelledby="limits-title">
+    <div class="limitation-grid">
+      <div><p class="research-eyebrow">Limitations &amp; next steps</p><h2 id="limits-title">The sensor must follow the surface</h2><p>The current array bends but has limited stretchability. It struggles to conform to a localized bulge, weakening contact with the object and reducing reconstruction quality. It primarily responds to normal pressure and does not directly measure shear force.</p><p>I explored a silicone-based capacitive sensor to improve stretchability and investigate both normal and tangential loading. Fabrication remained challenging. We built an early prototype, but it has not been integrated into the reconstruction system, and reliable shear sensing still needs validation.</p><p class="project-note"><strong>A direction I want to pursue:</strong> connecting tactile feedback to manipulation policies that can adapt their actions as contact changes.</p></div>
+      <figure class="prototype-video"><video controls muted playsinline preload="metadata" poster="{{ '/images/portfolio/deformation-reconstruction/web/prototype-poster.webp' | relative_url }}" width="432" height="768" aria-label="Early silicone sensor prototype" aria-describedby="prototype-caption" loop data-autoplay><source src="{{ '/images/portfolio/deformation-reconstruction/web/silicone-prototype.mp4' | relative_url }}" type="video/mp4"><a href="{{ '/images/portfolio/deformation-reconstruction/web/silicone-prototype.mp4' | relative_url }}">Watch the silicone prototype</a>.</video><figcaption id="prototype-caption">Early silicone prototype · not yet integrated. <span>7 s · silent</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="technical-details" class="project-section" aria-labelledby="paper-title">
+    <p class="research-eyebrow">Read further</p><h2 id="paper-title">Paper &amp; technical details</h2>
+    <div class="paper-record"><h3>Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling</h3><p>Linrui Shou, <strong>Zilang Chen</strong>, Wenjia Xu, Yiyue Luo, and Tingyu Cheng</p><p>Accepted to IEEE/RSJ IROS 2026 · June 16, 2026</p><div class="research-links"><a href="https://arxiv.org/abs/2603.19543">Read manuscript <span aria-hidden="true">↗</span></a><a href="{{ '/publication/2026-05-31-deformation-reconstruction' | relative_url }}">Publication record <span aria-hidden="true">→</span></a></div></div>
+    <details class="research-details paper-method"><summary>Full method described in the paper</summary><div>
+      <p>This section describes the team’s paper method. Its cage-label supervision differs from the point-displacement loss in the training implementation described above.</p>
+      <h3>Creating the Training Supervision</h3>
 
 <p>The model was trained on a 10 × 10 cm compliant fabric substrate with a 3 × 3 cm tactile sensor attached to its central region. A mechanical fixture produced repeatable bending and twisting configurations while keeping each selected pose fixed.</p>
 
@@ -192,58 +271,12 @@ w_{ij}\Delta c_i.
 
 <p>No deformation dataset was collected for either test robot. The network was not retrained or fine tuned for their geometry, and no camera image or rendered supervision was supplied during inference. This is the specific meaning of zero shot deployment in this project.</p>
 
-<h2>My Contributions</h2>
 
-<h3>Experiment Design</h3>
-
-<p>I worked with Linrui Shou to design the data collection protocol. This included determining the deformation range, defining the measurement sequence and repetition procedure, and configuring the mechanical fixture so that each pose remained fixed during scanning and sensor measurement.</p>
-
-<p>I also iterated and tested the 10 × 10 piezoresistive sensor matrix used in the experiments.</p>
-
-<h3>Data Collection and Quality Control</h3>
-
-<p>I collected all structured light scans and tactile measurements used in the bending, twisting, and robot experiments. I also captured the experimental photographs and videos.</p>
-
-<p>At each fixed pose, the sensor continuously produced multiple frames. I waited for the readings to stabilize and retained one representative frame. I checked the data for abnormal measurements and repeated the corresponding acquisition when necessary.</p>
-
-<h3>Software and Pipeline Integration</h3>
-
-<p>I implemented the normalization that divides each sensor channel by its resting resistance, <em>R</em><sub>0</sub>. I also wrote supporting tools for sensor recording, pipeline orchestration, experiment logging, and data inspection.</p>
-
-<p>I helped connect the existing RIFE, 4DGS, training, inference, and rendering components into the experimental workflow. My role focused on connecting these components with the data collection and evaluation process.</p>
-
-<h3>Evaluation, Paper, and Figures</h3>
-
-<p>I conducted the system evaluations and prepared the sensor structure diagram, robot angle comparisons, angle annotations, and final experimental images. I also selected the samples and photographs used in the paper.</p>
-
-<p>I drafted part of the Introduction and worked closely with Linrui Shou on the organization and technical presentation of the manuscript through regular discussions and revisions.</p>
-
-<h2>Results</h2>
-
-<p>The system was evaluated on two previously unseen soft robots. The following results were calculated across the entire robot body and averaged over the test sequences.</p>
-
-<p><strong>Geometry reconstruction:</strong> The average IoU was 0.67 ± 0.20, and the average Chamfer distance was 3.48 ± 0.96 mm.</p>
-
-<p><strong>Rendered appearance:</strong> The average SSIM between the rendered images and the corresponding real observations was 0.65 ± 0.18.</p>
-
-<p><strong>Motion accuracy:</strong> The mean angle error was 4.7° for bending and 4.9° for twisting.</p>
-
-<p><strong>Runtime:</strong> The system ran at approximately 30 FPS with the coarse Gaussian setting and 5 FPS at high resolution on a single NVIDIA RTX 3070 Ti.</p>
-
-<p><strong>Additional demonstration:</strong> The system also reconstructed deformation caused by pressing a wallet fitted with the sensor. This experiment was a qualitative proof of concept and was not included in the bending and twisting metrics.</p>
-
-<h2>Exploratory Capacitive Sensor Prototype</h2>
-
-<p>Alongside the published system, I designed, fabricated, and tested a flexible capacitive sensor prototype made with Ecoflex silicone. This separate study explored whether a capacitive design could detect shear and lateral forces that are difficult to measure with the piezoresistive sensor used in the paper.</p>
-
-<p>The first prototype was evaluated in preliminary shear experiments. Its sensitivity did not yet meet the requirements for integration into the reconstruction system, so it was not used in the IROS paper or its reported experiments. The results provide a starting point for future sensor designs that can distinguish normal pressure from shear loading.</p>
-
-<h2>Publication</h2>
-
-<p><strong>Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling</strong></p>
-
-<p>Linrui Shou, Zilang Chen, Wenjia Xu, Yiyue Luo, and Tingyu Cheng</p>
-
-<p>Accepted to the 2026 IEEE/RSJ International Conference on Intelligent Robots and Systems on June 16, 2026.</p>
-
-<p><a href="https://arxiv.org/abs/2603.19543">Read the current manuscript on arXiv</a></p>
+    </div></details>
+    <section class="project-section"><h2>Original method and experiment figures</h2>
+{% include gallery %}
+</section>
+  </section>
+  <nav class="project-ending research-links" aria-label="Explore more work"><a href="{{ '/portfolio/kv-cache-quantization' | relative_url }}">Next: KV-cache quantization <span aria-hidden="true">→</span></a><a href="{{ '/' | relative_url }}">Back to home</a></nav>
+<div class="research-links"><a href="/publication/2026-05-31-deformation-reconstruction">Publication details &amp; citation →</a></div>
+</article>

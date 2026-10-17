@@ -1,0 +1,19 @@
+<aside class="research-rail" aria-label="Profile and page navigation">
+  <a href="{{ '/' | relative_url }}" aria-label="Zilang Chen home"><img class="research-rail__portrait" src="{{ '/images/profile.png' | relative_url }}" alt="Zilang Chen" width="1200" height="1200"></a>
+  <a class="research-rail__name" href="{{ '/' | relative_url }}">Zilang Chen</a>
+  <p class="research-rail__role">M.S.E. student<br>University of Pennsylvania</p>
+  <div class="research-rail__links contact-links">
+    {% include email-contact.html %}
+    <a href="https://scholar.google.com/citations?user=zOJdQf0AAAAJ&amp;hl=en"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i><span>Google Scholar</span><i class="fa-solid fa-arrow-up-right-from-square contact-arrow" aria-hidden="true"></i></a>
+    <a href="https://github.com/zilangchen"><i class="fa-brands fa-github" aria-hidden="true"></i><span>GitHub</span><i class="fa-solid fa-arrow-up-right-from-square contact-arrow" aria-hidden="true"></i></a>
+    <a href="https://www.linkedin.com/in/zilang-chen-54577b375/"><i class="fa-brands fa-linkedin" aria-hidden="true"></i><span>LinkedIn</span><i class="fa-solid fa-arrow-up-right-from-square contact-arrow" aria-hidden="true"></i></a>
+  </div>
+  <nav class="research-rail__nav" aria-label="Site pages">
+    <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>About</a>
+    <a href="{{ '/portfolio/' | relative_url }}"{% if page.url contains '/portfolio' %} aria-current="page"{% endif %}>Projects</a>
+    <a href="{{ '/publications/' | relative_url }}"{% if page.url contains '/publication' %} aria-current="page"{% endif %}>Publications</a>
+    <a href="{{ '/cv/' | relative_url }}"{% if page.url == '/cv/' %} aria-current="page"{% endif %}>CV</a>
+    <a href="{{ '/photography/' | relative_url }}"{% if page.url contains '/photography' %} aria-current="page"{% endif %}>Photography</a>
+  </nav>
+  <div class="research-rail__section"><p>On this page</p><nav class="research-rail__toc" aria-label="On this page"></nav></div>
+</aside>

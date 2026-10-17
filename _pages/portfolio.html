@@ -1,15 +1,27 @@
 ---
-layout: archive
+description: "Research and engineering projects by Zilang Chen: tactile sensing, deformation reconstruction, efficient AI, embedded systems, and robotics."
+layout: research
 title: "Portfolio"
 permalink: /portfolio/
-author_profile: true
+author_profile: false
 ---
-
-{% include base_path %}
-
-<div class="portfolio-list">
+<div class="research-project project-index">
+<header class="index-header"><p class="research-eyebrow">{{ site.portfolio.size }} projects · Research &amp; engineering</p><h1>Portfolio</h1><p>From sensing and model training to building and testing robotic systems.</p><div class="research-links"><a href="/cv/">Experience &amp; CV</a><a href="https://scholar.google.com/citations?user=zOJdQf0AAAAJ&amp;hl=en">Google Scholar ↗</a></div></header>
+<div class="project-list">
 {% assign sorted_portfolio = site.portfolio | sort: "date" | reverse %}
 {% for post in sorted_portfolio %}
-{% include archive-single.html %}
-{% endfor %}
+<article class="project-row">
+<div class="project-row__media">
+{% if post.url contains 'kv-cache' %}
+<a class="archive__item-teaser-link" href="{{ post.url | relative_url }}" aria-label="View project: {{ post.title | escape }}">{% include kv-index-visual.html %}</a>
+{% elsif post.preview_video %}
+<figure><video controls muted loop playsinline data-autoplay preload="metadata" poster="{{ post.preview_poster | relative_url }}" aria-label="{{ post.preview_alt | escape }}" aria-describedby="preview-caption-{{ forloop.index }}"><source src="{{ post.preview_video | relative_url }}" type="video/mp4"></video><figcaption id="preview-caption-{{ forloop.index }}">{{ post.preview_alt }} · Muted loop.</figcaption></figure>
+<a class="archive__item-teaser-link" href="{{ post.url | relative_url }}" aria-label="View project: {{ post.title | escape }}">View project <span aria-hidden="true">→</span></a>
+{% else %}
+<a class="archive__item-teaser-link" href="{{ post.url | relative_url }}" aria-label="View project: {{ post.title | escape }}"><img src="{{ post.index_image | relative_url }}" alt="{{ post.index_alt | escape }}" width="640" height="400" loading="lazy" decoding="async"></a>
+{% endif %}
 </div>
+<div><span class="project-number" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span><p class="research-eyebrow">{{ post.projects | join: " · " }}</p><h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2><p>{{ post.index_summary }}</p><p class="project-row__role"><strong>My work.</strong> {{ post.index_role }}</p><p class="project-row__period">Project period: {{ post.period }}</p><a class="project-row__link" href="{{ post.url | relative_url }}">Explore project <span aria-hidden="true">→</span></a></div>
+</article>
+{% endfor %}
+</div></div>

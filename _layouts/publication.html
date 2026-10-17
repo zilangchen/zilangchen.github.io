@@ -1,0 +1,9 @@
+---
+layout: research
+---
+<article class="research-project publication-record">
+<nav class="research-links" aria-label="Publication navigation"><a href="/publications/">← All publications</a></nav>
+<header class="project-hero"><p class="research-eyebrow">Research publication</p><h1>{{ page.title }}</h1><p class="publication-authors">{{ page.authors }}</p><p class="project-venue">{% include research-publication-status.html pub=page %}</p><div class="research-links"><a class="research-button" href="{{ page.project_url }}">Project &amp; results →</a><a href="{{ page.paperurl }}">{{ page.paperlabel }}</a><a href="{{ page.pdfurl | relative_url }}">{{ page.pdflabel }}</a></div></header>
+<div class="publication-body">{{ content }}</div>
+<section class="paper-record"><h2>Citation</h2><p>Recommended citation: {{ page.citation }}</p></section>
+</article>

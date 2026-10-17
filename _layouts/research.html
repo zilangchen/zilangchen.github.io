@@ -1,0 +1,14 @@
+---
+layout: default
+---
+<div class="research-frame">
+{% include research-rail.html %}
+<main id="main" class="research-shell">
+  {% if page.collection == 'portfolio' %}
+  <nav class="page__back-nav" aria-label="Portfolio navigation">
+    <a class="page__back-link" href="{{ '/portfolio/' | relative_url }}"><span aria-hidden="true">←</span> Back to Portfolio</a>
+  </nav>
+  {% endif %}
+  {{ content }}
+</main>
+</div>

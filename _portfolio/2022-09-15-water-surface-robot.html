@@ -34,32 +34,44 @@ testing_gallery:
   - image_path: portfolio/water-robot/23.jpg
     alt: "Final water-surface robot prototype undergoing pool testing"
     fit: contain
+layout: "research"
+author_profile: false
+index_image: "/images/portfolio/web/index-water.webp"
+index_alt: "Water-surface robot with foam-supported legs"
+index_summary: "Chebyshev-linkage paddling with foam flotation and ultrasonic obstacle avoidance."
+index_role: "Mechanical design, SolidWorks, 3D printing, pool testing, and control contributions."
+preview_video: "/images/portfolio/water-robot/web/demo.mp4"
+preview_poster: "/images/portfolio/water-robot/web/poster.jpg"
+preview_alt: "Water-surface robot in pool trials"
 ---
 
-<h2>Project Overview</h2>
+<article class="research-project engineering-project"><header class="project-hero"><p class="research-eyebrow">Biomimetic robotics · SCUT</p><h1>A Water-Strider-Inspired Robot</h1><p class="project-deck">Turning rotary motor motion into paddling, with ultrasonic obstacle avoidance.</p><p class="project-meta">Project period: {{ page.period }}<br>Five-member Set Sail team · Supervised by Prof. Ye Chen</p></header>
+<section class="project-demo project-demo--split"><figure class="demo-media demo-media--portrait"><video controls muted preload="metadata" playsinline poster="/images/portfolio/water-robot/web/poster.jpg" aria-label="Water-surface robot paddling and turning in pool trials" aria-describedby="water-caption" loop data-autoplay><source src="/images/portfolio/water-robot/web/demo.mp4" type="video/mp4"><a href="/images/portfolio/water-robot/web/demo.mp4">Open video</a></video><figcaption id="water-caption">28 s · Continuous pool-test excerpt at normal speed; ambient sound removed. <a href="/images/portfolio/water-robot/web/demo.mp4">Open clip</a> · <a href="/images/portfolio/water-robot/video1.mp4">Full recording</a></figcaption></figure>
+<div><p class="research-eyebrow">Pool demonstration</p><h2>Float, paddle,<br>and respond to obstacles.</h2><p>Two Chebyshev linkages drive the active legs. Four foam-supported legs provide buoyancy, while an ultrasonic sensor triggers an avoidance turn.</p><p class="project-note">The 1.66 kg prototype also exposed heading drift, uneven draft, and limited propulsion efficiency.</p></div>
+</section>
+<section class="project-section"><h2>My Contribution</h2>
+<div class="contribution-grid"><div><span class="section-number">01</span><h3>Mechanical design</h3><p>Led the mechanical design and SolidWorks modeling, including the Chebyshev-linkage mechanism and foam-float structures.</p></div>
+<div><span class="section-number">02</span><h3>Control logic</h3><p>Contributed to the Arduino control program, PWM motor control, and ultrasonic obstacle-avoidance logic.</p></div>
+<div><span class="section-number">03</span><h3>Fabrication &amp; testing</h3><p>Took primary responsibility for the 3D-printing workflow and prototype testing, with deep involvement in assembly and iterative integration.</p></div>
+</div>
 
-<p>This five-member team project developed a water-strider-inspired robot that could travel across a pool and respond to obstacles without remote control. The Set Sail team completed the project at SCUT from September 2022 to January 2023 under the supervision of Prof. Ye Chen.</p>
-
-<p>The project translated a biological motion pattern into a buildable engineering prototype. Rather than relying on surface tension for buoyancy, the robot used foam-supported legs to stay afloat and motor-driven linkages to generate propulsion.</p>
-
-<h3>Key Outcomes</h3>
-
-<ul>
-  <li>Built and tested a complete <strong>1.66 kg</strong> water-surface robot prototype.</li>
-  <li>Used dual Chebyshev linkages to convert continuous motor rotation into cyclic paddling motion.</li>
-  <li>Integrated Arduino-based PWM motor control with ultrasonic distance sensing.</li>
-  <li>Demonstrated forward and backward motion, left and right turning, and autonomous obstacle avoidance in pool trials.</li>
-</ul>
-
-<h2>Biomimetic Mechanical Design</h2>
-
-<p>The final structure separated flotation from propulsion. Four fixed support legs ended in adjustable foam boards that supplied buoyancy, while two active legs were driven by TT geared motors. Each Chebyshev linkage converted motor rotation into a repeated vertical and fore-aft stroke, allowing the active legs to push against the water and propel the platform.</p>
+</section>
+<section class="project-section"><h2>Separating flotation from propulsion</h2>
+<figure class="project-figure project-figure--detail"><a href="/images/presentation/water-control.webp" data-lightbox="gallery"><img src="/images/presentation/water-control.webp" width="1768" height="718" alt="Ultrasonic distance measurement, threshold logic, motor PWM and robot motion, with prototype and control hardware." loading="lazy" decoding="async"></a><figcaption>The ultrasonic threshold loop, flotation mechanism and observed prototype issues. <span class="figure-hint">Click to enlarge.</span></figcaption></figure>
+<p>Rather than relying on surface tension for buoyancy, the platform uses adjustable foam floats. It was developed under the supervision of Prof. Ye Chen.</p><p>The final structure separated flotation from propulsion. Four fixed support legs ended in adjustable foam boards that supplied buoyancy, while two active legs were driven by TT geared motors. Each Chebyshev linkage converted motor rotation into a repeated vertical and fore-aft stroke, allowing the active legs to push against the water and propel the platform.</p>
 
 <p>The mechanism evolved through several physical iterations. An early LEGO prototype helped the team evaluate the basic motion, and a six-leg motion scheme was tested before the final four-support-leg and two-active-leg arrangement was selected for greater stability. The completed prototype combined a resin-printed body, PLA drivetrain components, and adjustable foam floats.</p>
 
 {% include gallery id="mechanical_gallery" caption="The completed robot and its fabrication process, showing the foam-supported layout and additively manufactured structure." %}
+</section>
+<section class="project-section"><h2>What the pool trials showed</h2>
+<p>The team evaluated the robot in two pool-testing stages. The final stage used a 2.61 m × 1.72 m pool with a water depth of 0.36 m and a 30 cm × 10 cm × 21 cm obstacle. The trials demonstrated forward and backward motion, left and right turning, and autonomous obstacle avoidance.</p>
 
-<h2>Electronics and Obstacle-Avoidance Logic</h2>
+<p>Testing also identified the main limitations of the prototype. Differences between the two motor speeds caused heading drift, while float geometry and weight distribution produced uneven draft between the left and right sides. The robot remained stable on the water, but its propulsion efficiency was limited. These observations provided clear directions for the next mechanical and control iteration.</p>
+
+{% include gallery id="testing_gallery" caption="The Stage-II test environment and the final prototype during pool validation." %}
+</section>
+<section class="project-section"><h2>Electronics and Obstacle-Avoidance Logic</h2>
 
 <p>An Arduino Uno coordinated the two geared motors through separate motor-control boards. PWM commands were tuned to reduce the speed difference between the left and right propulsion mechanisms. A front-facing ultrasonic sensor measured the distance to an obstacle; when the measured distance crossed the programmed threshold, the controller initiated an avoidance turn before continuing its motion.</p>
 
@@ -67,33 +79,15 @@ testing_gallery:
 
 {% include gallery id="control_gallery" caption="Sensors considered during development and the final Arduino-based motor-control hardware." %}
 
-<h2>Pool Testing and Results</h2>
-
-<p>The team evaluated the robot in two pool-testing stages. The final stage used a 2.61 m × 1.72 m pool with a water depth of 0.36 m and a 30 cm × 10 cm × 21 cm obstacle. The trials demonstrated forward and backward motion, left and right turning, and autonomous obstacle avoidance.</p>
-
-<p>Testing also identified the main limitations of the prototype. Differences between the two motor speeds caused heading drift, while float geometry and weight distribution produced uneven draft between the left and right sides. The robot remained stable on the water, but its propulsion efficiency was limited. These observations provided clear directions for the next mechanical and control iteration.</p>
-
-{% include gallery id="testing_gallery" caption="The Stage-II test environment and the final prototype during pool validation." %}
-
-<h2>My Contribution</h2>
-
-<ul>
-  <li>Led the mechanical design and SolidWorks modeling, including the Chebyshev-linkage mechanism and foam-float structures.</li>
-  <li>Contributed to the Arduino control program, PWM motor control, and ultrasonic obstacle-avoidance logic.</li>
-  <li>Took primary responsibility for the 3D-printing workflow and prototype testing, with deep involvement in fabrication, assembly, and iterative integration.</li>
-</ul>
-
-<h2>Demo Video</h2>
-
-<video controls preload="metadata" playsinline poster="/images/portfolio/water-robot/23.jpg" style="display: block; width: min(100%, 360px); aspect-ratio: 9 / 16; max-height: 640px; object-fit: contain; margin: 1.25rem auto; background: #000;">
-  <source src="/images/portfolio/water-robot/video1.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-<h2>Future Directions</h2>
-
+</section>
+<details class="research-details"><summary>Future Directions</summary><div>
 <ul>
   <li>Improve propulsion efficiency through further linkage and stroke optimization.</li>
   <li>Reduce structural mass with lighter, stronger materials.</li>
   <li>Improve straight-line tracking and even draft through tighter motor-speed matching and float rebalancing.</li>
 </ul>
+
+</div>
+</details>
+<nav class="research-links project-ending" aria-label="Related pages"><a href="/portfolio/">← All projects</a><a href="/cv/">Experience &amp; CV →</a></nav>
+</article>

@@ -32,11 +32,11 @@
         {% endif %}
         {% if img.title %}title="{{ img.title }}"{% endif %}
       >
-        <img src="{{ img_url | strip }}" alt="{{ img.alt | default: page.title }}" class="gallery-image{% if img.fit == 'contain' or img.layout == 'full' %} gallery-image--contain{% endif %}" loading="lazy" decoding="async">
+        <img src="{{ site.data.project_media[img.image_path] | default: img_url | strip | relative_url }}" alt="{{ img.alt | default: page.title }}" class="gallery-image{% if img.fit == 'contain' or img.layout == 'full' %} gallery-image--contain{% endif %}" loading="lazy" decoding="async">
       </a>
     {% else %}
       <a class="gallery-item{% if img.layout == 'full' %} gallery-item--full{% endif %}" href="{{ img_url | strip }}" data-lightbox="gallery" {% if img.title %}data-title="{{ img.title }}"{% endif %}>
-        <img src="{{ img_url | strip }}" alt="{{ img.alt | default: page.title }}" class="gallery-image{% if img.fit == 'contain' or img.layout == 'full' %} gallery-image--contain{% endif %}" loading="lazy" decoding="async">
+        <img src="{{ site.data.project_media[img.image_path] | default: img_url | strip | relative_url }}" alt="{{ img.alt | default: page.title }}" class="gallery-image{% if img.fit == 'contain' or img.layout == 'full' %} gallery-image--contain{% endif %}" loading="lazy" decoding="async">
       </a>
     {% endif %}
   {% endfor %}

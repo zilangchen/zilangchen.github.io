@@ -41,38 +41,53 @@ hardware_gallery:
   - image_path: portfolio/smart-home/04.png
     alt: "TFT display presenting a Chinese-language response from the voice assistant"
     fit: contain
+layout: "research"
+author_profile: false
+index_image: "/images/portfolio/web/index-smart.webp"
+index_alt: "Embedded smart-home hardware prototype"
+index_summary: "Seven-class speech recognition, MQTT device control, and a separate cloud voice assistant."
+index_role: "Speech data, MFCC features, neural-network training, ESP32 firmware, and system integration."
+preview_video: "/images/portfolio/smart-home/web/demo.mp4"
+preview_poster: "/images/portfolio/smart-home/web/poster.jpg"
+preview_alt: "Speech and device-control prototype"
 ---
 
-<h2>Project Overview</h2>
+<article class="research-project engineering-project"><header class="project-hero"><p class="research-eyebrow">Embedded AI · SCUT</p><h1>Embedded Smart Home Terminal</h1><p class="project-deck">Local speech recognition, connected device control, and a voice-dialogue interface.</p><p class="project-meta">Project period: {{ page.period }}<br>Team project · Supervised by Prof. Zhicong Huang</p></header>
+<section class="project-demo project-demo--split"><figure class="demo-media demo-media--portrait"><video controls preload="metadata" playsinline poster="/images/portfolio/smart-home/web/poster.jpg" aria-label="Smart-home device control and voice interface" aria-describedby="smart-caption" muted loop data-autoplay><source src="/images/portfolio/smart-home/web/demo.mp4" type="video/mp4"><a href="/images/portfolio/smart-home/web/demo.mp4">Open video</a></video><figcaption id="smart-caption">35 s · Two excerpts at normal speed. Muted preview; original Mandarin audio available in the controls. <a href="/images/portfolio/smart-home/web/demo.mp4">Open clip</a> · <a href="/images/portfolio/smart-home/video1.mp4">Full recording</a></figcaption></figure>
+<div><p class="research-eyebrow">Working prototype</p><h2>From a spoken command<br>to an embedded response.</h2><p>I worked across speech-data collection, MFCC preprocessing, neural-network training, ESP32 firmware, and system integration.</p><p class="project-note">Local command classification, OneNET control, and iFLYTEK Spark dialogue are separate subsystems.</p></div>
+</section>
+<section class="project-section"><h2>My Contribution</h2>
+<div class="contribution-grid"><div><span class="section-number">01</span><h3>Speech data &amp; model</h3><p>Collected and processed speech data, implemented MFCC features, and trained and evaluated the command-recognition neural network.</p></div>
+<div><span class="section-number">02</span><h3>Embedded integration</h3><p>Contributed to ESP32 firmware, connected the hardware and software subsystems, and tested the prototype.</p></div>
+<div><span class="section-number">03</span><h3>Team delivery</h3><p>Led project planning, task coordination, and team-wide integration.</p></div>
+</div>
 
-<p>This team project explored how local speech recognition, IoT connectivity, and a cloud-based language model could be combined in one embedded smart-home terminal. Developed under the supervision of Prof. Zhicong Huang at SCUT from September 2024 to January 2025, the prototype supported local command recognition, remote device control through OneNET, and voice-based information queries through iFLYTEK Spark.</p>
-
-<p>The system was organized as three cooperating subsystems rather than a single end-to-end cloud pipeline: an STM32F407 performed local command classification, an ESP32-C3 connected the device-control path to OneNET over MQTT, and an ESP32-Wroom supported the voice-dialogue path.</p>
-
-<h3>Key Outcomes</h3>
-
-<ul>
-  <li>Implemented seven-class Chinese command recognition with <strong>89.1% validation accuracy</strong> and 0.41 validation loss.</li>
-  <li>Connected curtain, air-conditioner, and LED controls to OneNET through MQTT.</li>
-  <li>Integrated iFLYTEK Spark for voice dialogue and weather and time queries.</li>
-  <li>Completed an end-to-end prototype integrating embedded inference, networked control, visual feedback, and audio output.</li>
-</ul>
-
-<h2>System Architecture</h2>
-
+</section>
+<section class="project-section"><h2>Three connected subsystems</h2>
+<figure class="project-figure project-figure--detail"><a href="/images/presentation/speech-control.webp" data-lightbox="gallery"><img src="/images/presentation/speech-control.webp" width="1768" height="723" alt="Offline speech training and local inference with separate OneNET device control and Spark dialogue paths." loading="lazy" decoding="async"></a><figcaption>Offline model training, local classification, device control and the separate dialogue interface. <span class="figure-hint">Click to enlarge.</span></figcaption></figure>
+<div class="contribution-grid"><div><h3>Local recognition</h3><p>STM32F407 classifies seven Chinese command classes from microphone audio.</p></div>
+<div><h3>OneNET Device Control</h3><p>ESP32-C3 connects curtain, air-conditioner, and LED commands through MQTT.</p></div>
+<div><h3>iFLYTEK Spark Voice Dialogue</h3><p>ESP32-Wroom supports conversational responses, including weather and time queries.</p></div>
+</div>
 <p>The architecture deliberately separated latency-sensitive local commands from cloud-connected functions. Device commands were classified on the embedded platform before being routed to the OneNET control path, while open-ended speech requests entered a separate speech-to-text and language-model pipeline.</p>
 
 {% include gallery id="architecture_gallery" caption="The three-part architecture: local command recognition on STM32F407, OneNET device control through ESP32-C3, and iFLYTEK Spark dialogue through ESP32-Wroom." %}
-
-<h2>On-Device Command Recognition</h2>
-
+</section>
+<section class="project-section"><h2>Training &amp; validation</h2>
+<div class="result-grid"><div><strong>89.1<small>%</small></strong><span>89.1% validation accuracy on the seven-class command task.</span></div>
+<div><strong>7 <small>classes</small></strong><span>Device commands and entry into chat mode.</span></div>
+<div><strong>0.41</strong><span>Recorded validation loss.</span></div>
+</div>
 <p>Microphone audio was captured as PCM data and transferred to the STM32F407 for preprocessing, MFCC feature extraction, and 2D neural-network classification. The model distinguished seven Chinese command classes: turning the light, air conditioner, and curtain on or off, plus entering the chat mode.</p>
 
 <p>The recorded validation result was <strong>89.1% accuracy</strong> with a loss of 0.41. The confusion matrix documents class-specific performance and the remaining error modes, keeping the reported result scoped to the validation set.</p>
 
 {% include gallery id="recognition_gallery" caption="Local recognition pipeline and the final seven-class validation result." %}
-
-<h2>Cloud-Connected Functions</h2>
+</section>
+<section class="project-section"><h2>What the prototype establishes</h2>
+<p>The final demonstration connected the complete interaction chain: local recognition of seven device and chat commands, OneNET-based control of demonstrated smart-home devices, and iFLYTEK Spark responses displayed on the TFT or played through the speaker. The result should be understood as a functional team prototype. The project did not include validated measurements of power consumption or long-duration network reliability, so these remain future evaluation goals.</p>
+</section>
+<section class="project-section"><h2>Cloud-Connected Functions</h2>
 
 <h3>OneNET Device Control</h3>
 
@@ -84,38 +99,23 @@ hardware_gallery:
 
 {% include gallery id="cloud_gallery" caption="The OneNET control interface and the separate iFLYTEK Spark dialogue pipeline." %}
 
-<h2>Hardware Prototype</h2>
+</section>
+<section class="project-section"><h2>Hardware Prototype</h2>
 
 <p>The prototype combined an STM32F4-Discovery board, ESP32-Wroom and ESP32-C3 modules, a 1.8-inch ST7735S TFT display, an INMP441 digital microphone, a MAX98357 I2S audio amplifier, and a speaker. These development boards and peripheral modules supported local recognition, cloud connectivity, and text and audio feedback within one integrated demonstration.</p>
 
 {% include gallery id="hardware_gallery" caption="Development hardware, the ESP32-based audio interface, and TFT response output used in the working prototype." %}
 
-<h2>My Contribution</h2>
-
-<ul>
-  <li>Led project planning, task coordination, and team-wide integration.</li>
-  <li>Collected and processed the speech data used by the command-recognition pipeline.</li>
-  <li>Implemented MFCC feature processing and trained and evaluated the neural network.</li>
-  <li>Contributed to ESP32 firmware development.</li>
-  <li>Contributed to system integration and prototype testing.</li>
-</ul>
-
-<h2>Results and Scope</h2>
-
-<p>The final demonstration connected the complete interaction chain: local recognition of seven device and chat commands, OneNET-based control of demonstrated smart-home devices, and iFLYTEK Spark responses displayed on the TFT or played through the speaker. The result should be understood as a functional team prototype. The project did not include validated measurements of power consumption or long-duration network reliability, so these remain future evaluation goals.</p>
-
-<h2>Demo Video</h2>
-
-<video controls preload="metadata" playsinline poster="/images/portfolio/smart-home/main.jpg" style="display: block; width: min(100%, 360px); height: auto; max-height: 640px; object-fit: contain; margin: 1.25rem auto; background: #000;">
-  <source src="/images/portfolio/smart-home/video1.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-<h2>Future Directions</h2>
-
+</section>
+<details class="research-details"><summary>Future Directions</summary><div>
 <ul>
   <li>Improve command-recognition accuracy across speakers and acoustic environments.</li>
   <li>Measure and optimize system power consumption.</li>
   <li>Expand compatibility with a wider range of smart-home devices.</li>
   <li>Strengthen data-security and privacy protection across cloud-connected functions.</li>
 </ul>
+
+</div>
+</details>
+<nav class="research-links project-ending" aria-label="Related pages"><a href="/portfolio/">← All projects</a><a href="/cv/">Experience &amp; CV →</a></nav>
+</article>

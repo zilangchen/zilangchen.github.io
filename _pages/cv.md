@@ -1,8 +1,9 @@
 ---
-layout: archive
+description: "Education, research experience, publications, and engineering skills of Zilang Chen, University of Pennsylvania."
+layout: "resume"
 title: "Curriculum Vitae"
 permalink: /cv/
-author_profile: true
+author_profile: false
 redirect_from:
   - /resume
 ---
@@ -11,8 +12,7 @@ redirect_from:
 
 ## Contact
 
-- **Email:** zilang.chen@outlook.com
-- **Phone number:** +1 (267) 521-3967
+- **Email:** zilang@engineering.upenn.edu
 - **Location:** Philadelphia, PA, USA
 
 ## Education
@@ -33,7 +33,7 @@ Advisor: Prof. Ziqian Zeng<br>
 
 - Designed a KV-cache quantization and allocation framework for long-context LLM inference, using attention-distribution KL and perturbations in attention-weighted Value outputs to guide parameter calibration, low-bit recovery, and layer-wise precision allocation.
 - Implemented offline K/V calibration, INT4-RoleAlign, AutoK sensitivity-based layer protection, and fused Triton kernels. Integrated FP16, INT8, symmetric INT4, mixed-precision, and KIVI-style paths into a unified evaluation pipeline.
-- Evaluated six instruction models from the Qwen2.5, LLaMA-3.1, and Mistral families. Diagnosed 4-bit Key quantization as the primary task-level retrieval failure trigger in the evaluated Qwen settings. The role-aware INT4 path achieved 100% pass rates on both Needle tests for each of the three models with complete KIVI-style/RoleAlign comparisons, reduced measured KV-cache storage by approximately 73.4% relative to FP16 across four representative configurations, and lowered Qwen2.5-14B TPOT by approximately 40% at 32K relative to the reference INT4 path using fused Triton decoding on a single NVIDIA H20 with batch size 1. [Project details](/portfolio/kv-cache-quantization) · [GitHub](https://github.com/zilangchen/LLM_KVCache_Quantization)
+- Evaluated six instruction models from the Qwen2.5, LLaMA-3.1, and Mistral families. Diagnosed 4-bit Key quantization as the primary task-level retrieval failure trigger in the evaluated Qwen settings. The role-aware INT4 path achieved 100% pass rates on both Needle tests for each of the three models with complete KIVI-style/RoleAlign comparisons, reduced measured KV-cache storage by approximately 73.4% relative to FP16 across four representative configurations, and lowered Qwen2.5-14B TPOT by approximately 40% at 32K relative to the reference INT4 path using fused Triton decoding on a single NVIDIA H20 with batch size 1. [Project details](/portfolio/kv-cache-quantization)
 
 **Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling** — ISURE Summer Research Program, University of Notre Dame (Jul 2025 – Sep 2025)<br>
 Advisor: Prof. Tingyu Cheng  

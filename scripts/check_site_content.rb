@@ -6,6 +6,7 @@ require "date"
 require "open3"
 require "tempfile"
 require "uri"
+require "json"
 
 ROOT = File.expand_path("..", __dir__)
 
@@ -24,6 +25,7 @@ home = read_built("index.html")
 portfolio = read_built("portfolio/index.html")
 cv = read_built("cv/index.html")
 publications = read_built("publications/index.html")
+photography = read_built("photography/index.html")
 deformation_publication = read_built("publication/2026-05-31-deformation-reconstruction.html")
 wine_publication = read_built("publication/2025-06-15-wine-quality-ensemble.html")
 deformation_portfolio = read_built("portfolio/deformation-reconstruction.html")
@@ -36,6 +38,10 @@ angkor_portfolio = read_built("portfolio/angkor-bloom.html")
 water_robot_portfolio = read_built("portfolio/water-surface-robot.html")
 not_found = read_built("404.html")
 sitemap = read_built("sitemap.xml")
+photo_data = JSON.parse(File.read(File.join(ROOT, '_data/photography.json')))
+photo_albums = photo_data.fetch('albums')
+photo_album_paths = photo_albums.map { |album| "/photography/#{album.fetch('year') == 'undated' ? 'more-moments' : album.fetch('year')}/" }
+photo_album_html = photo_album_paths.map { |path| read_built("#{path.sub(%r{^/}, '')}index.html") }
 
 forbidden_built_paths = [
   "AGENTS.md",
@@ -90,6 +96,7 @@ expected_sitemap_paths = [
   "/",
   "/cv/",
   "/files/Wine%20Quality%20IPMLP2025.pdf",
+  "/photography/",
   "/portfolio/",
   "/portfolio/angkor-bloom",
   "/portfolio/ball-picking-robot",
@@ -152,8 +159,13 @@ site_files = Dir.glob(File.join(ROOT, "_site", "**", "*"), File::FNM_DOTMATCH).s
   File.file?(path)
 end
 site_bytes = site_files.sum { |path| File.size(path) }
-assert(site_bytes < 160 * 1024 * 1024,
-       "built site exceeds the 160 MiB public-surface budget: #{site_bytes} bytes")
+# Retain the existing research-site cap; the new approved photography collection
+# has a separate bounded image allowance, using lazy-loaded display derivatives.
+photo_bytes = site_files.select { |path| path.include?("/_site/images/photography/") }.sum { |path| File.size(path) }
+assert(site_bytes - photo_bytes < 160 * 1024 * 1024,
+       "research site exceeds its unchanged 160 MiB public-surface budget")
+assert(photo_bytes < 64 * 1024 * 1024,
+       "photography derivatives exceed their 64 MiB archive allowance: #{photo_bytes} bytes")
 
 assert(not_found.include?("is no longer public"),
        "404 page does not explain that a former public route may have been withdrawn")
@@ -172,11 +184,11 @@ profile_pages = [home, cv, publications]
 assert(profile_pages.all? { |html| html.include?("University of Pennsylvania") },
        "Penn affiliation is missing from a profile sidebar")
 
-navigation_order = ['/portfolio/">Portfolio</a>', '/publications/">Publications</a>', '/cv/">CV</a>']
+navigation_order = ['/portfolio/">Portfolio</a>', '/publications/">Publications</a>', '/cv/">CV</a>', '/photography/">Photography</a>']
 navigation_positions = navigation_order.map { |link| home.index(link) }
 assert(navigation_positions.all?, "one or more primary navigation links are missing")
 assert(navigation_positions == navigation_positions.sort,
-       "primary navigation is not ordered as Portfolio, Publications, CV")
+       "primary navigation is not ordered as Portfolio, Publications, CV, Photography")
 
 active_navigation = {
   home => /masthead__menu-item--lg persist is-active.*?aria-current="page".*?>Zilang Chen<\/a>/m,
@@ -190,8 +202,8 @@ active_navigation = {
 active_navigation.each do |html, pattern|
   assert(html.match?(pattern), "current primary navigation item is not marked active")
 end
-assert(home.include?('<h1 class="page__title sr-only">Zilang Chen</h1>'),
-       "homepage H1 is not preserved semantically while hidden from the repeated visual header")
+assert(home.scan(/<h1\b/).length == 1 && home.include?('<h1>Zilang Chen'),
+       "homepage must have one visible identity heading")
 assert(home.include?('aria-label="Toggle navigation menu"'),
        "masthead menu button is missing an accessible name")
 assert(home.include?('aria-controls="site-nav-hidden-links" aria-expanded="false"'),
@@ -200,28 +212,14 @@ assert(home.include?('role="button" tabindex="0" aria-label="Toggle color theme"
        "theme control is not keyboard focusable or named")
 
 home_required = [
-  "About",
-  "Research Interests",
-  "Vision-Language-Action Models",
-  "Robot Learning, Planning, and Control",
-  "Embodied Systems and Evaluation",
-  "Selected Work",
-  "Recent Publications",
-  "Explore",
-  "I am now interested in robot learning and algorithms",
-  "I hope to study vision-language-action models",
-  "connecting algorithmic decisions with real sensing and hardware constraints",
-  "A behavior-guided KV-cache quantization framework calibrates role-aware INT4 formats",
-  "I independently designed and implemented the calibration, quantized cache, allocation, Triton decoding, and evaluation pipeline",
-  "A flexible piezoresistive array drives a 3D Gaussian model",
-  "A remote-controlled Mecanum-wheel robot used collision-based ball collection",
-  "solely operated the robot in competition",
+  "Research Interests", "Tactile Manipulation", "Reinforcement Learning for Adaptive Robot Skills",
+  "Selected Research", "Building Robotic Systems", "Recent Publications",
+  "data collection, model training and evaluation", "Sensor acquisition software",
+  "73.4", "four representative configurations", "not total GPU memory",
   "Accepted to <em>IEEE/RSJ IROS 2026</em>.",
   "Published in <em>IPMLP 2025</em> · Proceedings published by ACM."
 ]
-home_required.each do |text|
-  assert(home.include?(text), "homepage identity or research section is missing: #{text}")
-end
+home_required.each { |text| assert(home.include?(text), "homepage is missing: #{text}") }
 
 home_forbidden = [
   '<h2 id="contact">',
@@ -241,58 +239,53 @@ home_forbidden.each do |text|
 end
 
 home_project_titles = [
-  "KV Cache Quantization for Efficient Large Language Model Inference",
   "Zero-Shot Deformation Reconstruction for Soft Robots",
-  "Remote-Controlled Multifunctional Ball-Collecting Robot"
+  "Behavior-Guided KV-Cache Quantization"
 ]
-home_project_positions = home_project_titles.map { |title| home.index(title) }
-assert(home_project_positions.all?, "one or more featured homepage projects are missing")
-assert(home_project_positions == home_project_positions.sort,
-       "featured homepage projects are not in the expected order")
-assert(home.scan('class="home-project-card"').length == 3,
-       "homepage does not contain exactly 3 featured project cards")
-assert(home.scan("<strong>My role.</strong>").length == 3,
-       "homepage project cards do not consistently separate individual roles")
-
-home_project_paths = [
-  "/portfolio/kv-cache-quantization",
-  "/portfolio/deformation-reconstruction",
-  "/portfolio/ball-picking-robot"
-]
-home_project_cards = home.scan(/<article class="home-project-card">(.*?)<\/article>/m).map(&:first)
-home_project_paths.each_with_index do |path, index|
-  card = home_project_cards[index]
-  assert(card.scan(%{href="#{path}"}).length == 2,
-         "featured homepage media and title do not share the detail link: #{path}")
-  image_tag = card[/<img\b[^>]*>/]
-  assert(image_tag&.include?('loading="lazy"') && image_tag.include?('decoding="async"'),
-         "featured homepage image is missing lazy or async loading attributes: #{path}")
-  image_src = image_tag&.match(/src="([^"]+)"/)&.captures&.first
-  assert(image_src && File.file?(File.join(ROOT, image_src.sub(%r{\A/}, ""))),
-         "featured homepage image source is missing on disk: #{path}")
-  assert(card.match?(%r{<strong>My role\.</strong>\s+\S}),
-         "featured homepage role is empty: #{path}")
+positions = home_project_titles.map { |title| home.index(title) }
+assert(positions.all? && positions == positions.sort, "research features must lead with reconstruction")
+features = home.scan(/<article class="research-feature">(.*?)<\/article>/m).map(&:first)
+assert(features.length == 2, "homepage must have two major research features")
+assert(features.first.include?('reconstruction-demo.mp4') && features.first.scan(/<video\b/).length == 1,
+       "homepage reconstruction demo must belong to the reconstruction research feature")
+assert(!home.split('id="selected-title"', 2).first.include?('<video'),
+       "homepage demo must not be detached above Selected Research")
+["/portfolio/deformation-reconstruction", "/portfolio/kv-cache-quantization"].each_with_index do |path, i|
+  assert(features[i].include?(%{href="#{path}"}), "missing feature detail link: #{path}")
+  assert(features[i].include?("<strong>My work.</strong>"), "missing individual contribution")
 end
-
-assert(home.scan('class="home-output-card"').length == 2,
-       "homepage does not contain exactly 2 recent research outputs")
-home_output_positions = [
-  "Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling",
-  "Wine Quality Prediction with Ensemble Trees"
-].map { |title| home.index(title) }
-assert(home_output_positions.all?, "one or more homepage research outputs are missing")
-assert(home_output_positions == home_output_positions.sort,
-       "homepage research outputs are not ordered newest first")
-assert(home.include?('href="/portfolio/">View all projects'),
-       "homepage is missing the complete Portfolio entry point")
-assert(home.include?('href="/publications/">View all publications'),
-       "homepage is missing the complete Publications entry point")
-assert(home.include?('href="/cv/">CV</a>'),
-       "homepage Explore section is missing the CV entry point")
+["climbing-hand-exo", "ball-picking-robot", "angkor-bloom"].each do |slug|
+  assert(home.include?(%{href="/portfolio/#{slug}"}), "missing engineering project: #{slug}")
+end
+assert(home.scan('class="profile-publication"').length == 2, "expected two recent publications")
+outputs = ["Zero-Shot Deformation Reconstruction for Soft Robots Using a Flexible Sensor Array and Cage-Based 3D Gaussian Modeling", "Wine Quality Prediction with Ensemble Trees"].map { |title| home.index(title) }
+assert(outputs.all? && outputs == outputs.sort, "publications must be newest first")
+["/portfolio/", "/publications/", "/cv/"].each do |path|
+  assert(home.include?(%{href="#{path}"}), "missing profile navigation: #{path}")
+end
+# User-approved muted loops are started in view by the shared media controller.
+[home, deformation_portfolio].each_with_index do |html, i|
+  videos = html.scan(/<video\b[^>]*>/)
+  assert(videos.length == (i.zero? ? 1 : 3), "unexpected number of edited demos")
+  videos.each do |tag|
+    %w[controls muted playsinline].each { |attr| assert(tag.match?(/\b#{attr}\b/), "video missing #{attr}") }
+    assert(tag.include?('preload="metadata"') && tag.include?('data-autoplay'), "edited demos must request metadata and viewport autoplay")
+    assert(tag.include?('aria-describedby='), "video needs its descriptive caption")
+  end
+  html.scan(/<(?:img|source)\b[^>]*src="([^"#]+)"/).flatten.each do |src|
+    next unless src.start_with?("/")
+    assert(File.file?(File.join(ROOT, "_site", src.sub(%r{\A/}, ""))), "missing media: #{src}")
+  end
+end
+["point displacement", "least squares", "different training objectives", "not attributed to a new run", "not calibrated pressure values", "not yet integrated", "reliable shear sensing still needs validation"].each do |text|
+  assert(deformation_portfolio.include?(text), "missing project evidence boundary: #{text}")
+end
+story_ids = %w[contributions-title method-title sensor-title training-title results-title limits-title paper-title]
+story_positions = story_ids.map { |id| deformation_portfolio.index(%{id="#{id}"}) }
+assert(story_positions.all? && story_positions == story_positions.sort, "project story sections are out of order")
 
 cv_required = [
-  "Email:</strong> zilang.chen@outlook.com",
-  "Phone number:</strong> +1 (267) 521-3967",
+  "Email:</strong> zilang@engineering.upenn.edu",
   "Location:</strong> Philadelphia, PA, USA",
   "M.S.E. in Mechanical Engineering and Applied Mechanics",
   "Visiting Student, UCLA Summer Sessions",
@@ -322,6 +315,9 @@ cv_required.each do |text|
 end
 
 cv_forbidden = [
+  "https://github.com/zilangchen/LLM_KVCache_Quantization",
+  "Phone number:",
+  "+1 (267) 521-3967",
   "(Personal)",
   "Math 156 Machine Learning",
   "Huashu Cup Mathematical Modeling Competition",
@@ -395,7 +391,7 @@ forbidden.each do |text|
 end
 scholar_url = "https://scholar.google.com/citations?user=zOJdQf0AAAAJ&hl=en"
 [home, portfolio, cv, publications].each do |html|
-  assert(html.include?(%{href="#{scholar_url}"}),
+  assert(CGI.unescapeHTML(html).include?(%{href="#{scholar_url}"}),
          "public page is missing the confirmed Google Scholar profile link")
 end
 assert(home.include?('Google Scholar'),
@@ -404,10 +400,12 @@ assert(home.include?(%{"sameAs" : ["#{scholar_url}","https://github.com/zilangch
        "homepage structured data is missing the Scholar and GitHub identity links")
 assert(!home.include?('"sameAs" : null'),
        "homepage structured data still emits a null sameAs value")
-assert(home.include?('aria-controls="author-profile-links" aria-expanded="false"'),
-       "author profile toggle is missing accessible menu state")
-assert(home.include?('id="author-profile-links"'),
-       "author profile links are missing the toggle target")
+[cv, publications].each do |html|
+  assert(html.include?('Google Scholar') && html.include?('class="research-shell"'),
+         "full-width research layout must retain direct profile navigation")
+end
+assert(home.include?('aria-label="Profile links"') && home.include?('data-copy-email="zilang@engineering.upenn.edu"'),
+       "homepage must expose its profile links directly")
 google_verification = "-niFTE1mqY_p-wCFZrDotBuV9nIQ8DHRMZOmRXUss_s"
 assert(home.include?(%{<meta name="google-site-verification" content="#{google_verification}"}),
        "homepage is missing the Google Search Console verification tag")
@@ -514,6 +512,16 @@ assert(publication_title_positions == publication_title_positions.sort,
        "publication entries are not ordered newest first")
 assert(!publications.match?(/<p class="archive__item-excerpt"[^>]*>\s*<\/p>/),
        "publication listing contains an empty excerpt paragraph")
+
+exo_video_tag = exo_portfolio[/<video\b[^>]*>/]
+assert(exo_video_tag && exo_video_tag.include?('preload="metadata"') && exo_video_tag.include?("playsinline"),
+       "exoskeleton demo must use inline, metadata-only playback")
+assert(exo_portfolio.include?('src="/images/portfolio/climb-exo/exoskeleton-demo.mp4" type="video/mp4"'),
+       "exoskeleton demo is missing its browser-compatible MP4 source")
+assert(!exo_portfolio.include?('type="video/quicktime"'),
+       "exoskeleton demo reverted to the unsupported QuickTime source")
+assert(File.file?(File.join(ROOT, "_site/images/portfolio/climb-exo/exoskeleton-poster.jpg")),
+       "exoskeleton video poster is missing")
 
 portfolio_titles = [
   "Zero-Shot Deformation Reconstruction for Soft Robots",
@@ -639,14 +647,14 @@ kv_cache_required = [
   "int4-rolealign-axes.png",
   "Behavior-guided KV-cache quantization framework connecting offline calibration and sensitivity-based budget allocation to read-only online inference",
   "INT4-RoleAlign diagram showing per-channel Key quantization for attention ranking and per-token Value quantization for content aggregation",
-  "My Contribution",
-  'href="https://github.com/zilangchen/LLM_KVCache_Quantization"'
+  "My Contribution"
 ]
 kv_cache_required.each do |text|
   assert(kv_cache_portfolio.include?(text),
          "KV-cache project detail is missing confirmed content: #{text}")
 end
 kv_cache_forbidden = [
+  "https://github.com/zilangchen/LLM_KVCache_Quantization",
   "EMNLP 2026",
   "submitted to EMNLP",
   "accepted to EMNLP",
@@ -682,7 +690,7 @@ smart_home_required = [
   "Led project planning, task coordination, and team-wide integration",
   "Sep 2024 – Jan 2025",
   'preload="metadata"',
-  'poster="/images/portfolio/smart-home/main.jpg"'
+  'poster="/images/portfolio/smart-home/web/poster.jpg"'
 ]
 smart_home_required.each do |text|
   assert(smart_home_portfolio.include?(text),
@@ -736,7 +744,7 @@ ball_robot_required = [
   "Solely operated the robot by remote control during the competition",
   "¥3,401.43",
   'preload="metadata"',
-  'poster="/images/portfolio/ball-robot/01.png"'
+  'poster="/images/portfolio/ball-robot/web/poster.jpg"'
 ]
 ball_robot_required.each do |text|
   assert(ball_robot_portfolio.include?(text),
@@ -787,8 +795,8 @@ water_robot_required = [
   "Contributed to the Arduino control program, PWM motor control, and ultrasonic obstacle-avoidance logic",
   "Took primary responsibility for the 3D-printing workflow and prototype testing",
   'preload="metadata"',
-  'poster="/images/portfolio/water-robot/23.jpg"',
-  'aspect-ratio: 9 / 16'
+  'poster="/images/portfolio/water-robot/web/poster.jpg"',
+  'class="demo-media demo-media--portrait"'
 ]
 water_robot_required.each do |text|
   assert(water_robot_portfolio.include?(text),
@@ -903,3 +911,85 @@ assert(cv_publications == 2,
 end
 
 puts "Site content checks passed."
+
+# Full-site redesign: preserve the public surface, accessible media, and manuscript links.
+all_public_html = [home, portfolio, cv, publications, photography, not_found, wine_publication, deformation_publication] + portfolio_detail_pages.values
+all_public_html.each do |html|
+  assert(html.scan(/<h1\b/).length == 1, "every public page must have exactly one primary heading")
+  assert(html.include?('class="research-shell"'), "public page does not use the shared research layout")
+  assert(!html.include?('plotly.min.js') && !html.include?('mermaid.esm'), "unused diagram library loads on a public page")
+  assert(html.include?('id="MathJax-script"') == (html == deformation_portfolio), "MathJax must only load where equations need it")
+  html.scan(/<video\b[^>]*>/).each do |tag|
+    %w[controls playsinline].each { |attr| assert(tag.match?(/\b#{attr}\b/), "demo missing #{attr}") }
+    assert(tag.include?('preload="metadata"') && tag.include?('poster=') && tag.include?('aria-describedby='), "demo must have metadata loading, poster, and caption")
+    assert(tag.include?('data-autoplay') && tag.match?(/\bmuted\b/) && tag.match?(/\bloop\b/), "demo must use muted viewport loops")
+  end
+end
+assert(portfolio.scan('class="project-row"').length == 8, "all eight projects must remain visible")
+assert(deformation_publication.include?('/portfolio/deformation-reconstruction') && wine_publication.include?('/portfolio/wine-quality-analysis'), "publication records must link to project results")
+assert(deformation_portfolio.include?('/publication/2026-05-31-deformation-reconstruction') && wine_portfolio.include?('/publication/2025-06-15-wine-quality-ensemble'), "project pages must link to publication records")
+%w[46.3 58.9 92.3 122.5 746.2].each do |number|
+  assert(wine_portfolio.include?(number) && wine_publication.include?(number), "wine compute time differs between project and publication")
+end
+assert(home.include?('dialog.showModal()') && home.include?('opener.focus()'), "figure dialog must manage keyboard focus")
+puts "Full-site layout and media checks passed."
+
+# The shared visual revision preserves keyboard navigation and progressive media behavior.
+all_public_html.each do |html|
+  assert(html.include?('class="research-rail"') && html.include?('aria-label="Site pages"'), "narrow profile navigation is missing")
+  assert(html.include?('/assets/js/research-motion.js'), "shared motion controller is missing")
+end
+assert(portfolio.scan(/<video\b/).length == 5, "five edited project previews must remain available")
+assert(deformation_portfolio.include?('reconstruction-offline.webp') && deformation_portfolio.include?('model-training.webp'), "approved slide pipelines are missing")
+motion = File.read(File.join(ROOT, '_site', 'assets/js/research-motion.js'))
+assert(motion.include?('prefers-reduced-motion') && motion.include?('IntersectionObserver') && motion.include?('state.userPaused'), "preview motion must respect visibility, motion preference and user pause")
+puts "Visual refinement checks passed."
+
+# Contact identity and the responsive framework are part of the approved local revision.
+all_public_html.each do |html|
+  assert(html.include?('data-copy-email="zilang@engineering.upenn.edu"'), "public contact must expose the school email for copying")
+  assert(!html.include?('href="mailto:'), "email controls must not navigate to an external mail handler")
+  assert(!html.include?('zilang.chen@outlook.com'), "personal email leaked into generated HTML")
+  assert(!html.include?('陈梓浪'), "Chinese name remains in the public page")
+end
+assert(kv_cache_portfolio.include?('id="kv-pipeline"') && kv_cache_portfolio.include?('Fixed artifacts'), "responsive KV pipeline is missing")
+assert(kv_cache_portfolio.include?('Model weights stay unchanged'), "calibration must not imply model training")
+assert(kv_cache_portfolio.include?('Original technical framework'), "original scientific framework must remain available")
+puts "Design polish and contact checks passed."
+
+# One continuous collection and GPS map replace the old annual/Galaxy views.
+photo_items = photo_albums.flat_map { |album| album.fetch('photos') }
+assert(!photo_items.empty?, "photography collection must contain actual photos")
+ids = photo_items.map { |item| item.fetch('id') }
+assert(ids.uniq.length == ids.length, "duplicate photograph IDs")
+displayed_urls = photography.scan(/<a\b[^>]*href="([^"]+)"[^>]*data-lightbox="gallery"/).flatten
+assert(displayed_urls == photo_items.map { |item| item.fetch('url') }, "single-page gallery omits, duplicates or reorders photographs")
+assert(photography.include?('id="photo-map"') && photography.include?('data-photo-album') && photography.include?('data-unlocated'), "map, accessible gallery and unlocated filter must remain available")
+assert(!photography.include?('photo-galaxy.js') && !photography.include?('Pause motion') && !photography.include?('class="album-cover"'), "retired Galaxy/annual entry UI remains")
+assert(photography.include?('visiblePhotoLinks()'), "lightbox must navigate only the selected photographs")
+locations = JSON.parse(File.read(File.join(ROOT, '_data/photo_locations.json')))
+assert(locations.map { |row| row.fetch('id') }.uniq.length == locations.length, "duplicate coordinate IDs")
+locations.each do |row|
+  assert(row.keys.sort == %w[id latitude longitude], "private metadata leaked into map data")
+  assert(ids.include?(row.fetch('id')), "map point has no displayed photograph")
+  lat, lon = row.values_at('latitude', 'longitude')
+  assert(lat.is_a?(Numeric) && lon.is_a?(Numeric) && lat.finite? && lon.finite? && lat.abs <= 90 && lon.abs <= 180 && [lat, lon] != [0, 0], "invalid GPS position")
+end
+photo_albums.each_with_index do |album, index|
+  html = photo_album_html[index]
+  assert(html.include?("/photography/?year=#{album.fetch('year')}"), "legacy annual URL must preserve the year on the single page")
+  assert(!html.include?('photo-galaxy.js') && !html.include?('data-lightbox="gallery"'), "old annual route must redirect without another gallery")
+  assert(album.fetch('photos').sum { |item| File.size(File.join(ROOT, '_site', item.fetch('thumbnail'))) } < 2 * 1024 * 1024, "map thumbnail budget exceeded")
+  album.fetch('photos').each do |item|
+    assert(File.file?(File.join(ROOT, '_site', item.fetch('url'))), "missing photography derivative")
+    assert(File.file?(File.join(ROOT, '_site', item.fetch('thumbnail'))), "missing map thumbnail")
+    assert(item.fetch('alt').length > 12 && photography.include?(CGI.escapeHTML(item.fetch('alt'))), "photograph needs descriptive alt text")
+    assert(!item.key?('source') && !item.key?('sha256') && !item.key?('gps'), "private source metadata leaked into photo data")
+    assert(!item.key?('date') || item.fetch('date').start_with?(album.fetch('year')), "photograph date does not match its year")
+  end
+end
+%w[assets/lib/leaflet/leaflet.js assets/lib/leaflet/leaflet.css assets/lib/leaflet/LICENSE assets/lib/leaflet-markercluster/leaflet.markercluster.js assets/lib/leaflet-markercluster/MarkerCluster.css assets/lib/leaflet-markercluster/LICENSE assets/js/photo-map.js].each do |asset|
+  assert(File.file?(File.join(ROOT, '_site', asset)), "missing local map dependency: #{asset}")
+end
+assert(photography.include?('/assets/js/photo-map.js') && !home.include?('/assets/js/photo-map.js') && !cv.include?('/assets/lib/leaflet/'), "map dependencies must be scoped to Photography")
+puts "Single-page photography checks passed (#{photo_items.length} photographs, #{locations.length} GPS locations)."

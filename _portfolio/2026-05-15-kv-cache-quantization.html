@@ -9,12 +9,9 @@ permalink: /portfolio/kv-cache-quantization
 date: 2026-05-15
 period: "Jan 2026 – May 2026"
 homepage_featured: true
-homepage_order: 1
+homepage_order: 2
 homepage_excerpt: "A behavior-guided KV-cache quantization framework calibrates role-aware INT4 formats, allocates precision by layer sensitivity, and evaluates long-context tradeoffs across six instruction models."
 homepage_role: "I independently designed and implemented the calibration, quantized cache, allocation, Triton decoding, and evaluation pipeline, then ran the experiments and wrote the thesis."
-links:
-  - label: View Code and Reproduction Materials
-    url: https://github.com/zilangchen/LLM_KVCache_Quantization
 projects:
   - Large Language Models
   - Efficient AI
@@ -40,14 +37,105 @@ system_gallery:
   - image_path: portfolio/kv-cache-quantization/decode-throughput.png
     alt: "Decode throughput, per-sequence throughput, and prefill throughput across batch sizes for full-precision and quantized cache paths"
     layout: full
+layout: "research"
+author_profile: false
+index_image: "/images/portfolio/web/index-kv.webp"
+index_alt: "Behavior-guided cache calibration and inference framework"
+index_summary: "Role-aware INT4 quantization and sensitivity-based allocation for long-context LLM inference."
+index_role: "Independent calibration, cache implementation, Triton integration, and cross-model evaluation."
 ---
 
-<h2>Project Overview</h2>
+<article class="research-project engineering-project"><header class="project-hero"><p class="research-eyebrow">Efficient AI · Undergraduate thesis</p><h1>Behavior-Guided<br class="desktop-break"> KV-Cache Quantization</h1><p class="project-deck">Reducing long-context cache storage while preserving attention behavior.</p><p class="project-meta">Project period: {{ page.period }}<br>Independent thesis · SCUT · Supervised by Prof. Ziqian Zeng</p>
+</header>
+<div class="result-grid"><div><strong>73.4<small>%</small></strong><span>Less measured KV-cache storage than FP16, across four configurations; not total GPU memory.</span></div>
+<div><strong>6 <small>models</small></strong><span>Instruction models from Qwen2.5, LLaMA-3.1, and Mistral.</span></div>
+<div><strong>40<small>%</small></strong><span>Lower TPOT than reference INT4 for Qwen2.5-14B at 32K on one H20, batch 1.</span></div>
+</div>
+{% include kv-pipeline.html %}
+<details class="research-details pipeline-source"><summary>Original technical framework</summary><div>
+{% include gallery id="framework_gallery" caption="Original framework: calibration produces frozen cache parameters and sensitivity profiles; the allocator outputs the layer precision configuration used during inference." %}
+</div></details><section class="project-section"><h2>My Contribution</h2>
+<div class="contribution-grid"><div><span class="section-number">01</span><h3>Calibration &amp; diagnosis</h3><p>Designed the behavior-guided calibration protocol, K/V role diagnostics, and layer-sensitivity representation.</p></div>
+<div><span class="section-number">02</span><h3>Quantized inference</h3><p>Implemented custom cache formats, INT4-RoleAlign, the generation loop, and fused Triton decoding.</p></div>
+<div><span class="section-number">03</span><h3>Evaluation &amp; thesis</h3><p>Independently built and ran the cross-model experiment, analysis, and visualization pipeline, and wrote the thesis.</p></div>
+</div>
 
-<p>I completed this project independently as my undergraduate thesis at South China University of Technology under the supervision of Prof. Ziqian Zeng. The work studies how to reduce the memory consumed by the Key-Value (KV) cache during long-context large language model inference while preserving the behavior of the attention mechanism.</p>
+</section>
+<section class="project-section"><h2>Preserve what attention does</h2>
+<p>During autoregressive decoding, every generated token adds new Key and Value tensors to the KV cache. Its memory footprint therefore grows with sequence length, batch size, model depth, the number of KV heads, and storage precision. Lowering the cache from FP16 to INT8 or INT4 can release substantial memory, but the resulting numerical error is not equally important in every tensor, layer, model, or task.</p>
 
-<p>Instead of selecting quantization parameters only by minimizing tensor reconstruction error, I treated attention behavior as the object to preserve. The framework measures changes in attention distributions, aggregated Value outputs, and downstream task behavior, then reuses the resulting sensitivity profiles for low-bit recovery and layer-wise budget allocation.</p>
+<p>Key perturbations can change attention logits and reorder the attention distribution after softmax. Value perturbations act later through weighted aggregation and change the representation returned by attention. This distinction motivated a calibration framework that observes how quantization changes the computation actually consumed by the model, rather than relying on tensor error alone.</p>
+</section>
+<section class="project-section"><h2>K/V Role-Aware Low-Bit Quantization</h2>
+<p>The INT8 path provides a conservative reference for behavior-guided calibration. INT4 creates a more demanding setting: in the evaluated Qwen models, direct symmetric INT4 caused stepwise failures in retrieval-oriented tests. K-only and V-only ablations showed that lowering Key precision was the more direct source of instability in those cases, while LLaMA-3.1-8B exhibited a different response.</p>
 
+<p>INT4-RoleAlign therefore treats the two cache roles separately. Key is quantized per channel so that feature directions involved in attention ranking retain independent endpoints. Value is quantized per token so that each time step receives its own parameters for the aggregation path. Offline percentile candidates are selected using attention-distribution KL for Key and an aggregation-output perturbation proxy for Value.</p>
+
+<p>Across the three complete KIVI-style and RoleAlign comparisons, the RoleAlign perplexity difference relative to KIVI-style remained within 0.15, and both paths achieved 100% pass rates on the two Needle retrieval tests. Qwen2.5-14B also reached 100% on both tests under RoleAlign, although a paired KIVI-style result was not available for that model. The evidence therefore supports low-bit retrieval recovery and a reusable offline calibration interface, rather than a universal task-quality advantage over KIVI-style.</p>
+
+<figure class="project-figure project-figure--detail"><a href="/images/presentation/kv-calibration.webp" data-lightbox="gallery"><img src="/images/presentation/kv-calibration.webp" width="1088" height="475" alt="RoleAlign offline percentile calibration with separate Key distribution and Value output objectives" loading="lazy" decoding="async"></a><figcaption>The calibrated percentile rules are saved for inference; this step does not update model weights. <span class="figure-hint">Click to enlarge.</span></figcaption></figure>
+{% include gallery id="rolealign_gallery" caption="INT4-RoleAlign quantizes Key per channel to preserve attention ranking and Value per token to preserve content aggregation." %}
+
+{% include gallery id="diagnostic_gallery" caption="Paired K/V reconstruction-error profiles illustrate that low-bit sensitivity varies across tensor roles, layers, and model architectures." %}
+</section>
+<section class="project-section"><h2>Storage savings, with a conditional speed trade-off</h2>
+<figure class="project-figure project-figure--detail"><a href="/images/presentation/kv-runtime-results.webp" data-lightbox="gallery"><img src="/images/presentation/kv-runtime-results.webp" width="1773" height="755" alt="Quantized cache runtime pipeline and separately measured cache storage and decode latency" loading="lazy" decoding="async"></a><figcaption>Runtime integration and two separate measurement protocols. Fused INT4 improves over reference INT4 in this test, while FP16 remains faster. <span class="figure-hint">Click to enlarge.</span></figcaption></figure>
+<p>I implemented custom FP16, INT8, symmetric INT4, mixed-precision, and role-aware cache paths within a controlled generation loop. The system includes quantization and dequantization routines, packed low-bit storage, calibration-artifact loading, GQA head mapping, and Triton decode kernels. The evaluation pipeline measures perplexity, Needle-in-a-Haystack retrieval, RULER, LongBench-style task scores, selected official LongBench tasks, cache memory, peak memory, prefill throughput, and decode latency.</p>
+
+<p>The reported INT4 cache layout reduced measured KV-cache storage by approximately 73.4% relative to FP16 across four representative model configurations. Runtime gains were more conditional. For Qwen2.5-14B at 32K context, fused Triton INT4 decoding reduced TPOT from 190.23 ms to 113.16 ms, approximately 40%, relative to the reference INT4 path on a single NVIDIA H20 with batch size 1, 64 generated tokens, and 10 runs. The crossover depended on the number of KV heads, context length, and backend implementation, so this result is reported as a system-specific within-INT4 improvement rather than a universal speedup.</p>
+
+{% include gallery id="system_gallery" caption="Measured memory and throughput behavior for the evaluated cache paths. Runtime results are tied to the reported NVIDIA H20, batch, sequence-length, and backend settings." %}<p class="project-note">The 40% reduction is against the reference INT4 path. In the same table, fused INT4 at 113.16 ms remained slower than the 43.13 ms FP16 latency baseline.</p>
+</section>
+<details class="research-details"><summary>Calibration protocol</summary><div>
+<p>The calibration pipeline evaluates full-precision reference configurations and candidate quantized configurations on a fixed calibration set. It records two complementary behavioral signals: the KL divergence between reference and quantized attention distributions, and the perturbation of the attention-aggregation output. Downstream task scores remain a separate audit layer rather than being folded into the calibration objective.</p>
+
+<p>After candidate parameters are evaluated, the selected scales, clipping thresholds, quantization-axis metadata, and layer-wise sensitivity readings are frozen before downstream evaluation. This separation keeps calibration decisions independent from the test results and makes the same offline artifacts reusable by the cache implementation and allocation experiments.</p>
+
+</div>
+</details>
+<details class="research-details"><summary>Sensitivity-Driven Budget Allocation</summary><div>
+<p>The per-layer calibration readings are summarized into behavior-sensitivity profiles. Under a fixed budget, a behavior-guided allocator protects the most sensitive layers with a higher-precision path and compares that choice with uniform quantization and position-based heuristics.</p>
+
+<p>AutoK extends this idea by selecting the smallest number of protected layers that reaches a specified fraction of cumulative sensitivity. It is a model-level candidate generator, not a universally optimal policy. The experiments instead identify model-dependent regimes: early-layer protection for Qwen2.5-3B, a clustered middle-layer regime for LLaMA-3.1-8B, a strong AutoK example on Mistral-7B, and several closely performing configurations on Qwen2.5-14B.</p>
+</div>
+</details>
+<details class="research-details"><summary>Scope and Limitations</summary><div>
+<ul>
+  <li>The official LongBench comparison was limited to Qwen2.5-1.5B, three tasks, at most 50 samples per task, and one seed; it is an audit of direction rather than a general real-world guarantee.</li>
+  <li>The 100% Needle figures are exact-match pass rates on two controlled retrieval tests; they do not establish general long-context question-answering performance.</li>
+  <li>“Three models with complete KIVI-style/RoleAlign comparisons” refers to models with results for both paths. Qwen2.5-14B had RoleAlign coverage but no paired KIVI-style result.</li>
+  <li>The 73.4% figure measures KV-cache storage reduction across four representative configurations, not total model memory or end-to-end peak GPU memory.</li>
+  <li>The approximately 40% TPOT reduction was measured against the reference INT4 path for Qwen2.5-14B at 32K on a single NVIDIA H20, with batch size 1, 64 generated tokens, 10 runs, greedy decoding, and the reported backend. This is a within-INT4 backend comparison: in the same table, fused INT4 at 113.16 ms remained slower than the 43.13 ms FP16 latency baseline. Other hardware and serving systems may move the crossover point.</li>
+  <li>The allocation experiments compare methods within similar INT4 budget bands rather than establishing a strict matched-budget winner against every baseline.</li>
+  <li>The evaluated models are decoder-only architectures dominated by grouped-query attention. MHA, MQA, mixture-of-experts, sliding-window attention, and other architectures require separate validation.</li>
+  <li>AutoK is an offline, model-level budget proposer. Prompt-adaptive routing and production serving integration remain future work.</li>
+</ul>
+
+</div>
+</details>
+<details class="research-details"><summary>Future Directions</summary><div>
+<ul>
+  <li>Evaluate role-aware allocation under strictly matched memory budgets.</li>
+  <li>Study prompt-conditioned policy selection after the static sensitivity profiles are better established.</li>
+  <li>Extend the evaluation to additional attention architectures, hardware platforms, and serving workloads.</li>
+  <li>Separate quantization-format effects, calibration effects, and architectural effects through more controlled ablations.</li>
+</ul>
+
+</div>
+</details>
+<details class="research-details"><summary>Project Information</summary><div>
+<ul>
+  <li><strong>Duration</strong>: January 2026 – May 2026</li>
+  <li><strong>Type</strong>: Sole-authored undergraduate thesis</li>
+  <li><strong>Institution</strong>: South China University of Technology</li>
+  <li><strong>Supervisor</strong>: Prof. Ziqian Zeng</li>
+  <li><strong>Models</strong>: Qwen2.5-1.5B, Qwen2.5-3B, Qwen2.5-7B, Qwen2.5-14B, LLaMA-3.1-8B, and Mistral-7B</li>
+  <li><strong>Tools</strong>: Python, PyTorch, Hugging Face Transformers, Triton, FlashInfer, NumPy, Pandas, and Matplotlib</li>
+</ul>
+
+</div>
+</details>
+<details class="research-details"><summary>Reported experimental outcomes</summary><div>
 <h3>Key Outcomes</h3>
 
 <ul>
@@ -60,87 +148,7 @@ system_gallery:
   <li>Converted layer-wise behavior sensitivity into fixed-budget allocation profiles and an AutoK mechanism for proposing model-level protection budgets.</li>
 </ul>
 
-<h2>Research Motivation</h2>
-
-<p>During autoregressive decoding, every generated token adds new Key and Value tensors to the KV cache. Its memory footprint therefore grows with sequence length, batch size, model depth, the number of KV heads, and storage precision. Lowering the cache from FP16 to INT8 or INT4 can release substantial memory, but the resulting numerical error is not equally important in every tensor, layer, model, or task.</p>
-
-<p>Key perturbations can change attention logits and reorder the attention distribution after softmax. Value perturbations act later through weighted aggregation and change the representation returned by attention. This distinction motivated a calibration framework that observes how quantization changes the computation actually consumed by the model, rather than relying on tensor error alone.</p>
-
-<h2>Behavior-Guided Calibration</h2>
-
-<p>The calibration pipeline evaluates full-precision reference configurations and candidate quantized configurations on a fixed calibration set. It records two complementary behavioral signals: the KL divergence between reference and quantized attention distributions, and the perturbation of the attention-aggregation output. Downstream task scores remain a separate audit layer rather than being folded into the calibration objective.</p>
-
-<p>After candidate parameters are evaluated, the selected scales, clipping thresholds, quantization-axis metadata, and layer-wise sensitivity readings are frozen before downstream evaluation. This separation keeps calibration decisions independent from the test results and makes the same offline artifacts reusable by the cache implementation and allocation experiments.</p>
-
-{% include gallery id="framework_gallery" caption="Behavior-guided calibration is completed offline; the resulting quantization artifacts and sensitivity profile remain fixed during online inference." %}
-
-<h2>K/V Role-Aware Low-Bit Quantization</h2>
-
-<p>The INT8 path provides a conservative reference for behavior-guided calibration. INT4 creates a more demanding setting: in the evaluated Qwen models, direct symmetric INT4 caused stepwise failures in retrieval-oriented tests. K-only and V-only ablations showed that lowering Key precision was the more direct source of instability in those cases, while LLaMA-3.1-8B exhibited a different response.</p>
-
-<p>INT4-RoleAlign therefore treats the two cache roles separately. Key is quantized per channel so that feature directions involved in attention ranking retain independent endpoints. Value is quantized per token so that each time step receives its own parameters for the aggregation path. Offline percentile candidates are selected using attention-distribution KL for Key and an aggregation-output perturbation proxy for Value.</p>
-
-<p>Across the three complete KIVI-style and RoleAlign comparisons, the RoleAlign perplexity difference relative to KIVI-style remained within 0.15, and both paths achieved 100% pass rates on the two Needle retrieval tests. Qwen2.5-14B also reached 100% on both tests under RoleAlign, although a paired KIVI-style result was not available for that model. The evidence therefore supports low-bit retrieval recovery and a reusable offline calibration interface, rather than a universal task-quality advantage over KIVI-style.</p>
-
-{% include gallery id="rolealign_gallery" caption="INT4-RoleAlign quantizes Key per channel to preserve attention ranking and Value per token to preserve content aggregation." %}
-
-{% include gallery id="diagnostic_gallery" caption="Paired K/V reconstruction-error profiles illustrate that low-bit sensitivity varies across tensor roles, layers, and model architectures." %}
-
-<h2>Sensitivity-Driven Budget Allocation</h2>
-
-<p>The per-layer calibration readings are summarized into behavior-sensitivity profiles. Under a fixed budget, a behavior-guided allocator protects the most sensitive layers with a higher-precision path and compares that choice with uniform quantization and position-based heuristics.</p>
-
-<p>AutoK extends this idea by selecting the smallest number of protected layers that reaches a specified fraction of cumulative sensitivity. It is a model-level candidate generator, not a universally optimal policy. The experiments instead identify model-dependent regimes: early-layer protection for Qwen2.5-3B, a clustered middle-layer regime for LLaMA-3.1-8B, a strong AutoK example on Mistral-7B, and several closely performing configurations on Qwen2.5-14B.</p>
-
-<h2>System Implementation and Evaluation</h2>
-
-<p>I implemented custom FP16, INT8, symmetric INT4, mixed-precision, and role-aware cache paths within a controlled generation loop. The system includes quantization and dequantization routines, packed low-bit storage, calibration-artifact loading, GQA head mapping, and Triton decode kernels. The evaluation pipeline measures perplexity, Needle-in-a-Haystack retrieval, RULER, LongBench-style task scores, selected official LongBench tasks, cache memory, peak memory, prefill throughput, and decode latency.</p>
-
-<p>The reported INT4 cache layout reduced measured KV-cache storage by approximately 73.4% relative to FP16 across four representative model configurations. Runtime gains were more conditional. For Qwen2.5-14B at 32K context, fused Triton INT4 decoding reduced TPOT from 190.23 ms to 113.16 ms, approximately 40%, relative to the reference INT4 path on a single NVIDIA H20 with batch size 1, 64 generated tokens, and 10 runs. The crossover depended on the number of KV heads, context length, and backend implementation, so this result is reported as a system-specific within-INT4 improvement rather than a universal speedup.</p>
-
-{% include gallery id="system_gallery" caption="Measured memory and throughput behavior for the evaluated cache paths. Runtime results are tied to the reported NVIDIA H20, batch, sequence-length, and backend settings." %}
-
-<h2>My Contribution</h2>
-
-<ul>
-  <li>Independently formulated and carried out the undergraduate thesis under the supervision of Prof. Ziqian Zeng.</li>
-  <li>Designed the behavior-guided calibration protocol and the shared sensitivity-profile representation.</li>
-  <li>Implemented the custom generation loop, KV-cache formats, quantization paths, calibration tools, and Triton decode integration.</li>
-  <li>Developed and evaluated the K/V role-aware low-bit path, layer-wise budget allocation experiments, and AutoK candidate-selection mechanism.</li>
-  <li>Built the reproducible experiment, aggregation, statistical-analysis, profiling, and visualization pipeline.</li>
-  <li>Ran the cross-model evaluations, interpreted the results, prepared the figures and tables, and wrote the thesis.</li>
-</ul>
-
-<h2>Scope and Limitations</h2>
-
-<ul>
-  <li>The official LongBench comparison was limited to Qwen2.5-1.5B, three tasks, at most 50 samples per task, and one seed; it is an audit of direction rather than a general real-world guarantee.</li>
-  <li>The 100% Needle figures are exact-match pass rates on two controlled retrieval tests; they do not establish general long-context question-answering performance.</li>
-  <li>“Three models with complete KIVI-style/RoleAlign comparisons” refers to models with results for both paths. Qwen2.5-14B had RoleAlign coverage but no paired KIVI-style result.</li>
-  <li>The 73.4% figure measures KV-cache storage reduction across four representative configurations, not total model memory or end-to-end peak GPU memory.</li>
-  <li>The approximately 40% TPOT reduction was measured against the reference INT4 path for Qwen2.5-14B at 32K on a single NVIDIA H20, with batch size 1, 64 generated tokens, 10 runs, greedy decoding, and the reported backend. This is a within-INT4 backend comparison: in the same table, fused INT4 at 113.16 ms remained slower than the 43.13 ms FP16 latency baseline. Other hardware and serving systems may move the crossover point.</li>
-  <li>The allocation experiments compare methods within similar INT4 budget bands rather than establishing a strict matched-budget winner against every baseline.</li>
-  <li>The evaluated models are decoder-only architectures dominated by grouped-query attention. MHA, MQA, mixture-of-experts, sliding-window attention, and other architectures require separate validation.</li>
-  <li>AutoK is an offline, model-level budget proposer. Prompt-adaptive routing and production serving integration remain future work.</li>
-</ul>
-
-<h2>Future Directions</h2>
-
-<ul>
-  <li>Evaluate role-aware allocation under strictly matched memory budgets.</li>
-  <li>Study prompt-conditioned policy selection after the static sensitivity profiles are better established.</li>
-  <li>Extend the evaluation to additional attention architectures, hardware platforms, and serving workloads.</li>
-  <li>Separate quantization-format effects, calibration effects, and architectural effects through more controlled ablations.</li>
-</ul>
-
-<h2>Project Information</h2>
-
-<ul>
-  <li><strong>Duration</strong>: January 2026 – May 2026</li>
-  <li><strong>Type</strong>: Sole-authored undergraduate thesis</li>
-  <li><strong>Institution</strong>: South China University of Technology</li>
-  <li><strong>Supervisor</strong>: Prof. Ziqian Zeng</li>
-  <li><strong>Models</strong>: Qwen2.5-1.5B, Qwen2.5-3B, Qwen2.5-7B, Qwen2.5-14B, LLaMA-3.1-8B, and Mistral-7B</li>
-  <li><strong>Tools</strong>: Python, PyTorch, Hugging Face Transformers, Triton, FlashInfer, NumPy, Pandas, and Matplotlib</li>
-  <li><strong>Repository</strong>: <a href="https://github.com/zilangchen/LLM_KVCache_Quantization">GitHub code and reproduction materials</a></li>
-</ul>
+</div>
+</details>
+<nav class="research-links project-ending" aria-label="Related pages"><a href="/portfolio/">← All projects</a><a href="/cv/">Experience &amp; CV →</a></nav>
+</article>

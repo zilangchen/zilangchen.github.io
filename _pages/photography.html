@@ -1,0 +1,43 @@
+---
+layout: research
+title: "Photography"
+description: "Places and moments — a photographic journal by Zilang Chen."
+permalink: /photography/
+author_profile: false
+photo_map: true
+---
+<div class="research-project photography-page photo-map-page" data-photo-album>
+  <header class="photo-hero">
+    <p class="research-eyebrow">Photography · Zilang Chen</p>
+    <h1>Places &amp; moments.</h1>
+    <p>A photographic journal, near and far.</p>
+  </header>
+  {% assign albums = site.data.photography.albums %}
+  <nav class="photo-filters" aria-label="Filter photographs by year" hidden>
+    <button type="button" data-year="all" aria-pressed="true">All years</button>
+    {% for album in albums %}<button type="button" data-year="{{ album.year }}" aria-pressed="false">{% if album.year == 'undated' %}Undated{% else %}{{ album.label }}{% endif %}</button>{% endfor %}
+  </nav>
+  <section class="photo-map-section" aria-labelledby="photo-map-heading" hidden>
+    <div class="photo-map-heading"><h2 id="photo-map-heading">Around the world</h2><a href="#photo-collection">Browse photographs <span aria-hidden="true">↓</span></a></div>
+    <div id="photo-map" role="region" aria-label="Photograph locations. Use plus and minus to zoom, or drag to explore."></div>
+    <div class="photo-map-bottom"><p>Zoom into a place. Select a photograph to see it closer.</p><button type="button" data-map-reset>Show all locations</button></div>
+    <p class="photo-map-notice" role="status" hidden></p>
+  </section>
+  <section id="photo-collection" aria-labelledby="photo-collection-title">
+    <div class="photo-collection-heading"><div><h2 id="photo-collection-title">The collection</h2><p id="photo-count" role="status" aria-live="polite">{% assign total = 0 %}{% for album in albums %}{% assign total = total | plus: album.photos.size %}{% endfor %}{{ total }} photographs</p></div>
+      <div class="photo-location-filters" hidden><button type="button" data-unlocated aria-pressed="false">Without location</button><button type="button" data-clear-place hidden>Clear place selection ×</button></div>
+    </div>
+    <p class="photo-empty" hidden>No photographs match this selection. Try another year or clear the place selection.</p>
+    <div class="photo-grid">
+      {% for album in albums %}{% for photo in album.photos %}
+      <figure class="photo-card" data-photo-id="{{ photo.id }}" data-year="{{ album.year }}">
+        <a href="{{ photo.url | relative_url }}" data-lightbox="gallery" aria-label="View photograph: {{ photo.alt | escape }}">
+          <img src="{{ photo.url | relative_url }}" data-thumbnail="{{ photo.thumbnail | relative_url }}" alt="{{ photo.alt | escape }}" width="{{ photo.width }}" height="{{ photo.height }}" loading="lazy" decoding="async">
+        </a>
+        <figcaption>{% if photo.date %}<time datetime="{{ photo.date }}">{{ photo.date | date: '%b %Y' }}</time>{% else %}<span>Undated</span>{% endif %}{% if photo.caption != '' %}<span>{{ photo.caption | escape }}</span>{% endif %}<span class="photo-unlocated-label" hidden>No location recorded</span></figcaption>
+      </figure>
+      {% endfor %}{% endfor %}
+    </div>
+  </section>
+  <script type="application/json" id="photo-location-data">{{ site.data.photo_locations | jsonify }}</script>
+</div>
